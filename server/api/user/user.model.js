@@ -4,14 +4,17 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var crypto = require('crypto');
 var authTypes = ['github', 'twitter', 'facebook', 'google'];
+var ObjectId = Schema.Types.ObjectId;
 
 var UserSchema = new Schema({
   name: String,
   email: { type: String, lowercase: true },
+  address: {street: String, town: String, city: String, state: String, zipcode: Number},
   role: {
     type: String,
     default: 'user'
   },
+  games: [ObjectId],
   hashedPassword: String,
   provider: String,
   salt: String,

@@ -3,7 +3,7 @@
 angular.module('clawFrontApp')
   .controller('NavbarCtrl', function ($scope, $location, Auth) {
     $scope.menu = [{
-      'title': 'Home',
+      'title': 'theClaw',
       'link': '/'
     }];
 
