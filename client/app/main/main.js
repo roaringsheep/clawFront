@@ -22,6 +22,11 @@ angular.module('clawFrontApp')
         url: '/queue',
         templateUrl: 'app/queue/queue.html',
         controller: 'QueueCtrl'
+      })
+        .state('waitPage', {
+        url: '/queue.waitPage',
+        templateUrl: 'app/queue/queue.waitPage.html',
+        controller: 'QueueCtrl'
       });
     // $locationProvider
     //   .hashPrefix("#");

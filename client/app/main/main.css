@@ -1,8 +1,19 @@
-/*BODY*/
+/*GLOBAL*/
 .center-text {
     text-align: center;
 }
+.placeholder {
+    margin: 0 50px;
+}
+.no-margin-left {
+    margin-left: 0;
+    padding-left:0;
+}
 
+.no-margin-right {
+    margin-right: 0;
+    padding-right: 0;
+}
 /*NAVBAR + HEADER*/
 #banner {
     border-bottom: none;
@@ -17,7 +28,7 @@
 
 .hero-unit {
     position: relative;
-    height: 30em;
+    height: 50em;
     padding: 30px 15px;
     color: #F5F5F5;
     text-align: center;
@@ -25,6 +36,32 @@
     background-image: "";
     background: #4393B9;
 }
+
+/*BUTTONS*/
+.btn-main {
+    font-size: 1.5em;
+    height: 7em;
+    width: 7em;
+    text-align: center;
+    border-radius: 5%;
+    white-space: pre-wrap;
+}
+
+.badge {
+    font-size: 1.5em;
+    text-align: center;
+    white-space: pre-wrap;
+    padding: 1%;
+}
+
+#drop {
+    border-radius: 100%;
+    border: none;
+    height: 300px;
+    width: 300px;
+    font-size: 3em;
+}
+
 
 .footer {
     text-align: center;
