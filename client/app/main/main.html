@@ -1,21 +1,44 @@
-
 <!-- <div ng-include="'components/navbar/navbar.html'"></div> -->
 
 
-<header class="hero-unit" id="banner">
-  <div class="container">
-   <h1>the Claw</h1>
-    <h4>image stream placeholder</h4>
+<body>
+    <header class="hero-unit" id="banner">
+        <div class="container">
+            <h1>the Claw</h1>
+            <h4>image stream placeholder</h4>
     <div class="row">
-      <div class="col-lg-6 col-md-6 col-sm-12">
-          <a href="/signup" class = "btn btn-main btn-success btn-xl">Sign up to win prizes</a> 
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <a href="/signup" class="btn btn-main btn-success btn-xl">Sign up to win prizes</a> 
         </div>
-      <div class="col-lg-6 col-md-6 col-sm-12">
-          <a href="#" class = "btn btn-main btn-success btn-xl">Try for free</a> 
-      </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <button class="btn btn-main btn-success btn-xl" data-toggle="modal" data-target="#ayah">Try for free</button>
+        </div>
     </div>
-  </div>
-</header>
+        </div>
+        <!--Container-->
+    </header>
+    <!--row-->
+    <div class="modal fade" id="ayah" tabindex="-1" data-width="760" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Please Confirm that you are a human</h4>
+                </div>
+                <div class="modal-body" ng-include="/api/ayah">
+                   THIS IS NOT WORKING
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal-->
+</body>
 
 
 <!--
@@ -41,8 +64,9 @@
 </div> -->
 
 <footer class="footer">
-  <div class="container">
-      <p><a href="https://twitter.com/tyhenkel">@tyhenkel</a> |
-         <a href="https://github.com/DaftMonk/generator-angular-fullstack/issues?state=open">Issues</a></p>
-  </div>
+    <div class="container">
+        <p><a href="https://twitter.com/tyhenkel">@tyhenkel</a> |
+            <a href="https://github.com/DaftMonk/generator-angular-fullstack/issues?state=open">Issues</a>
+        </p>
+    </div>
 </footer>
