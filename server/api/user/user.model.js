@@ -7,17 +7,18 @@ var authTypes = ['github', 'twitter', 'facebook', 'google'];
 var ObjectId = Schema.Types.ObjectId;
 
 var UserSchema = new Schema({
+  username: String,
   name: String,
   email: { type: String, lowercase: true },
+  games: [ObjectId],
   address: {street: String, town: String, city: String, state: String, zipcode: Number},
+  hashedPassword: String,
+  provider: String,
+  salt: String,
   role: {
     type: String,
     default: 'user'
   },
-  games: [ObjectId],
-  hashedPassword: String,
-  provider: String,
-  salt: String,
   facebook: {},
   github: {}
 });
