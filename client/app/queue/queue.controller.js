@@ -1,29 +1,21 @@
 'use strict';
 
 angular.module('clawFrontApp')
-  .controller('QueueCtrl', function ($scope, $rootScope, Auth) {
-    $scope.queuePaid = [{}];
-    $scope.queueFree = [{}];
+    .controller('QueueCtrl', function($scope, $rootScope, Auth, queueFactory) {
 
-    $scope.addPlayer = function(player){
-        player.isPaid?
-          $scope.queuePaid.push(player):
-            $scope.queueFree.push(player);
-    }
+    $rootScope.$watch('queuePaid', function(newval, oldval) {
+        $scope.queuePaid = newval;
+        console.log("newval", newval)
+      })
+        $scope.getQueuePaid = queueFactory.getQueuePaid();
 
-    $scope.removePlayer = function(index){
-        player.isPaid?
-          $scope.queuePaid.splice(index,1):
-            $scope.queueFree.splice(index,1);
-    }
 
-    $scope.ETAtoPlay = function(index){
-      var outcome;
-          if (player.isPaid){
-            index==0?outcome ="You're next!":outcome = index + "minutes";
-        } else {
-            outcome = $scope.queuePaid.length + index + "minutes";}
-      return outcome;
-    }
-    
-  });
+    $rootScope.$watch('queueFree', function(newval, oldval) {
+        $scope.queueFree = newval;
+      })
+
+        $scope.getQueueFree = queueFactory.getQueueFree();
+
+    });
+
+

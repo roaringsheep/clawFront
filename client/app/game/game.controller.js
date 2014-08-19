@@ -1,48 +1,75 @@
 'use strict';
 
 angular.module('clawFrontApp')
-  .controller('GameCtrl', function ($scope, $rootScope, $interval, Auth) {
-    
-  // $rootScope.$watch("timer", function (newval, oldval){
-  //         $scope.notes = newval;
-  //     }) 
+    .controller('GameCtrl', function($scope, $rootScope, $interval, queueFactory, Auth) {
 
-    $scope.portArray = [22,18,16,15,13,11,12,7];
-    var reset = 10;
-    $scope.game = {
-      turns: 3,
-      timer: reset,
-      isWon: false,
-      user: ""
-    };
+        // $rootScope.$watch("timer", function (newval, oldval){
+        //         $scope.notes = newval;
+        //     }) 
 
-    $scope.countdown = function() {
-    if ($scope.game.turns >0) {
-      $interval(function() {
-        if ($scope.game.timer >0)
-        $scope.game.timer--;
-        }, 1000);
-      }
-    };
+        $scope.portArray = [22, 18, 16, 15, 13, 11, 12, 7];
 
-    $scope.playTurn = function (){
-      if ($scope.game.turns >=1)
-              $scope.game.turns--;
-    }
+        var timerInit = 5,
+            turnsInit = 3,
+            localUser = "";
 
-    $scope.$watch('game.timer', function(){
-      if ($scope.game.timer == 0){
-        $scope.playTurn();
-        $scope.game.timer = reset;
-      };
-    })
+        $scope.game = {
+            turns: turnsInit,
+            timer: timerInit,
+            gameOver: false,
+            gameWon: false,
+            player: Auth.getCurrentUser() || localUser
+        };
 
-    $scope.moveClaw = function (){
-    };
+        //increment down game timer 
+        $scope.countdown = function() {
+            if (!$scope.game.gameOver) {
+                $interval(function() {
+                    if ($scope.game.timer > 0)
+                        $scope.game.timer--;
+                }, 1000);
+            }
+        };
 
-    $scope.dropClaw = function (){
-        $scope.playTurn();
-    };
+        //function to increment down turn counter
+        $scope.playTurn = function() {
+            $scope.game.turns--;
+        }
 
-    $scope.countdown();
-  });
+        //set behavior upon game timer countdown to zero
+        $scope.$watch('game.timer', function() {
+            console.log("gameover? ", $scope.game.gameOver)
+            if ($scope.game.turns > 0) {
+                if ($scope.game.timer == 0) {
+                    $scope.playTurn();
+                    $scope.game.timer = timerInit;
+                }
+            } else {
+                $scope.game.gameOver = true;
+                $scope.game.timer = 0;
+            }
+
+        })
+
+        $scope.moveClaw = function() {};
+
+        $scope.dropClaw = function() {
+            $scope.playTurn();
+        };
+
+        //Queue logic
+        $rootScope.$watch('queuePaid', function(newval, oldval) {
+            $scope.queuePaid = newval;
+            console.log("newval", newval)
+        })
+        $scope.getQueuePaid = queueFactory.getQueuePaid();
+
+
+        $rootScope.$watch('queueFree', function(newval, oldval) {
+            $scope.queueFree = newval;
+        })
+
+        $scope.getQueueFree = queueFactory.getQueueFree();
+
+        $scope.countdown();
+    });

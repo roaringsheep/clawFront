@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('clawFrontApp')
-  .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+  .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('main', {
         url: '/',
