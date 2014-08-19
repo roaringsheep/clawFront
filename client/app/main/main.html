@@ -1,37 +1,18 @@
-<!-- <<<<<<< HEAD
-<div ui-view>
-    <div ui-view = "main" class="row">
-      <div class="col-lg-6 col-md-6 col-sm-12">
-          <a href="/signup" class = "btn btn-main btn-success btn-xl"><div>Sign up or login to win prizes</div>
-          </a> 
-          <br>
-          <br>
-          <a href="/login" class = "btn btn-success">Or login here</a>
-        </div>
-          
-      <div class="col-lg-6 col-md-6 col-sm-12">
-          <a href="#" id = "tryBtn" class = "btn btn-main btn-success btn-xl">
-            <div>Try for free</div>
-          </a> 
-      </div>
-    </div>
-</div>
-=======
-<!-- <div ng-include="'components/navbar/navbar.html'"></div> -- -->
-
-</header ui-view><!-- /header -->
-    <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-12">
-            <a href="/signup" class="btn btn-main btn-success btn-xl">Sign up to win prizes</a> 
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-12">
-            <button class="btn btn-main btn-success btn-xl" data-toggle="modal" data-target="#ayah">Try for free</button>
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <a href="/signup" class="btn btn-main btn-success btn-xl">Sign up to win prizes</a> 
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <button class="btn btn-main btn-success btn-xl" data-toggle="modal" data-target="#ayah">Try for free</button>
+            </div>
         </div>
     </div>
-        </div>
-        <!--Container-->
-    </header>
-    <!--row-->
+    <!--Container-->
+</header>
+<!--row-->
+<div class="container">
     <div class="modal fade" id="ayah" tabindex="-1" data-width="760" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -43,15 +24,16 @@
                     <h4 class="modal-title" id="myModalLabel">Please Confirm that you are a human</h4>
                 </div>
                 <div class="modal-body" ng-include="/api/ayah">
-                   THIS IS NOT WORKING
+                    THIS IS NOT WORKING
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
-  
+    </div>
     <!--Modal-->
+</div>
 
 
 
