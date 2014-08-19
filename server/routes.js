@@ -9,11 +9,7 @@ var errors = require('./components/errors');
 module.exports = function(app) {
 
   // Insert routes below
-<<<<<<< HEAD
   app.use('/api/freeUsers', require('./api/freeUser'));
-=======
-  app.use('/api/ayah', require('./api/ayah'));
->>>>>>> 2c2a4fb1cb90102bff48335aa6b3364e4bf09401
   app.use('/api/games', require('./api/game'));
   app.use('/api/things', require('./api/thing'));
   app.use('/api/users', require('./api/user'));
