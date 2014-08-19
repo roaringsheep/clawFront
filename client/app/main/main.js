@@ -8,6 +8,11 @@ angular.module('clawFrontApp')
         templateUrl: 'app/main/main.html',
         controller: 'MainCtrl'
       })
+      // .state('ayah', {
+      //   url: '/ayah',
+      //   templateUrl: 'api/ayah/',
+      //   controller: 'MainCtrl'
+      // })
       .state('navbar', {
         url: '/navbar',
         templateUrl: 'components/navbar/navbar.html',
