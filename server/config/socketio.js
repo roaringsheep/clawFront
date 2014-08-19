@@ -18,11 +18,8 @@ function onConnect(socket) {
   });
 
   // Insert sockets below
-<<<<<<< HEAD
-  require('../api/freeUser/freeUser.socket').register(socket);
-=======
-  require('../api/ayah/ayah.socket').register(socket);
->>>>>>> 2c2a4fb1cb90102bff48335aa6b3364e4bf09401
+  require('../api/queue/queue.socket').register(socket);
+  
   require('../api/game/game.socket').register(socket);
   require('../api/thing/thing.socket').register(socket);
 }
