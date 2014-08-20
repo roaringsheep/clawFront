@@ -7,20 +7,19 @@ angular.module('clawFrontApp')
   $scope.currentUser = Auth.getCurrentUser();
   console.log("currentUser: ", $scope.currentUser);
   
-
-    $rootScope.$watch('queuePaid', function(newval, oldval) {
-        $scope.queuePaid = newval;
+  //Get queue
+    $rootScope.$watch('queue', function(newval, oldval) {
+        $scope.queue = newval;
         console.log("newval", newval)
       })
-        $scope.getQueuePaid = queueFactory.getQueuePaid();
+        $scope.getQueue = queueFactory.getQueue();
+
+    //Add player
+    $scope.addFreePlayer = function (player) {queueFactory.addFreePlayer(player)};
+    $scope.addPaidPlayer = function (player) {queueFactory.addPaidPlayer(player)}
+});
 
 
-    $rootScope.$watch('queueFree', function(newval, oldval) {
-        $scope.queueFree = newval;
-      })
 
-        $scope.getQueueFree = queueFactory.getQueueFree();
-
-    });
 
 

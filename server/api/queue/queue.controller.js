@@ -20,9 +20,19 @@ exports.show = function(req, res) {
   });
 };
 
-// Creates a new queue in the DB.
+// Pushes user to the queue the DB.
 exports.create = function(req, res) {
-  Queue.create(req.body, function(err, queue) {
+  var username = req.body.username,
+  userId = req.body.userId,
+  active = req.body.active,
+  index = req.body.index;
+
+  Queue.create({
+    username: username,
+    userId: userId,
+    active: active,
+    index: index
+      }, function(err, queue) {
     if(err) { return handleError(res, err); }
     return res.json(201, queue);
   });

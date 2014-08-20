@@ -1,14 +1,14 @@
 <div ui-view>
     <div class="col-md-12">
         <h3>the Queue</h3>
-        <span ng-repeat="playerPaid in queuePaid">
-            {{playerPaid.name}},
-        </span>
-        <span ng-repeat="playerFree in queueFree">
-            {{playerFree.name}}
-        </span>
+        <div id = "queue" class = "alert alert-success">
+            <span ng-repeat="player in queue">
+            {{player.username}}{{$last ? '' : ', '}}
+            </span>
+        </div>
+        
         <div>
-           <button type = "submit" class = "btn btn-main btn-primary" ng-click = "addPlayer(currentUser)">Join the Queue</button>
+           <button type = "submit" class = "btn btn-main btn-primary" ng-click = "addFreePlayer(currentUser)">Join the Queue</button>
         </div>
     </div>
 </div>

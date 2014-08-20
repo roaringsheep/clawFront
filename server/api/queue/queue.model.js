@@ -7,9 +7,8 @@ var mongoose = require('mongoose'),
 
 var QueueSchema = new Schema({
 
-
-  userID: ObjectId,
-  userName: String,
+  userId: ObjectId,
+  username: String,
   index: String,
   isPaid: {type: Boolean, default: false},
   active: {type: Boolean, default: false}
