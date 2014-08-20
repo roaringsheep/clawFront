@@ -6,7 +6,8 @@ var mongoose = require('mongoose'),
     UserSchema = mongoose.model('User');
 
 var QueueSchema = new Schema({
-  user: ObjectId,
+  userId: ObjectId,
+  userName: String,
   index: String,
   active: Boolean
 });

@@ -6,6 +6,7 @@ angular.module('clawFrontApp')
   //Get current user
   $scope.currentUser = Auth.getCurrentUser();
   console.log("currentUser: ", $scope.currentUser);
+  
 
     $rootScope.$watch('queuePaid', function(newval, oldval) {
         $scope.queuePaid = newval;
