@@ -34,12 +34,18 @@ angular.module('clawFrontApp')
   };
 
 
+
     // factory.addPlayertoQueue = function(player){
     //     player.isPaid?
     //       $http.post('/api/queues', {name: player})
     //       queuePaid.push(player):
     //         queueFree.push(player);
     // }
+
+    factory.addPlayertoQueue = function(player) {
+      $http.post('api/queues', {})
+    }
+
 
     factory.removePlayer = function(player, index){
         player.isPaid?
