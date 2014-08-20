@@ -3,6 +3,7 @@
 angular.module('clawFrontApp')
   .factory('queueFactory', function ($http, socket, Auth, $rootScope) {
 
+
     var factory = {
         queuePaid: [{"name": "ca$hMoney"}],
         queueFree: [{"name": "flatBroke", isActive: true}]
@@ -31,13 +32,12 @@ angular.module('clawFrontApp')
     })
   };
 
-    
-
-    factory.addPlayer = function(player){
-        player.isPaid?
-          queuePaid.push(player):
-            queueFree.push(player);
-    }
+    // factory.addPlayertoQueue = function(player){
+    //     player.isPaid?
+    //       $http.post('/api/queues', {name: player})
+    //       queuePaid.push(player):
+    //         queueFree.push(player);
+    // }
 
     factory.removePlayer = function(player, index){
         player.isPaid?
