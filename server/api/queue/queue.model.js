@@ -6,10 +6,11 @@ var mongoose = require('mongoose'),
     UserSchema = mongoose.model('User');
 
 var QueueSchema = new Schema({
-  userId: ObjectId,
-  userName: String,
+  UserId: ObjectId,
+  username: String,
   index: String,
-  active: Boolean
+  isPaid: {type: Boolean, default: false},
+  active: {type: Boolean, default: false}
 });
 
 module.exports = mongoose.model('Queue', QueueSchema);
