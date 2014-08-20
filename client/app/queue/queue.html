@@ -1,0 +1,11 @@
+<div ui-view>
+    <div class="col-md-12">
+        <h3>the Queue</h3>
+        <span ng-repeat="playerPaid in queuePaid">
+            {{playerPaid.name}},
+        </span>
+        <span ng-repeat="playerFree in queueFree">
+            {{playerFree.name}}
+        </span>
+    </div>
+</div>
