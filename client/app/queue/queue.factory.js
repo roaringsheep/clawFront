@@ -11,13 +11,14 @@ angular.module('clawFrontApp')
     var queuePaid = factory.queuePaid, 
     queueFree = factory.queueFree;
 
+
      factory.getQueuePaid = function() {
       $rootScope.QueuePaid = [];
       $http.get('/api/queues').success(function(queue) {
         $rootScope.queue = queue;
         socket.syncUpdates('queue', $rootScope.queue);
         // console.log("queue:", queue);
-        return $rootScope.queue.queuePaid;
+        return $rootScope.queuePaid;
     })
   };
 
@@ -27,16 +28,14 @@ angular.module('clawFrontApp')
         $rootScope.queue = queue;
         socket.syncUpdates('queue', $rootScope.queue);
         // console.log("queue:", queue);
-        return $rootScope.queue.queueFree;
+        return $rootScope.queueFree;
     })
   };
 
-    
-
     factory.addPlayer = function(player){
-        player.isPaid?
-          queuePaid.push(player):
-            queueFree.push(player);
+        player.isPaid? 
+          queuePaid.push(player._id):
+            queueFree.push(player._id);
     }
 
     factory.removePlayer = function(player, index){
