@@ -25,6 +25,15 @@ angular.module('clawFrontApp')
                     });
             }
         };
+
+        $scope.freePlay = function(form) {
+            $scope.login(form);
+        };
+
+        $scope.paidPlay = function(form) {
+            $scope.login(form);
+        };
+
         $scope.directToSignup = function() {
             $('#login').modal('hide');
             $timeout(function() {
