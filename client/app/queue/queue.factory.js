@@ -1,69 +1,76 @@
 'use strict';
 
 angular.module('clawFrontApp')
-  .factory('queueFactory', function ($http, socket, Auth, $rootScope) {
+    .factory('queueFactory', function($http, socket, Auth, $rootScope) {
 
 
-    var factory = {
-        queuePaid: [{"name": "ca$hMoney"}],
-        queueFree: [{"name": "flatBroke", isActive: true}]
-    };
-  
-    var queuePaid = factory.queuePaid, 
-    queueFree = factory.queueFree;
+        var factory = {};
+        // sort queue by index
+        function sortObj(arrofObj, sortingProp) {
+            var array = [];
+            var newarrofObj = [];
+            arrofObj.forEach(function(obj) {
+                array.push(obj[sortingProp]);
+            });
+            array.sort();
+            array.forEach(function(elmnt) {
+                arrofObj.forEach(function(obj) {
+                    if (elmnt === obj[sortingProp]) {
+                        newarrofObj.push(obj)
+                    }
+                });
+            });
+            return newarrofObj;
+        }
 
+        //get sorted queue
+        factory.getQueue = function() {
+            $rootScope.queue = [];
+            $http.get('/api/queues').success(function(queue) {
+                $rootScope.queue = sortObj(queue, "index");
+                socket.syncUpdates('queue', $rootScope.queue);
+                // console.log("queue:", queue);
+                return $rootScope.queue;
+            })
+        };
 
-     factory.getQueuePaid = function() {
-      $rootScope.QueuePaid = [];
-      $http.get('/api/queues').success(function(queue) {
-        $rootScope.queue = queue;
-        socket.syncUpdates('queue', $rootScope.queue);
-        // console.log("queue:", queue);
-        return $rootScope.queuePaid;
-    })
-  };
+        //add player to queue
+        factory.addPaidPlayer = function(player) {
+            $http.post('/api/queues', {
+                username: player.name,
+                userId: player._id,
+                active: true,
+                index: Date.now()
+            })
+        }
 
-     factory.getQueueFree = function() {
-      $rootScope.QueueFree = [];
-      $http.get('/api/queues').success(function(queue) {
-        $rootScope.queue = queue;
-        socket.syncUpdates('queue', $rootScope.queue);
-        // console.log("queue:", queue);
-        return $rootScope.queueFree;
-    })
-  };
+        factory.addFreePlayer = function(player) {
+            $http.post('/api/queues', {
+                username: player.name,
+                userId: player._id,
+                active: true,
+                index: "F" + Date.now()
+            })
+        }
 
+        //remove player from queue
+        factory.removePlayer = function(player) {
+            $http.delete('/api/queues/' + player._id);
+        }
 
+        factory.ETAtoPlay = function(player) {
+            var myEta;
+            var queue = $rootScope.queue;
+                for (var i = 0; i<queue.length; i++) {
+                  if (queue[i].userId == player._id) {
+                      queue[i]==0?
+                      myEta ="You're next!":
+                      myEta = i + "minutes";
+                  }
+                }
+            return myEta;
+        }
 
-    // factory.addPlayertoQueue = function(player){
-    //     player.isPaid?
-    //       $http.post('/api/queues', {name: player})
-    //       queuePaid.push(player):
-    //         queueFree.push(player);
-    // }
-
-    factory.addPlayertoQueue = function(player) {
-      $http.post('api/queues', {})
-    }
-
-
-    factory.removePlayer = function(player, index){
-        player.isPaid?
-          queuePaid.splice(index,1):
-            queueFree.splice(index,1);
-    }
-
-    factory.ETAtoPlay = function(player, index){
-      var outcome;
-          if (player.isPaid){
-            index==0?outcome ="You're next!":outcome = index + "minutes";
-        } else {
-            outcome = queuePaid.length + index + "minutes";}
-      return outcome;
-    }   
-      console.log("factory:", factory);
-    return factory;
-  });
-
-
-  
+        console.log("factory:", factory);
+        return factory;
+    });
