@@ -72,3 +72,7 @@
 .modal {
     color: gray;
 }
+
+form {
+    width: 70%;
+}

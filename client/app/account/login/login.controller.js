@@ -25,6 +25,12 @@ angular.module('clawFrontApp')
                     });
             }
         };
+        $scope.directToSignup = function() {
+            $('#login').modal('hide');
+            $timeout(function() {
+                $location.path('/signup');
+            },450);
+        }
 
         $scope.loginOauth = function(provider) {
             $window.location.href = '/auth/' + provider;
