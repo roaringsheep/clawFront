@@ -1,17 +1,22 @@
 <div ui-view>
     <div class="col-md-12">
         <h3>the Queue</h3>
-        <div id = "queue" class = "alert alert-success">
+        <div id="queue" class="alert alert-success">
             <span ng-repeat="player in queue">
-            {{player.username}}{{$last ? '' : ', '}}
+                {{player.username}}
+                <button type="submit" class="btn btn-xs btn-danger" ng-click="removePlayer(player)">X</button>
+                {{$last ? '' : ', '}}
             </span>
         </div>
-        <h3>ETA to Play</h3>
-        <div id = "queue" class = "alert alert-warning">
-            <strong class="badge">{{eta}}</strong></span>
+        <div ng-show="isLoggedIn()">
+            <h3>ETA to Play</h3>
+            <div id="queue" class="alert alert-warning">
+                <strong class="badge">{{eta}}</strong>
+                </span>
+            </div>
         </div>
-        <div>
-           <button type = "submit" class = "btn btn-main btn-primary" ng-click = "addFreePlayer(currentUser)">Join the Queue</button>
+        <div class = "col-md-12">
+            <button type="submit" class="btn btn-main btn-primary" ng-click="addFreePlayer(currentUser)">Join the Queue</button>
         </div>
     </div>
 </div>

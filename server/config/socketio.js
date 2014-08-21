@@ -22,6 +22,7 @@ function onConnect(socket) {
   require('../api/queue/queue.socket').register(socket);
   require('../api/game/game.socket').register(socket);
   require('../api/thing/thing.socket').register(socket);
+  require('../api/queue/queue.socket').register(socket);
 }
 
 module.exports = function (socketio) {
