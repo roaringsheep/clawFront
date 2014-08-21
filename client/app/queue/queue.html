@@ -6,7 +6,10 @@
             {{player.username}}{{$last ? '' : ', '}}
             </span>
         </div>
-        
+        <h3>ETA to Play</h3>
+        <div id = "queue" class = "alert alert-warning">
+            <strong class="badge">{{eta}}</strong></span>
+        </div>
         <div>
            <button type = "submit" class = "btn btn-main btn-primary" ng-click = "addFreePlayer(currentUser)">Join the Queue</button>
         </div>

@@ -36,39 +36,59 @@ angular.module('clawFrontApp')
 
         //add player to queue
         factory.addPaidPlayer = function(player) {
-            $http.post('/api/queues', {
+          var alreadyInQueue = false;
+          $rootScope.queue.forEach(function(el){
+              if(el.userId == player._id)
+                  {alreadyInQueue = true;}
+                    return alreadyInQueue;
+            })
+              if(!alreadyInQueue){ 
+              $http.post('/api/queues', {
                 username: player.name,
                 userId: player._id,
                 active: true,
                 index: Date.now()
-            })
+              })
+            }
         }
 
         factory.addFreePlayer = function(player) {
-            $http.post('/api/queues', {
+          var alreadyInQueue = false;
+          $rootScope.queue.forEach(function(el){
+              if(el.userId == player._id)
+                  {alreadyInQueue = true;}
+                    return alreadyInQueue;
+            })
+              if(!alreadyInQueue){ 
+              $http.post('/api/queues', {
                 username: player.name,
                 userId: player._id,
                 active: true,
-                index: "F" + Date.now()
-            })
+                index: "F"+Date.now()
+              })
+            }
         }
 
         //remove player from queue
-        factory.removePlayer = function(player) {
-            $http.delete('/api/queues/' + player._id);
-        }
+        // factory.removePlayer = function(player) {
+        //     $http.delete('/api/queues/' + player.userId);
+        // }
 
-        factory.ETAtoPlay = function(player) {
-            var myEta;
-            var queue = $rootScope.queue;
+        factory.ETAtoPlay = function(player, queue) {
+            var eta;
+            console.log("1");
+            console.log("queue", queue);
                 for (var i = 0; i<queue.length; i++) {
                   if (queue[i].userId == player._id) {
                       queue[i]==0?
-                      myEta ="You're next!":
-                      myEta = i + "minutes";
+                      eta ="You're next!":
+                      console.log("eta1", eta);
+                      eta = i + "  minutes";
+                      console.log("eta2", eta);
                   }
                 }
-            return myEta;
+             console.log("3");
+            return eta;
         }
 
         console.log("factory:", factory);
