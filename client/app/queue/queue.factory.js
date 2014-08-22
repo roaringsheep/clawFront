@@ -67,30 +67,48 @@ angular.module('clawFrontApp')
                 index: "F"+Date.now()
               })
             }
+          console.log("$rootScope.queue", $rootScope.queue);
         }
 
         //remove player from queue
-        // factory.removePlayer = function(player) {
-        //     $http.delete('/api/queues/' + player.userId);
-        // }
-
-        factory.ETAtoPlay = function(player, queue) {
-            var eta;
-            console.log("1");
-            console.log("queue", queue);
-                for (var i = 0; i<queue.length; i++) {
-                  if (queue[i].userId == player._id) {
-                      queue[i]==0?
-                      eta ="You're next!":
-                      console.log("eta1", eta);
-                      eta = i + "  minutes";
-                      console.log("eta2", eta);
-                  }
-                }
-             console.log("3");
-            return eta;
+        factory.removePlayer = function(player) {
+            return $http.delete('/api/queues/' + player._id);
+            console.log("player._id", player._id)
+        }
+    
+        //alert player at queue milestones
+        factory.queueAlert = function (player, queue) {
+        var alert = i;
+        for (var i = 0; i<queue.length; i++) {
+               if (queue[i].userId == player._id) {  
+                   if (i==10){alert = i}
+                      else if (i = 5) {alert = i}
+                        else if (i = 1) {alert = i}
+            }
+          }
+          console.log("alert: ", alert)
+          return alert;
         }
 
         console.log("factory:", factory);
         return factory;
     });
+
+    // //check ETAtoPlay
+        // factory.ETAtoPlay = function(player, queue) {
+        //     var eta = "";
+        //     //console.log("queue", queue);
+        //         for (var i = 0; i<queue.length; i++) {
+        //           if (queue[i].userId == player._id) {
+        //             eta= "Hey " + player.name + ", ";
+        //               if (i==0){
+        //                   eta +="you're next!"}
+        //               if (i==1) {
+        //                       eta +="1 minute to go!"
+        //               }
+        //               else eta += i + " minutes to go!";
+        //           }
+        //         }
+        //      console.log("eta", eta);
+        //     return eta;
+        // }

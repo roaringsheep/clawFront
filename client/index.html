@@ -44,7 +44,7 @@
     <div class="hero-unit" id="banner">
         <div class="container">
             <h1>the Claw</h1>
-            <h4>image stream placeholder</h4>
+            <img src="http://192.168.1.125:8080/?action=stream" width="400" height="300"/>
             <div class="row">
                 <div ui-view></div>
             </div>
@@ -106,6 +106,7 @@
     <script src="app/queue/queue.controller.js"></script>
     <script src="app/queue/queue.factory.js"></script>
     <script src="app/queue/queue.js"></script>
+    <script src="app/talkToPi/talkToPi.service.js"></script>
     <script src="components/auth/auth.service.js"></script>
     <script src="components/auth/user.service.js"></script>
     <script src="components/mongoose-error/mongoose-error.directive.js"></script>
@@ -115,29 +116,30 @@
     <!-- endbuild -->
 
 
-        <!-- build:js({.tmp,client}) app/app.js -->
-        <script src="app/app.js"></script>
-          <!-- injector:js -->
-          <script src="app/account/account.js"></script>
-          <script src="app/account/login/login.controller.js"></script>
-          <script src="app/account/settings/settings.controller.js"></script>
-          <script src="app/account/signup/signup.controller.js"></script>
-          <script src="app/account/signup/userSignUp.factory.js"></script>
-          <script src="app/admin/admin.controller.js"></script>
-          <script src="app/admin/admin.js"></script>
-          <script src="app/game/game.controller.js"></script>
-          <script src="app/main/main.controller.js"></script>
-          <script src="app/main/main.js"></script>
-          <script src="app/queue/queue.controller.js"></script>
-          <script src="app/queue/queue.factory.js"></script>
-          <script src="app/queue/queue.js"></script>
-          <script src="components/auth/auth.service.js"></script>
-          <script src="components/auth/user.service.js"></script>
-          <script src="components/mongoose-error/mongoose-error.directive.js"></script>
-          <script src="components/navbar/navbar.controller.js"></script>
-          <script src="components/socket/socket.service.js"></script>
-          <!-- endinjector -->
-        <!-- endbuild -->
+    <!-- build:js({.tmp,client}) app/app.js -->
+    <script src="app/app.js"></script>
+    <!-- injector:js -->
+    <script src="app/account/account.js"></script>
+    <script src="app/account/login/login.controller.js"></script>
+    <script src="app/account/settings/settings.controller.js"></script>
+    <script src="app/account/signup/signup.controller.js"></script>
+    <script src="app/account/signup/userSignUp.factory.js"></script>
+    <script src="app/admin/admin.controller.js"></script>
+    <script src="app/admin/admin.js"></script>
+    <script src="app/game/game.controller.js"></script>
+    <script src="app/main/main.controller.js"></script>
+    <script src="app/main/main.js"></script>
+    <script src="app/queue/queue.controller.js"></script>
+    <script src="app/queue/queue.factory.js"></script>
+    <script src="app/queue/queue.js"></script>
+    <script src="app/talkToPi/talkToPi.service.js"></script>
+    <script src="components/auth/auth.service.js"></script>
+    <script src="components/auth/user.service.js"></script>
+    <script src="components/mongoose-error/mongoose-error.directive.js"></script>
+    <script src="components/navbar/navbar.controller.js"></script>
+    <script src="components/socket/socket.service.js"></script>
+    <!-- endinjector -->
+    <!-- endbuild -->
 
 </body>
 

@@ -3,7 +3,7 @@
 var _ = require('lodash');
 var Queue = require('./queue.model');
 
-// Get list of queues
+// Get list of users in the queue
 exports.index = function(req, res) {
   Queue.find(function (err, queues) {
     if(err) { return handleError(res, err); }
@@ -11,7 +11,7 @@ exports.index = function(req, res) {
   });
 };
 
-// Get a single queue
+// Get a single user in the queue
 exports.show = function(req, res) {
   Queue.findById(req.params.id, function (err, queue) {
     if(err) { return handleError(res, err); }
@@ -38,7 +38,7 @@ exports.create = function(req, res) {
   });
 };
 
-// Updates an existing queue in the DB.
+// Updates an existing user in the queue in the DB.
 exports.update = function(req, res) {
   if(req.body._id) { delete req.body._id; }
   Queue.findById(req.params.id, function (err, queue) {
@@ -52,7 +52,7 @@ exports.update = function(req, res) {
   });
 };
 
-// Deletes a queue from the DB.
+// Deletes a user from the queue in the DB.
 exports.destroy = function(req, res) {
   Queue.findById(req.params.id, function (err, queue) {
     if(err) { return handleError(res, err); }
