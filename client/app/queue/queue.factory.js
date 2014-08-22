@@ -71,25 +71,25 @@ angular.module('clawFrontApp')
 
         //remove player from queue
         factory.removePlayer = function(player) {
-            $http.delete('/api/queues/' + player._id);
+            return $http.delete('/api/queues/' + player._id);
             console.log("player._id", player._id)
         }
 
         factory.ETAtoPlay = function(player, queue) {
-            var eta;
-           
-            console.log("queue", queue);
+            var eta = "";
+            //console.log("queue", queue);
                 for (var i = 0; i<queue.length; i++) {
                   if (queue[i].userId == player._id) {
+                    eta = "Hey " + player.name + ", ";
                       if (i==0){
-                          eta ="You're next!"}
+                          eta +="you're next!"}
                       if (i==1) {
-                              eta="1 minute to go!"
+                              eta +="1 minute to go!"
                       }
-                      else eta = i + " minutes to go";
+                      else eta += i + " minutes to go!";
                   }
                 }
-             console.log("eta", eta);
+             //console.log("eta", eta);
             return eta;
         }
 

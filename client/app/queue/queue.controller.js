@@ -5,7 +5,7 @@ angular.module('clawFrontApp')
 
   //Get current user
   $scope.currentUser = Auth.getCurrentUser();
-  $scope.isLoggedIn = Auth.isLoggedIn;
+  $scope.isLoggedIn = Auth.isLoggedIn();
   console.log("currentUser: ", $scope.currentUser);
   
   //Get queue
@@ -32,13 +32,6 @@ angular.module('clawFrontApp')
     $scope.removePlayer = function(player){
       queueFactory.removePlayer(player)
     };
-
-    //Check ETA
-    // $rootScope.$watch("eta", function (newval, oldval){
-    //       $scope.eta = newval;
-    //       console.log ("$scope.eta: ", newval)
-    //   })
-    //console.log ("$scope.queue global", $scope.queue);
     
 
 });

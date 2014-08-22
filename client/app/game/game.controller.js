@@ -58,18 +58,14 @@ angular.module('clawFrontApp')
         };
 
         //Queue logic
-        $rootScope.$watch('queuePaid', function(newval, oldval) {
-            $scope.queuePaid = newval;
+        $rootScope.$watch('queue', function(newval, oldval) {
+            $scope.queue = newval;
             console.log("newval", newval)
         })
-        $scope.getQueuePaid = queueFactory.getQueuePaid();
+        $scope.getQueue = queueFactory.getQueue();
 
 
-        $rootScope.$watch('queueFree', function(newval, oldval) {
-            $scope.queueFree = newval;
-        })
 
-        $scope.getQueueFree = queueFactory.getQueueFree();
 
         $scope.countdown();
     });
