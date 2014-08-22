@@ -1,13 +1,95 @@
 'use strict';
 
 angular.module('clawFrontApp')
-    .controller('GameCtrl', function($scope, $rootScope, $interval, queueFactory, Auth) {
+    .controller('GameCtrl', function($scope, $rootScope, $interval, queueFactory, Auth, talkToPi) {
 
         // $rootScope.$watch("timer", function (newval, oldval){
         //         $scope.notes = newval;
         //     }) 
 
-        $scope.portArray = [22, 18, 16, 15, 13, 11, 12, 7];
+        $scope.findPortByNum = function(portNum) {
+            $scope.ports.forEach(function(obj) {
+                if (obj.port === portNum) {
+                    return obj
+                }
+            })
+        };
+
+        $scope.togglePort = function(portNum, state) {
+            var port = findPortByNum(portNum);
+            port.state = state;
+            talkToPi.pressButton(port).success(function(res) {
+                console.log('port', portNum, '!', res);
+            });
+        }
+
+        $scope.goUp = function() {
+            // Port 12 on, port 7 off
+            console.log('going up...');
+            $scope.togglePort(12, 'on');
+            $scope.togglePort(7, 'off');
+        };
+
+        $scope.goDown = function() {
+            //Port 7 on, port 12 off
+            console.log('going down...');
+            $scope.togglePort(12, 'off');
+            $scope.togglePort(7, 'on');
+        };
+
+        $scope.goLeft = function() {
+            //Port 11 and 13 //FIX THIS
+            console.log('going left...');
+            $scope.togglePort(11, 'off');
+            $scope.togglePort(13, 'off');
+        };
+
+        $scope.goRight = function() {
+            //port 11 and 13
+            console.log('going right...');
+            $scope.togglePort(11, 'off');
+            $scope.togglePort(13, 'off');
+        };
+
+        $scope.clawUp = function() {
+            //port 15 on, port 16 off
+            console.log('raising claw...')
+            $scope.togglePort(15,'on');
+            $scope.togglePort(16, 'off');
+        };
+
+        $scope.clawDown = function() {
+            // Port 16 on, port 15 off
+            console.log('lowering claw...');
+            $scope.togglePort(15,'off');
+            $scope.togglePort(16, 'on');
+        };
+
+        $scope.ports = [{
+            port: 22,
+            state: 'off'
+        }, {
+            port: 18,
+            state: 'off'
+        }, {
+            port: 16,
+            state: 'off'
+        }, {
+            port: 15,
+            state: 'off'
+        }, {
+            port: 13,
+            state: 'off'
+        }, {
+            port: 11,
+            state: 'off'
+        }, {
+            port: 12,
+            state: 'off'
+        }, {
+            port: 7,
+            state: 'off'
+        }];
 
         var timerInit = 5,
             turnsInit = 3,
@@ -50,12 +132,6 @@ angular.module('clawFrontApp')
             }
 
         })
-
-        $scope.moveClaw = function() {};
-
-        $scope.dropClaw = function() {
-            $scope.playTurn();
-        };
 
         //Queue logic
         $rootScope.$watch('queue', function(newval, oldval) {

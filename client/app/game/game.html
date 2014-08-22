@@ -10,26 +10,37 @@
         <div class="col-lg-2"></div>
         <div class="col-lg-4">
             <div class="row">
-                <a href="#" class="btn btn-primary">
+                <a ng-click="goUp()" class="btn btn-primary">
                     <span class="fa fa-arrow-up fa-5x text-align"></span>
                 </a>
             </div>
             <div class="row">
-                <a href="#" class="btn btn-primary placeholder">
+                <a ng-click="goLeft()" class="btn btn-primary placeholder">
                     <span class="fa fa-arrow-left fa-5x text-align"></span>
                 </a>
-                <a href="#" class="btn btn-primary placeholder">
+                <a ng-click="goRight()" class="btn btn-primary placeholder">
                     <span class="fa fa-arrow-right fa-5x text-align"></span>
                 </a>
             </div>
             <div class="row">
-                <a href="#" class="btn btn-primary">
+                <a ng-click="goDown()" class="btn btn-primary">
                     <span class="fa fa-arrow-down fa-5x text-align"></span>
                 </a>
             </div>
         </div>
         <div class="col-lg-4">
-            <button id="drop" class="btn btn-success btn-main">DROP THE CLAW!</button>
+            Move the claw!
+            <div class="row">
+                <a ng-click="clawUp()" class="btn btn-primary">
+                    <span class="fa fa-arrow-up fa-5x text-align"></span>
+                </a>
+            </div>
+            <div class="row">
+                <a ng-click="clawDown()" class="btn btn-primary">
+                    <span class="fa fa-arrow-down fa-5x text-align"></span>
+                </a>
+            </div>
+
         </div>
         <div class="col-lg-2"></div>
     </div>
