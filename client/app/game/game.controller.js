@@ -15,94 +15,54 @@ angular.module('clawFrontApp')
             })
         };
 
+        $scope.togglePort = function(portNum, state) {
+            var port = findPortByNum(portNum);
+            port.state = state;
+            talkToPi.pressButton(port).success(function(res) {
+                console.log('port', portNum, '!', res);
+            });
+        }
+
         $scope.goUp = function() {
             // Port 12 on, port 7 off
             console.log('going up...');
-            var port12 = findPortByNum(12);
-            var port7 = findPortByNum(7);
-            port12.state = 'on';
-            port7.state = 'off';
-            talkToPi.pressButton(port12).success(function(res) {
-                console.log('port12!', res);
-            });
-            talkToPi.pressButton(port7).success(function(res) {
-                console.log('port7!', res);
-            });
+            $scope.togglePort(12, 'on');
+            $scope.togglePort(7, 'off');
         };
 
         $scope.goDown = function() {
             //Port 7 on, port 12 off
             console.log('going down...');
-            var port12 = findPortByNum(12);
-            var port7 = findPortByNum(7);
-            port12.state = 'off';
-            port7.state = 'on';
-            talkToPi.pressButton(port12).success(function(res) {
-                console.log('port12!', res);
-            });
-            talkToPi.pressButton(port7).success(function(res) {
-                console.log('port7!', res);
-            });
+            $scope.togglePort(12, 'off');
+            $scope.togglePort(7, 'on');
         };
 
         $scope.goLeft = function() {
             //Port 11 and 13 //FIX THIS
             console.log('going left...');
-            var port11 = findPortByNum(11);
-            var port13 = findPortByNum(13);
-            port11.state = 'off';
-            port13.state = 'off';
-            talkToPi.pressButton(port11).success(function(res) {
-                console.log('port11!', res);
-            });
-            talkToPi.pressButton(port13).success(function(res) {
-                console.log('port13!', res);
-            });
+            $scope.togglePort(11, 'off');
+            $scope.togglePort(13, 'off');
         };
 
         $scope.goRight = function() {
             //port 11 and 13
             console.log('going right...');
-            var port11 = findPortByNum(11);
-            var port13 = findPortByNum(13);
-            port11.state = 'off';
-            port13.state = 'off';
-            talkToPi.pressButton(port11).success(function(res) {
-                console.log('port11!', res);
-            });
-            talkToPi.pressButton(port13).success(function(res) {
-                console.log('port13!', res);
-            });
+            $scope.togglePort(11, 'off');
+            $scope.togglePort(13, 'off');
         };
 
         $scope.clawUp = function() {
             //port 15 on, port 16 off
-            console.log('raising claw...');
-            var port15 = findPortByNum(15);
-            var port16 = findPortByNum(16);
-            port15.state = 'on';
-            port16.state = 'off';
-            talkToPi.pressButton(port15).success(function(res) {
-                console.log('port15!', res);
-            });
-            talkToPi.pressButton(port16).success(function(res) {
-                console.log('port16!', res);
-            });
+            console.log('raising claw...')
+            $scope.togglePort(15,'on');
+            $scope.togglePort(16, 'off');
         };
 
         $scope.clawDown = function() {
             // Port 16 on, port 15 off
             console.log('lowering claw...');
-            var port15 = findPortByNum(15);
-            var port16 = findPortByNum(16);
-            port15.state = 'off';
-            port16.state = 'on';
-            talkToPi.pressButton(port15).success(function(res) {
-                console.log('port15!', res);
-            });
-            talkToPi.pressButton(port16).success(function(res) {
-                console.log('port16!', res);
-            });
+            $scope.togglePort(15,'off');
+            $scope.togglePort(16, 'on');
         };
 
         $scope.ports = [{
