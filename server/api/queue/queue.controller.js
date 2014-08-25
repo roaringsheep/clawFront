@@ -54,15 +54,29 @@ exports.update = function(req, res) {
 
 // Deletes a user from the queue in the DB.
 exports.destroy = function(req, res) {
-  Queue.findById(req.params.id, function (err, queue) {
+  console.log("req.params: ", req.params)
+  Queue.findOne({"userId": req.params.id}, function (err, queue) {
     if(err) { return handleError(res, err); }
     if(!queue) { return res.send(404); }
+    console.log("queue: ", queue)
     queue.remove(function(err) {
       if(err) { return handleError(res, err); }
       return res.send(204);
     });
   });
 };
+
+// Deletes a user from the queue in the DB.
+// exports.destroy = function(req, res) {
+//   Queue.findOne({""}, function (err, queue) {
+//     if(err) { return handleError(res, err); }
+//     if(!queue) { return res.send(404); }
+//     queue.remove(function(err) {
+//       if(err) { return handleError(res, err); }
+//       return res.send(204);
+//     });
+//   });
+// };
 
 function handleError(res, err) {
   return res.send(500, err);

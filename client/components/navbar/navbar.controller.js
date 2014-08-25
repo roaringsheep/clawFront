@@ -10,27 +10,27 @@ angular.module('clawFrontApp')
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.isAdmin = Auth.isAdmin;
-    $scope.getCurrentUser = Auth.getCurrentUser;
+    $scope.CurrentUser = Auth.getCurrentUser();
+    // $scope.queue = "";
 
     // $rootScope.$watch('queue', function(newval, oldval) {
     //         $scope.queue = newval;
+    //         console.log("queue from navbar: ", $scope.queue)
     // })
     
     // $scope.getQueue = queueFactory.getQueue();
-    // //Remove player from queue upon logout
-    //   $scope.removePlayer = function() {
-    //       $scope.tempUser = $scope.getCurrentUser();
-    //           for (var i = 0; i < $scope.queue.length; i++){
-    //               if ($scope.queue[i].userId == $scope.tempUser._id)
-    //                 {$scope.tempUser._id = $scope.queue[i]._id;}
-    //             }
-    //             console.log ("$scope.queue:", $scope.queue, "tempUser: ", $scope.tempUser._id)
-    //         queueFactory.removePlayer($scope.tempUser);     
-    //     };
+
+    $scope.removeByUserId = function(player) {
+            return queueFactory.removeByUserId(player);
+        };
+
+    var currentUser = $scope.CurrentUser; 
 
     $scope.logout = function() {
-      Auth.logout();
-      $scope.removePlayer($scope.getCurrentUser)
+      console.log("scope.removeByUserId: ", $scope.removeByUserId, "$scope.CurrentUser: ", $scope.CurrentUser)
+      $scope.removeByUserId($scope.CurrentUser).success(function(){
+        Auth.logout();
+      })
       $location.path('/');
     };
 
