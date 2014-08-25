@@ -4,14 +4,14 @@
         <div id="queue" class="alert alert-success">
             <span ng-repeat="player in queue">
                 {{player.username}}
-                <button type="submit" class="btn btn-xs btn-danger" ng-click="removePlayer(player)">X</button>
+                <button type="submit" class="btn btn-xs btn-danger" ng-click="removeByQueueUserId(player)">X</button>
                 {{$last ? '' : ', '}}
             </span>
         </div>
         <div ng-show="isLoggedIn">
             <h3>ETA to Play</h3>
             <div id="queue" class="alert alert-warning">
-                <strong class="badge">{{queue.length-1}}{{queue.length == 2?" minute":" minutes"}}</strong>
+                <strong class="badge">{{queue.length-1}}{{queue.length == 2?" minute":" minutes"}}, {{currentUser.name}}!</strong>
                 </span>
             </div>
         </div>

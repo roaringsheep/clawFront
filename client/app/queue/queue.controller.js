@@ -32,10 +32,16 @@ angular.module('clawFrontApp')
         }
 
         //Remove player
-        $scope.removePlayer = function(player) {
-            queueFactory.removePlayer(player);
+        $scope.removeByQueueUserId = function(player) {
+            return queueFactory.removeByQueueUserId(player);
 
         };
+
+        $scope.removeByUserId = function(player) {
+            return queueFactory.removeByUserId(player);
+        };
+
+        //ping player at time intervals
        
         $scope.getQueue = queueFactory.getQueue();
     });

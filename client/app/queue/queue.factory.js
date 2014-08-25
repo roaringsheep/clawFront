@@ -71,10 +71,22 @@ angular.module('clawFrontApp')
         }
 
         //remove player from queue
-        factory.removePlayer = function(player) {
-            return $http.delete('/api/queues/' + player._id);
-            console.log("player._id", player._id)
+        factory.removeByQueueUserId = function(player) {
+        console.log("player in $http.delete request: ", player)
+            return $http.delete('/api/queues/' + player.userId);
+           
         }
+
+        factory.removeByUserId = function(player) {
+        console.log("player in $http.delete request: ", player)
+            return $http.delete('/api/queues/' + player._id);
+           
+        }
+
+        // factory.removeCurrentUser = function(player) {
+
+
+        // }
     
         //alert player at queue milestones
         factory.queueAlert = function (player, queue) {
