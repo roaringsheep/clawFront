@@ -8,6 +8,9 @@
     </div>
     <!--Container-->
     <!--row-->
+<!-- pk_test_bE12QyEg4nE1pzUEw2OI6riK -->
+
+
 
     <div class="modal fade" id="login" tabindex="-1" data-width="760" role="dialog" aria-labelledby="loginLabel" aria-hidden="true" ng-controller="LoginCtrl">
         <div class="modal-dialog">
@@ -49,9 +52,17 @@
                             <button ng-click="freePlay(form)" class="btn btn-success btn-lg btn-login">
                                 Play for Free
                             </button>
-                            <button ng-click="paidPlay(form)" class="btn btn-success btn-lg btn-login">
-                                Play for the Prize
-                            </button>
+                            <form action="" method="POST">
+  <script
+    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    data-key="pk_test_bE12QyEg4nE1pzUEw2OI6riK"
+    data-amount="100"
+    data-name="The Claw"
+    data-description="1 game ($1.00)"
+    data-image="">
+  </script>
+</form>
+
                             <br>
                             Or <a class="" ng-click="directToSignup()">
             register</a> here.
