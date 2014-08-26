@@ -43,16 +43,19 @@ angular.module('clawFrontApp')
         };
 
         $scope.timer = {}
-        $scope.timer.countdown = 60;
+        $scope.timer.countdown = 10;
         $scope.$watch('queue', function(){
             $scope.minuteToGo($scope.currentUser)
+
         })
     
         $scope.countdown = function() {
                     $interval(function() {
-                    if ($scope.timer.countdown > 0)
+                    if ($scope.timer.countdown > 0){
                         $scope.timer.countdown --;
-                    }, 1000);
+                        console.log($scope.timer.countdown)
+                    if ($scope.timer.countdown == 0) {console.log("You're logged out!")}
+                    }}, 1000);
             }
                 
               
@@ -65,11 +68,11 @@ angular.module('clawFrontApp')
                 
         }
 
-        $scope.stayInLine = function (player) {
-            var message = player._id + " is still here";
-            console.log("stayInLine", message)
-            $scope.$emit(message);
-        };
+        // $scope.stayInLine = function (player) {
+        //     var message = player._id + " is still here";
+        //     console.log("stayInLine", message)
+        //     $scope.$emit(alert("I'll stay in line"));
+        // };
 
         //ping player at time intervals
        
