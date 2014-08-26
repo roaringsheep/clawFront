@@ -5,15 +5,11 @@ angular.module('clawFrontApp')
 
         var factory = {};
 
-        factory.pressButton = function(btnData) {
+        factory.pressButton = function(moveStatus) {
             return $http({
-                url: 'http://192.168.1.66:3000/',
+                url: '/api/games/pi',
                 method: "POST",
-                data: btnData,
-                withCredentials: true,
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8'
-                }
+                data: moveStatus
             });
         };
 

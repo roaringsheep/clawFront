@@ -10,35 +10,28 @@
         <div class="col-lg-2"></div>
         <div class="col-lg-4">
             <div class="row">
-                <a ng-click="goUp()" class="btn btn-primary">
+                <a ng-mousedown="move('back')" ng-mouseup="move('bclear')" id='back' class="btn btn-primary">
                     <span class="fa fa-arrow-up fa-5x text-align"></span>
                 </a>
             </div>
             <div class="row">
-                <a ng-click="goLeft()" class="btn btn-primary placeholder">
+                <a ng-mousedown="move('left')" ng-mouseup="move('lclear')" id="left" class="btn btn-primary placeholder">
                     <span class="fa fa-arrow-left fa-5x text-align"></span>
                 </a>
-                <a ng-click="goRight()" class="btn btn-primary placeholder">
+                <a ng-mousedown="move('right')" ng-mouseup="move('rclear')" id="right" class="btn btn-primary placeholder">
                     <span class="fa fa-arrow-right fa-5x text-align"></span>
                 </a>
             </div>
             <div class="row">
-                <a ng-click="goDown()" class="btn btn-primary">
+                <a ng-mousedown="move('forw')" ng-mouseup="move('fclear')" id="front" class="btn btn-primary">
                     <span class="fa fa-arrow-down fa-5x text-align"></span>
                 </a>
             </div>
         </div>
         <div class="col-lg-4">
-            Move the claw!
+            Drop the claw!
             <div class="row">
-                <a ng-click="clawUp()" class="btn btn-primary">
-                    <span class="fa fa-arrow-up fa-5x text-align"></span>
-                </a>
-            </div>
-            <div class="row">
-                <a ng-click="clawDown()" class="btn btn-primary">
-                    <span class="fa fa-arrow-down fa-5x text-align"></span>
-                </a>
+                <button ng-click="clawDrop()" class="btn btn-primary btn-xl">DROP</button>
             </div>
 
         </div>
