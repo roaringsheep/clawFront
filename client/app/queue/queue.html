@@ -19,12 +19,12 @@
             <button type="submit" class="btn btn-main btn-primary" ng-click="addFreePlayer(currentUser)">Join the Queue</button>
         </div>
         <!-- Button trigger modal -->
-<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+<!-- <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
   Launch demo modal
-</button>
+</button> -->
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-show = "queue.length>1">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -32,10 +32,11 @@
         <h4 class="modal-title" id="myModalLabel">Still here?</h4>
       </div>
       <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-dismiss="modal">Yep!</button>
+
+        <span class = "badge">
+          {{timer.countdown}}
+        </span>
+         <button ng-click = "stayInLine(currentUser)" type="button" class="btn btn-success pull-right" data-dismiss="modal">Yep!</button>
       </div>
     </div>
   </div>
