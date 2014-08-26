@@ -1,100 +1,162 @@
 'use strict';
 
 angular.module('clawFrontApp')
-    .controller('GameCtrl', function($scope, $rootScope, $interval, queueFactory, Auth, talkToPi, $http) {
+    .controller('GameCtrl', function($scope, $rootScope, $interval, queueFactory, Auth, talkToPi, $http, $timeout) {
+
+
+        $scope.move = function(status) {
+            console.log('moving..');
+            talkToPi.pressButton({
+                'move': status
+            }).success(function(res) {
+                console.log('move success!', res);
+            });
+        };
+
+        $scope.clawDrop = function() {
+            //lower, loclear raise, raclear left, lclear forw, fclear lower, loclear raise, raclear  
+            console.log('lowering...')
+            $scope.move('lower');
+            $timeout(function() {
+                $scope.move('loclear,raise');
+            }, 2300)
+                .then(function() {
+                    return $timeout(function() {
+                        $scope.move('raclear,left');
+                    }, 2300);
+                })
+                .then(function() {
+                    return $timeout(function() {
+                        $scope.move('lclear,forw');
+                    }, 5000);
+                })
+                .then(function() {
+                    return $timeout(function() {
+                        $scope.move('fclear,lower');
+                    }, 3500);
+                })
+                .then(function() {
+                    return $timeout(function() {
+                        $scope.move('loclear,raise');
+                    }, 1000);
+                })
+                .then(function() {
+                    return $timeout(function() {
+                        $scope.move('raclear');
+                    }, 1300);
+                })
+        };
 
         // $rootScope.$watch("timer", function (newval, oldval){
         //         $scope.notes = newval;
         //     }) 
+        // $scope.findPortByNum = function(portNum) {
+        //     for (var i = 0; i < $scope.ports.length; i++) {
+        //         var port = $scope.ports[i];
+        //         if (port.num == portNum) {
+        //             return port;
+        //         }
+        //     }
+        //     console.log("Couldn't find any! :(");
+        // };
 
-        $scope.findPortByNum = function(portNum) {
-            for (var i = 0; i < $scope.ports.length; i++) {
-                var port = $scope.ports[i];
-                if (port.port == portNum) {
-                    console.log('foundit!');
-                    return port;
-                }
-            }
-            console.log("Couldn't find any! :(");
-        };
+        // $scope.togglePort = function(portArr, stateArr) {
+        //     var ports = "";
+        //     for (var i = 0; i < portArr.length; i++) {
+        //         var port = $scope.findPortByNum(portArr[i]);
+        //         port.state = stateArr[i];
+        //         if (i == portArr.length - 1) {
+        //             ports += port.port + ',' + stateArr[i];
+        //         } else {
+        //             ports += port.port + "," + stateArr[i] + ',';
+        //         }
+        //     }
+        //     talkToPi.pressButton({
+        //         'ports': ports
+        //     }).success(function(res) {
+        //         console.log('port', ports, '!', res);
+        //     });
+        // }
 
-        $scope.togglePort = function(portNum, state) {
-            console.log('portNum', portNum, 'state', state);
-            var port = $scope.findPortByNum(portNum);
-            console.log('port', port);
-            port.state = state;
-            talkToPi.pressButton(port).success(function(res) {
-                console.log('port', portNum, '!', res);
-            });
-        }
+        // $scope.goFront = function() {
+        //     // Port 12 on, port 7 off
+        //     var btn = $('#front');
+        //     btn.toggleClass('btn-primary');
+        //     btn.toggleClass('on');
+        //     if (btn.hasClass('on')) {
+        //         console.log('going to me...');
+        //         $scope.togglePort(['2', '1', '7'], ['on', 'off', 'off']);
+        //     } else {
+        //         console.log('stopping...')
+        //         $scope.togglePort(['2'], ['off']);
+        //     }
+        // };
 
-        $scope.goUp = function() {
-            // Port 12 on, port 7 off
-            console.log('going up...');
-            $scope.togglePort('12', 'on');
-            $scope.togglePort('7', 'off');
-        };
+        // $scope.goBack = function() {
+        //     //Port 7 on, port 12 off
+        //     var btn = $('#back');
+        //     btn.toggleClass('on');
+        //     btn.toggleClass('btn-primary');
+        //     if (btn.hasClass('on')) {
+        //         console.log('going back...');
+        //         $scope.togglePort(['2', '1', '7'], ['off', 'on', 'on']);
+        //     } else {
+        //         console.log('stopping...')
+        //         $scope.togglePort(['1', '7'], ['off', 'off']);
+        //     }
+        // };
 
-        $scope.goDown = function() {
-            //Port 7 on, port 12 off
-            console.log('going down...');
-            $scope.togglePort('12', 'off');
-            $scope.togglePort('7', 'on');
-        };
+        // $scope.goLeft = function() {
+        //     var btn = $('#left');
+        //     btn.toggleClass('on');
+        //     btn.toggleClass('btn-primary');
+        //     if (btn.hasClass('on')) {
+        //         console.log('going left...');
+        //         $scope.togglePort(['3', '4', '8'], ['off', 'on', 'off']);
+        //     } else {
+        //         console.log('stopping...');
+        //         $scope.togglePort(['4'], ['off']);
+        //     }
+        // };
 
-        $scope.goLeft = function() {
-            //Port 11 and 13 //FIX THIS
-            console.log('going left...');
-            $scope.togglePort('11', 'off');
-            $scope.togglePort('13', 'off');
-        };
+        // $scope.goRight = function() {
+        //     var btn = $('#right');
+        //     btn.toggleClass('on');
+        //     btn.toggleClass('btn-primary');
+        //     if (btn.hasClass('on')) {
+        //         console.log('going right...');
+        //         $scope.togglePort(['3', '4', '8'], ['on', 'off', 'on']);
+        //     } else {
+        //         console.log('stopping...')
+        //         $scope.togglePort(['3','8'], ['off','off']);
+        //     }
+        // };
 
-        $scope.goRight = function() {
-            //port 11 and 13
-            console.log('going right...');
-            $scope.togglePort('11', 'off');
-            $scope.togglePort('13', 'off');
-        };
+        // $scope.raise = function() {
+        //     var btn = $('#raise');
+        //     btn.toggleClass('on');
+        //     btn.toggleClass('btn-primary');
+        //     if (btn.hasClass('on')) {
+        //         console.log('raising claw...')
+        //         $scope.togglePort(['5', '6'], ['off', 'on']);
+        //     } else {
+        //         console.log('stopping...')
+        //         $scope.togglePort(['6'], ['off']);
+        //     }
+        // };
 
-        $scope.clawUp = function() {
-            //port 15 on, port 16 off
-            console.log('raising claw...')
-            $scope.togglePort('15', 'on');
-            $scope.togglePort('16', 'off');
-        };
-
-        $scope.clawDown = function() {
-            // Port 16 on, port 15 off
-            console.log('lowering claw...');
-            $scope.togglePort('15', 'off');
-            $scope.togglePort('16', 'on');
-        };
-
-        $scope.ports = [{
-            port: '22',
-            state: 'off'
-        }, {
-            port: '18',
-            state: 'off'
-        }, {
-            port: '16',
-            state: 'off'
-        }, {
-            port: '15',
-            state: 'off'
-        }, {
-            port: '13',
-            state: 'off'
-        }, {
-            port: '11',
-            state: 'off'
-        }, {
-            port: '12',
-            state: 'off'
-        }, {
-            port: '7',
-            state: 'off'
-        }];
+        // $scope.lower = function() {
+        //     var btn = $('#lower');
+        //     btn.toggleClass('on');
+        //     btn.toggleClass('btn-primary');
+        //     if (btn.hasClass('on')) {
+        //         console.log('lowering claw...');
+        //         $scope.togglePort(['5', '6'], ['on', 'off']);
+        //     } else {
+        //         console.log('stopping...');
+        //         $scope.togglePort(['5'], ['off']);
+        //     }
+        // };
 
         var timerInit = 5,
             turnsInit = 3,
