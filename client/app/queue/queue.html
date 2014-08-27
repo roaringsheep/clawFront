@@ -9,36 +9,46 @@
             </span>
         </div>
         <div ng-show="isLoggedIn">
-            <h3>ETA to Play</h3>
-            <div id="queue" class="alert alert-warning">
-                <strong class="badge">{{queue.length-1}}{{queue.length == 2?" minute":" minutes"}}, {{currentUser.name}}!</strong>
-                </span>
+            <div>
+                <h3>ETA to Play</h3>
+                <div id="queue" class="alert alert-warning">
+                    <strong class="badge">{{queue.length-1}}{{queue.length == 2?" minute":" minutes"}}, {{currentUser.name}}!</strong>
+                </div>
             </div>
         </div>
-        <div class = "col-md-12">
+        <div class="col-md-12">
             <button type="submit" class="btn btn-main btn-primary" ng-click="addFreePlayer(currentUser)">Join the Queue</button>
         </div>
         <!-- Button trigger modal -->
-<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-  Launch demo modal
-</button>
+        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+            Launch demo modal
+        </button>
+        <div>
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">You're next, {{currentUser.name}}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div>Just click
+                                <button ng-click="stayInLine(currentUser)" type="button" class="btn btn-success" data-dismiss="modal">Let's play!
+                                </button>
+                                within
+                                <span class="badge">{{timer.countdown}}</span>
+                                seconds to play
+                            </div>
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Still here?</h4>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-dismiss="modal">Yep!</button>
-      </div>
-    </div>
-  </div>
-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>

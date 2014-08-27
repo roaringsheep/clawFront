@@ -10,6 +10,18 @@
     padding-left:0;
 }
 
+body {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+}
+
+.container {
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
 .no-margin-right {
     margin-right: 0;
     padding-right: 0;
@@ -20,6 +32,13 @@
     margin-top: -20px;
 }
 
+/*navbar {
+    width: 100%
+    position: fixed;
+    margin-top: 20px;
+    background: rgba(255, 255, 255, 0);
+}*/
+
 #banner h1 {
     font-size: 60px;
     line-height: 1;
@@ -28,13 +47,13 @@
 
 .hero-unit {
     position: relative;
-    height: 75em;
     padding: 30px 15px;
     color: #F5F5F5;
     text-align: center;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
-    background-image: "";
-    background: #4393B9;
+    background: black;
+    height: 100%;
+    width: 100%;
 }
 
 /*BUTTONS*/
@@ -60,8 +79,32 @@
     height: 300px;
     width: 300px;
     font-size: 3em;
+    background-color: rgba(255,255,255,0.75);
+    color: rgba(0,0,0,0.5);
 }
 
+.controller {
+    color: rgba(255,255,255,0.75);
+    background-color: rgba(255,255,255,0);
+    border: none;
+}
+
+div.row.controllers-fixed {
+    margin-top: 400px;
+  
+    height: 300px;
+ 
+    width: 100%;
+}
+
+/*VIDEO*/
+.videoUrl {
+    background: url("http://192.168.1.124:8080/?action=stream") no-repeat center center;
+    background-size: cover;
+    min-width: 100vh;
+    min-height: 100vh;
+
+}
 .footer {
     text-align: center;
     padding: 30px 0;

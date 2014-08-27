@@ -1,37 +1,36 @@
 <div ui-view>
     <!-- <div ng-include = "'app/queue/queue.html'"></div> -->
-    <div class="row">
+   <!--  <div class="row">
         <span class="badgeSpan">
             <strong class="badge">{{game.turns}}</strong>TURNS LEFT</span>
         <span class="badgeSpan">
             <strong class="badge">{{game.timer}}</strong>SECONDS LEFT IN THIS TURN</span>
-    </div>
+    </div> -->
     <div class="row">
         <div class="col-lg-2"></div>
         <div class="col-lg-4">
             <div class="row">
-                <a ng-mousedown="move('back')" ng-mouseup="move('bclear')" id='back' class="btn btn-primary">
+                <a ng-mousedown="move('back')" ng-mouseup="move('bclear')" id='back' class="btn controller">
                     <span class="fa fa-arrow-up fa-5x text-align"></span>
                 </a>
             </div>
             <div class="row">
-                <a ng-mousedown="move('left')" ng-mouseup="move('lclear')" id="left" class="btn btn-primary placeholder">
+                <a ng-mousedown="move('left')" ng-mouseup="move('lclear')" id="left" class="btn  controller placeholder ">
                     <span class="fa fa-arrow-left fa-5x text-align"></span>
                 </a>
-                <a ng-mousedown="move('right')" ng-mouseup="move('rclear')" id="right" class="btn btn-primary placeholder">
+                <a ng-mousedown="move('right')" ng-mouseup="move('rclear')" id="right" class="btn controller placeholder">
                     <span class="fa fa-arrow-right fa-5x text-align"></span>
                 </a>
             </div>
             <div class="row">
-                <a ng-mousedown="move('forw')" ng-mouseup="move('fclear')" id="front" class="btn btn-primary">
+                <a ng-mousedown="move('forw')" ng-mouseup="move('fclear')" id="front" class="btn controller">
                     <span class="fa fa-arrow-down fa-5x text-align"></span>
                 </a>
             </div>
         </div>
         <div class="col-lg-4">
-            Drop the claw!
             <div class="row">
-                <button ng-click="clawDrop()" class="btn btn-primary btn-xl">DROP</button>
+                <button ng-click="clawDrop()" id = "drop" class="btn btn-xl">DROP</button>
             </div>
 
         </div>

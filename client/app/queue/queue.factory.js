@@ -102,7 +102,8 @@ angular.module('clawFrontApp')
           return alert;
         }
 
-        console.log("factory:", factory);
+     
+     
         return factory;
     });
 
