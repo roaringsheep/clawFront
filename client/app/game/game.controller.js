@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('clawFrontApp')
-    .controller('GameCtrl', function($scope, $rootScope, $interval, queueFactory, Auth, talkToPi, $http, $timeout) {
+    .controller('GameCtrl', function($scope, $rootScope, $interval, queueFactory, Auth, talkToPi, $http, $timeout, $location) {
 
 
         $scope.move = function(status) {
@@ -13,13 +13,15 @@ angular.module('clawFrontApp')
             });
         };
 
+        $scope.dropping = false;
         $scope.clawDrop = function() {
             //lower, loclear raise, raclear left, lclear forw, fclear lower, loclear raise, raclear  
+            $scope.dropping = true;
             console.log('lowering...')
             $scope.move('lower');
             $timeout(function() {
                 $scope.move('loclear,raise');
-            }, 2300)
+            }, 2400)
                 .then(function() {
                     return $timeout(function() {
                         $scope.move('raclear,left');
@@ -43,6 +45,8 @@ angular.module('clawFrontApp')
                 .then(function() {
                     return $timeout(function() {
                         $scope.move('raclear');
+                        $scope.dropping = false;
+                        window.location = "http://goo.gl/JzbXWe";
                     }, 1300);
                 })
         };
