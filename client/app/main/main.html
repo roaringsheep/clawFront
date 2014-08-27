@@ -2,7 +2,7 @@
     <div class="row">
         <center>
             <div class="col-lg-6 col-md-6 col-sm-12">
-                <button class="btn btn-main btn-success btn-xl" data-toggle="modal" data-target="#login">Play</button>
+                <button class="btn btn-main btn-xl controller" data-toggle="modal" data-target="#login">Get started</button>
             </div>
         </center>
     </div>
@@ -20,7 +20,7 @@
                         <span aria-hidden="true">&times;</span>
                         <span class="sr-only">Close</span>
                     </button>
-                    <h4 class="modal-title" id="loginLabel">Log In to Play!</h4>
+                    <h4 class="modal-title" id="loginLabel"></h4>
                 </div>
                 <div class="modal-body">
                     <form class="form" name="form" novalidate>
@@ -49,14 +49,9 @@
                         </div>
 
                         <div>
-                            <button ng-click="freePlay(form)" class="btn btn-success btn-lg btn-login">
-                                Play for Free
+                            <button ng-click="loginModal(form)" class="btn btn-success btn-lg btn-login">
+                                Login
                             </button>
-                            <form action="" method="POST">
-                                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_bE12QyEg4nE1pzUEw2OI6riK" data-amount="100" data-name="The Claw" data-description="1 game ($1.00)" data-image="">
-                                </script>
-                            </form>
-
                             <br>Or <a class="" ng-click="directToSignup()">
             register</a> here.
                         </div>

@@ -6,7 +6,7 @@
         <span class="badgeSpan">
             <strong class="badge">{{game.timer}}</strong>SECONDS LEFT IN THIS TURN</span>
     </div> -->
-    <div class="row">
+    <div class="row controllers-fixed">
         <div class="col-lg-2"></div>
         <div class="col-lg-4">
             <div class="row">
@@ -15,7 +15,7 @@
                 </a>
             </div>
             <div class="row">
-                <a ng-mousedown="move('left')" ng-mouseup="move('lclear')" id="left" class="btn  controller placeholder ">
+                <a ng-mousedown="move('left')" ng-mouseup="move('lclear')" id="left" class="btn controller placeholder ">
                     <span class="fa fa-arrow-left fa-5x text-align"></span>
                 </a>
                 <a ng-mousedown="move('right')" ng-mouseup="move('rclear')" id="right" class="btn controller placeholder">
@@ -30,7 +30,7 @@
         </div>
         <div class="col-lg-4">
             <div class="row">
-                <button ng-click="clawDrop()" id = "drop" class="btn btn-xl">DROP</button>
+                <button ng-click="clawDrop()" id = "drop" class="btn btn-xl controller">DROP</button>
             </div>
 
         </div>

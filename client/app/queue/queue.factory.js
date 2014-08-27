@@ -35,7 +35,7 @@ angular.module('clawFrontApp')
         };
 
         //add player to queue
-        factory.addPaidPlayer = function(player) {
+        factory.addPlayer = function(player) {
           var alreadyInQueue = false;
           $rootScope.queue.forEach(function(el){
               if(el.userId == player._id)
@@ -52,23 +52,23 @@ angular.module('clawFrontApp')
             }
         }
 
-        factory.addFreePlayer = function(player) {
-          var alreadyInQueue = false;
-          $rootScope.queue.forEach(function(el){
-              if(el.userId == player._id)
-                  {alreadyInQueue = true;}
-                    return alreadyInQueue;
-            })
-              if(!alreadyInQueue){ 
-              $http.post('/api/queues', {
-                username: player.name,
-                userId: player._id,
-                active: true,
-                index: "F"+Date.now()
-              })
-            }
-          console.log("$rootScope.queue", $rootScope.queue);
-        }
+        // factory.addFreePlayer = function(player) {
+        //   var alreadyInQueue = false;
+        //   $rootScope.queue.forEach(function(el){
+        //       if(el.userId == player._id)
+        //           {alreadyInQueue = true;}
+        //             return alreadyInQueue;
+        //     })
+        //       if(!alreadyInQueue){ 
+        //       $http.post('/api/queues', {
+        //         username: player.name,
+        //         userId: player._id,
+        //         active: true,
+        //         index: "F"+Date.now()
+        //       })
+        //     }
+        //   console.log("$rootScope.queue", $rootScope.queue);
+        // }
 
         //remove player from queue
         factory.removeByQueueUserId = function(player) {

@@ -22,10 +22,28 @@ body {
     width: 100%;
 }
 
+
+.transparent {
+    color: rgba(255,255,255,0.75);
+    background-color: rgba(255,255,255,0);   
+}
+
+
+.inline {
+    display: inline-block;
+}
 .no-margin-right {
     margin-right: 0;
     padding-right: 0;
 }
+/*QUEUE*/
+.user-box {
+    height: 200px;
+    width: 400px;
+    border: 1px solid black;
+}
+
+
 /*NAVBAR + HEADER*/
 #banner {
     border-bottom: none;
@@ -75,26 +93,42 @@ body {
 
 #drop {
     border-radius: 100%;
-    border: none;
-    height: 300px;
-    width: 300px;
-    font-size: 3em;
-    background-color: rgba(255,255,255,0.75);
-    color: rgba(0,0,0,0.5);
+  /*  border: none;*/
+    height: 175px;
+    width: 175px;
+    font-size: 2.5em;
+   /* background-color: rgba(255,255,255,0.75);
+    color: rgba(0,0,0,0.5);*/
 }
 
 .controller {
     color: rgba(255,255,255,0.75);
     background-color: rgba(255,255,255,0);
-    border: none;
+    border: 1px solid rgba(255,255,255,.75);
+}
+
+.controller:hover{
+    color: rgba(0,0,0,0.75);
+    background-color: rgba(255,255,255,0.75);
+    border: 1px solid rgba(0,0,0,0.75);
 }
 
 div.row.controllers-fixed {
     margin-top: 400px;
-  
     height: 300px;
- 
     width: 100%;
+}
+#container {
+    height: 100vh;
+    width: 100vh;
+}
+
+.red {
+    background-color: red;
+}
+
+.blue {
+    background-color: blue;
 }
 
 /*VIDEO*/
@@ -105,12 +139,22 @@ div.row.controllers-fixed {
     min-height: 100vh;
 
 }
+
+.videoUrl2 {
+    background: url("http://192.168.1.124:8080/?action=stream") no-repeat center center;
+    background-size: cover;
+    min-width: 100vh;
+    min-height: 100vh;
+
+}
+
 .footer {
     text-align: center;
     padding: 30px 0;
     margin-top: 70px;
     border-top: 1px solid #E5E5E5;
 }
+
 
 .modal {
     color: gray;
