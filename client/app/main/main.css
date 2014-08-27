@@ -21,13 +21,6 @@ body {
     height: 100%;
     width: 100%;
 }
-.videoUrl {
-    background: url("http://192.168.1.124:8080/?action=stream") no-repeat center center;
-    background-size: cover;
-    min-width: 100vh;
-    min-height: 100vh;
-
-}
 
 .no-margin-right {
     margin-right: 0;
@@ -94,6 +87,23 @@ body {
     color: rgba(255,255,255,0.75);
     background-color: rgba(255,255,255,0);
     border: none;
+}
+
+div.row.controllers-fixed {
+    margin-top: 400px;
+  
+    height: 300px;
+ 
+    width: 100%;
+}
+
+/*VIDEO*/
+.videoUrl {
+    background: url("http://192.168.1.124:8080/?action=stream") no-repeat center center;
+    background-size: cover;
+    min-width: 100vh;
+    min-height: 100vh;
+
 }
 .footer {
     text-align: center;
