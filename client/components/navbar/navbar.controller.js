@@ -25,7 +25,6 @@ angular.module('clawFrontApp')
         $scope.isAdmin = Auth.isAdmin;
         $scope.CurrentUser = Auth.getCurrentUser();
         // $scope.queue = "";
-
         //Get queue
         $rootScope.$watch('queue', function(newval, oldval) {
             $scope.queue = newval;

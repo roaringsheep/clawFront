@@ -79,11 +79,13 @@ angular.module('clawFrontApp')
 
         var findPlayerInQueue = function(queue, player) {
             var isThere = -1;
-            for (var i = 0; i < queue.length; i++) {
-                console.log("queue[i].userId", queue[i].userId, "player", player._id, "i: ", i)
-                if (queue[i].userId == player._id) {
-                    isThere = i;
-                    console.log("found it!", isThere);
+            if (queue) {
+                for (var i = 0; i < queue.length; i++) {
+                    console.log("queue[i].userId", queue[i].userId, "player", player._id, "i: ", i)
+                    if (queue[i].userId == player._id) {
+                        isThere = i;
+                        console.log("found it!", isThere);
+                    }
                 }
             }
             console.log('isThere', isThere);
