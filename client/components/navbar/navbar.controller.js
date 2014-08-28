@@ -27,10 +27,17 @@ angular.module('clawFrontApp')
     $scope.CurrentUser = Auth.getCurrentUser();
     // $scope.queue = "";
 
-    // $rootScope.$watch('queue', function(newval, oldval) {
-    //         $scope.queue = newval;
-    //         console.log("queue from navbar: ", $scope.queue)
-    // })
+     //Get queue
+        $rootScope.$watch('queue', function(newval, oldval) {
+            $scope.queue = newval;
+
+        })
+
+         $rootScope.$watch('eta', function(newval, oldval) {
+            $scope.eta = newval;
+        })
+
+
     
     // $scope.getQueue = queueFactory.getQueue(); 
     $scope.removeByUserId = function(player) {
@@ -43,7 +50,7 @@ angular.module('clawFrontApp')
       console.log("scope.removeByUserId: ", $scope.removeByUserId, "$scope.CurrentUser: ", $scope.CurrentUser)
       $scope.removeByUserId($scope.CurrentUser).success(function(){
         Auth.logout();
-      })
+      }).then(function(){$scope.eta})
       $location.path('/');
     };
 

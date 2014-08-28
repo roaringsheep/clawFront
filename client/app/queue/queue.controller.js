@@ -8,20 +8,30 @@ angular.module('clawFrontApp')
         $scope.isLoggedIn = Auth.isLoggedIn();
         console.log("currentUser: ", $scope.currentUser);
         $scope.queue = queueFactory.getQueue();
-
-
+       
         //Get queue
          $rootScope.$watch('queue', function(newval, oldval) {
             $scope.queue = newval;
-            if (typeof $rootScope.queue == "undefined" || $rootScope.queue.length === 0) {
+            if (typeof $rootScope.queue == "undefined") {
                 // run nothing
             } else {
-                $scope.eta = queueFactory.ETAtoPlay(newval, $scope.currentUser);
+                $rootScope.eta = queueFactory.ETAtoPlay(newval, $scope.currentUser);
             }
 
         })
 
-     
+        $rootScope.$watch('eta', function(newval, oldval) {
+            $scope.eta = newval;
+            console.log("I updated $rootScope.eta", $rootScope.eta, "$scope.eta: ", $scope.eta)
+        })
+
+        //Poll queue
+        $interval(function(){
+            var temp = queueFactory.getQueue();
+             if (typeof temp != "undefined") {
+                $rootScope.queue = queueFactory.getQueue()
+            }
+        }, 500)
 
         //Add player
         $scope.addPlayer = function(player) {
@@ -32,19 +42,22 @@ angular.module('clawFrontApp')
 
         //Remove player
         $scope.removeByQueueUserId = function(player) {
-       
-            $scope.eta = queueFactory.ETAtoPlay($scope.queue, $scope.currentUser);
-            return queueFactory.removeByQueueUserId(player);
-
+            queueFactory.removeByQueueUserId(player).success(function(){
+                 $rootScope.eta = queueFactory.ETAtoPlay($scope.queue, $scope.currentUser);
+            });
         };
 
         $scope.removeByUserId = function(player) {
-         
-            $scope.eta = queueFactory.ETAtoPlay($scope.queue, $scope.currentUser);
-            return queueFactory.removeByUserId(player);
+            queueFactory.removeByUserId(player).success(function(){
+                 $rootScope.eta = queueFactory.ETAtoPlay($scope.queue, $scope.currentUser);
+            });
         };
 
         $scope.timer = {}
+        $scope.test = 0;
+        $scope.incrementTest = function() {
+            $scope.test++;
+        }
 
         // $scope.ETAtoPlay = function (queue, player) {return queueFactory.ETAtoPlay(queue, player);}
         
