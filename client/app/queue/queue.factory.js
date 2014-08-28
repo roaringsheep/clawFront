@@ -25,13 +25,14 @@ angular.module('clawFrontApp')
 
         //get sorted queue
         factory.getQueue = function() {
-            $rootScope.queue = [];
-            $http.get('/api/queues').success(function(queue) {
-                $rootScope.queue = sortObj(queue, "index");
+            var queue = [];
+
+            $http.get('/api/queues').success(function(dbQueue) {
+                $rootScope.queue = sortObj(dbQueue, "index");
                 socket.syncUpdates('queue', $rootScope.queue);
-                // console.log("queue:", queue);
                 return $rootScope.queue;
             })
+
         };
 
         //add player to queue
@@ -52,76 +53,53 @@ angular.module('clawFrontApp')
             }
         }
 
-        // factory.addFreePlayer = function(player) {
-        //   var alreadyInQueue = false;
-        //   $rootScope.queue.forEach(function(el){
-        //       if(el.userId == player._id)
-        //           {alreadyInQueue = true;}
-        //             return alreadyInQueue;
-        //     })
-        //       if(!alreadyInQueue){ 
-        //       $http.post('/api/queues', {
-        //         username: player.name,
-        //         userId: player._id,
-        //         active: true,
-        //         index: "F"+Date.now()
-        //       })
-        //     }
-        //   console.log("$rootScope.queue", $rootScope.queue);
-        // }
+
 
         //remove player from queue
         factory.removeByQueueUserId = function(player) {
         console.log("player in $http.delete request: ", player)
-            return $http.delete('/api/queues/' + player.userId);
+            return $http.delete('/api/queues/' + player.userId).success(function() {
+                $http.get('/api/queues').success(function(dbQueue) {
+                    $rootScope.queue = sortObj(dbQueue, "index");
+                    socket.syncUpdates('queue', $rootScope.queue);
+                });
+            });;
            
         }
 
         factory.removeByUserId = function(player) {
         console.log("player in $http.delete request: ", player)
-            return $http.delete('/api/queues/' + player._id);
+            return $http.delete('/api/queues/' + player._id).success(function() {
+                $http.get('/api/queues').success(function(dbQueue) {
+                    $rootScope.queue = sortObj(dbQueue, "index");
+                    socket.syncUpdates('queue', $rootScope.queue);
+                });
+            });
            
         }
 
-        // factory.removeCurrentUser = function(player) {
-
-
+      //   factory.playWithCredits = function(player) {
+      //       if (player.credits >=1) player.credits--;
+      //       $http.put('/api/users/' + user._id, user).success(function() {console.log("$http.put user: ", user);
+      // });
         // }
-    
-        //alert player at queue milestones
-        factory.queueAlert = function (player, queue) {
-        var alert = i;
-        for (var i = 0; i<queue.length; i++) {
-               if (queue[i].userId == player._id) {  
-                   if (i==10){alert = i}
-                      else if (i = 5) {alert = i}
-                        else if (i = 1) {alert = i}
-            }
-          }
-          console.log("alert: ", alert)
-          return alert;
-        }
 
-     
+        //check ETAtoPlay
+        factory.ETAtoPlay = function(queue, player) {
+            var eta = "";
+                console.log("it's running")
+            for (var i = 0; i < queue.length; i++) {
+                console.log("queue[i].userId", queue[i].userId, "player", player._id)
+                if (queue[i].userId == player._id) eta = i;
+                else eta = queue.length;
+            }
+            console.log("eta", eta)
+            return eta;
+        }
+    
+
      
         return factory;
     });
 
-    // //check ETAtoPlay
-        // factory.ETAtoPlay = function(player, queue) {
-        //     var eta = "";
-        //     //console.log("queue", queue);
-        //         for (var i = 0; i<queue.length; i++) {
-        //           if (queue[i].userId == player._id) {
-        //             eta= "Hey " + player.name + ", ";
-        //               if (i==0){
-        //                   eta +="you're next!"}
-        //               if (i==1) {
-        //                       eta +="1 minute to go!"
-        //               }
-        //               else eta += i + " minutes to go!";
-        //           }
-        //         }
-        //      console.log("eta", eta);
-        //     return eta;
-        // }
+

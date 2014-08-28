@@ -36,6 +36,7 @@ angular.module('clawFrontApp')
 
         $scope.loginModal = function(form) {
                 $scope.login(form);
+                //$scope.eta = queueFactory.ETAtoPlay($scope.queue, $scope.currentUser)
                 // $scope.addPlayer($scope.currentUser);
             };
 

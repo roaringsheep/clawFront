@@ -7,41 +7,52 @@ angular.module('clawFrontApp')
         $scope.currentUser = Auth.getCurrentUser();
         $scope.isLoggedIn = Auth.isLoggedIn();
         console.log("currentUser: ", $scope.currentUser);
-        $scope.queue = '';
+        $scope.queue = queueFactory.getQueue();
+
 
         //Get queue
-        $rootScope.$watch('queue', function(newval, oldval) {
+         $rootScope.$watch('queue', function(newval, oldval) {
             $scope.queue = newval;
+            if (typeof $rootScope.queue == "undefined" || $rootScope.queue.length === 0) {
+                // run nothing
+            } else {
+                $scope.eta = queueFactory.ETAtoPlay(newval, $scope.currentUser);
+            }
 
-        $interval(function() {
-            $scope.queueAlert = queueFactory.queueAlert($scope.currentUser, $scope.queue)
-            }, 300000)
         })
+
+        // $rootScope.$watch ("queue", function(newval, oldval){
+        //     newval = 
+        //     $scope.eta = newval;
+        // })
+
+        // $scope.eta = queueFactory.ETAtoPlay($rootScope.queue, $scope.currentUser)
 
         //Add player
         $scope.addPlayer = function(player) {
             return queueFactory.addPlayer(player);
-
 
         };
      
 
         //Remove player
         $scope.removeByQueueUserId = function(player) {
+       
+            $scope.eta = queueFactory.ETAtoPlay($scope.queue, $scope.currentUser);
             return queueFactory.removeByQueueUserId(player);
 
         };
 
         $scope.removeByUserId = function(player) {
+         
+            $scope.eta = queueFactory.ETAtoPlay($scope.queue, $scope.currentUser);
             return queueFactory.removeByUserId(player);
         };
 
         $scope.timer = {}
-        $scope.timer.countdown = 10;
-        $scope.$watch('queue', function(){
-            $scope.minuteToGo($scope.currentUser)
 
-        })
+        // $scope.ETAtoPlay = function (queue, player) {return queueFactory.ETAtoPlay(queue, player);}
+        
     
         $scope.countdown = function() {
                     $interval(function() {
@@ -52,23 +63,15 @@ angular.module('clawFrontApp')
                     }}, 1000);
             }
                 
-              
-        $scope.minuteToGo = function(player) {
-             for (var i = 0; i<$scope.queue.length; i++) {
-                if (player._id==$scope.queue[i].userId && i == 1) {
-                    $scope.countdown();
-                }
-             }
-                
-        }
+//     $scope.getQueue = function () {
+//         $http.get('/api/queues').success(function(dbQueue) {
+//                 $scope.queue = dbQueue;
+//                 socket.syncUpdates('queue', dbQueue);
+//                 console.log("dbQueue:", dbQueue);
+//     })  
+//         return $scope.queue;
+// }   
 
-        // $scope.stayInLine = function (player) {
-        //     var message = player._id + " is still here";
-        //     console.log("stayInLine", message)
-        //     $scope.$emit(alert("I'll stay in line"));
-        // };
 
-        //ping player at time intervals
-       
-        $scope.getQueue = queueFactory.getQueue();
+
     });

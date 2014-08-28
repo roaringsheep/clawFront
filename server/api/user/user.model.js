@@ -9,7 +9,6 @@ var ObjectId = Schema.Types.ObjectId;
 var UserSchema = new Schema({
   username: String,
   name: String,
-  isPaid: {type: Boolean, default: false},
   email: { type: String, lowercase: true },
   games: [ObjectId],
   credits: {type: Number, default: 1},
