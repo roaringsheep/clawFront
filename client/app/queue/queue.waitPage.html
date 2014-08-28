@@ -7,7 +7,7 @@
                     <span>
                         <h3>Welcome {{currentUser.name}}</h3>
                         <h5 ng-if="currentUser.credits>=1">
-                            <span class "glyphicon glyphicon-ok controller"></span>You have
+                            You have
                             <span class="badge">{{currentUser.credits}}</span>{{currentUser.credits == 1?" game credit":" game credits"}}
                         </h5>
                     </span>
@@ -18,7 +18,7 @@
                         <h5>
                             There is nobody ahead of you!
                             <br>Click
-                            <button class="btn btn-success btn-sm" ng-disabled="eta>0" ng-click="playGame(player)">Play with 1 credit</button>to start game.
+                            <button class="btn btn-success btn-sm" ng-disabled="eta>0" ng-click="playGame(player)">Play with 1 credit</button> to start game.
                         </h5>
                     </span>
                 </div>
@@ -26,20 +26,19 @@
                 <div class="row">
                     <span>
                     </span>
-                    <span ng-show="eta>1">
+                    <span ng-if="currentUser.credits>=1 && eta>1">
                         <h5>
-                            <strong class="badge"></strong>
-                            There are {{eta}} players ahead of you.
+                            There are <span class = "badge">{{eta}}</span> players ahead of you.
+                            <br>Click
+                            <button class="btn btn-success btn-sm" ng-disabled="currentUser.credits==0" ng-click="addPlayer(currentUser)"> Play with 1 credit </button> to join the game queue.
                         </h5>
                     </span>
-                    <span ng-show="eta==1">
+                    <span ng-show="currentUser.credits>=1 && eta==1">
                         <h5>
-                            <strong class="badge"></strong>
-                            There is {{eta}} player ahead of you
+                            There is <span class = "badge">{{eta}}</span> player ahead of you.
+                            <br>Click
+                            <button class="btn btn-success btn-sm" ng-disabled="currentUser.credits==0" ng-click="addPlayer(currentUser)"> Play with 1 credit </button> to join the game queue.
                         </h5>
-                    </span>
-                    <span ng-show="eta==0">
-
                     </span>
                 </div> <!-- row -->
              </div> <!-- col -->
