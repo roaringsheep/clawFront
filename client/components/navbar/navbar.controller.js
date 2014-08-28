@@ -54,11 +54,8 @@ angular.module('clawFrontApp')
 
         $scope.logout = function() {
             console.log("scope.removeByUserId: ", $scope.removeByUserId, "$scope.CurrentUser: ", $scope.CurrentUser)
-            $scope.removeByUserId($scope.CurrentUser).success(function() {
-                Auth.logout();
-            }).then(function() {
-                $scope.eta
-            })
+            $scope.removeByUserId($scope.CurrentUser);
+            Auth.logout();
             $location.path('/');
         };
 
