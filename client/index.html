@@ -33,6 +33,28 @@
     <link rel="stylesheet" href="app/queue/queue.css">
     <!-- endinjector -->
     <!-- endbuild -->
+
+    <!-- Stripe.js -->
+   <!-- <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script type="text/javascript">
+      // This identifies your website in the createToken call below
+      // This key is for testing. Change to live key when ready
+      Stripe.setPublishableKey('pk_test_bE12QyEg4nE1pzUEw2OI6riK');
+
+      jQuery(function($) {
+        $('#payment-form').submit(function(event) {
+          var $form = $(this);
+
+          // Disable the submit button to prevent repeated clicks
+          $form.find('button').prop('disabled', true);
+
+          Stripe.card.createToken($form, stripeResponseHandler);
+
+          // Prevent the form from submitting with the default action
+          return false;
+        });
+      });
+    </script> -->
 </head>
 
 <body ng-app="clawFrontApp">
@@ -46,9 +68,13 @@
         <a class = "btn controller placeholder" ng-click = "toggleVideo()">Toggle video feed</a>
         <div class="container">
             <div id = "yo" class = "videoUrl">  
-                <div class="row"><div ui-view></div></div>
-            </div>
+
+                <div ng-show = "videoUrl" ng-hide = "!videoUrl" class = "videoUrl">
+                    <div class="row"><div ui-view></div></div>
+
+                </div>
             <!-- <img src="http://192.168.1.124:8080/?action=stream" /> -->
+            </div>
         </div>
     </div>
 
