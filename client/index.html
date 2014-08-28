@@ -35,7 +35,7 @@
     <!-- endbuild -->
 
     <!-- Stripe.js -->
-    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+   <!-- <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script type="text/javascript">
       // This identifies your website in the createToken call below
       // This key is for testing. Change to live key when ready
@@ -54,7 +54,7 @@
           return false;
         });
       });
-    </script>
+    </script> -->
 </head>
 
 <body ng-app="clawFrontApp">
@@ -66,17 +66,16 @@
     <div ng-include="'components/navbar/navbar.html'"></div>
     <div id="userMedia"></div>
     <div ng-controller = "MainCtrl" class="hero-unit" id="banner">
-        <a class = "btn controller placeholder" ng-click = "videoUrl = !videoUrl">Toggle video feed</a>
+        <a class = "btn controller placeholder" ng-click = "toggleVideo()">Toggle video feed</a>
         <div class="container">
+            <div id = "yo" class = "videoUrl">  
 
-            <div ng-show = "videoUrl" ng-hide = "!videoUrl" class = "videoUrl">
-                <div class="row"><div ui-view></div></div>
+                <div ng-show = "videoUrl" ng-hide = "!videoUrl" class = "videoUrl">
+                    <div class="row"><div ui-view></div></div>
 
-            </div>
-            <div ng-show = "!videoUrl" ng-hide = "videoUrl" class = "videoUrl2">
-                <div class="row"><div ui-view></div></div>
-            </div>
+                </div>
             <!-- <img src="http://192.168.1.124:8080/?action=stream" /> -->
+            </div>
         </div>
     </div>
 
