@@ -4,7 +4,7 @@
 The Claw is a hybrid hardware-software web app.  We built the Claw with a Raspberry Pi, an eight-channel DC router, a hacked toy arcade claw game and MEAN stack web technology. The goal is simple -- manuever a real claw from your web browser to win a prize. 
 
 ##HOW TO PLAY##
-Visit our live deployed app at []. You can choose a free version, or pay for the shot at keeping your prize. 
+Visit our live deployed app [here](https://dummyurl.herokuapp.com). You can watch for free, or pay to play. 
 
 ##RELATED REPO##
 Web server code for the Claw Project. 
