@@ -7,8 +7,7 @@ The Claw is a hybrid hardware-software web app.  We built the Claw with a Raspbe
 Visit our live deployed app [here](https://dummyurl.herokuapp.com). You can watch for free, or pay to play. 
 
 ##RELATED REPO##
-Web server code for the Claw Project. 
-https://github.com/roaringsheep/theClaw
+[Web Socket](https://github.com/roaringsheep/piSocket/) for connecting Raspberry Pi.
 
 ##CONTRIBUTORS##
 - [Adam Barcan](https://github.com/Adam262)
