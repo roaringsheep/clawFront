@@ -43,7 +43,7 @@ angular.module('clawFrontApp')
                   {alreadyInQueue = true;}
                     return alreadyInQueue;
             })
-              if(!alreadyInQueue){ 
+              if(!alreadyInQueue && player.credits >=1){ 
               $http.post('/api/queues', {
                 username: player.name,
                 userId: player._id,
@@ -66,12 +66,6 @@ angular.module('clawFrontApp')
             return $http.delete('/api/queues/' + player._id);
         }
 
-      //   factory.playWithCredits = function(player) {
-      //       if (player.credits >=1) player.credits--;
-      //       $http.put('/api/users/' + user._id, user).success(function() {console.log("$http.put user: ", user);
-      // });
-        // }
-
         //check ETAtoPlay
         factory.ETAtoPlay = function(queue, player) {
            
@@ -87,6 +81,16 @@ angular.module('clawFrontApp')
             }
             console.log("eta", eta)
             return eta;
+        }
+
+        // check if player is in queue
+
+        // play game with credits
+
+        factory.playWithCredits = function(player) {
+            if (player.credits >=1) player.credits--;
+            $http.put('/api/users/' + user._id, user).success(function() {console.log("$http.put user: ", user);
+      });
         }
     
      
