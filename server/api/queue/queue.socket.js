@@ -7,6 +7,7 @@
 var Queue = require('./queue.model');
 
 exports.register = function(socket) {
+  console.log(Queue,"foobar")
   Queue.schema.post('save', function (doc) {
     onSave(socket, doc);
   });

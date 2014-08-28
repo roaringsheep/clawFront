@@ -58,24 +58,12 @@ angular.module('clawFrontApp')
         //remove player from queue
         factory.removeByQueueUserId = function(player) {
         console.log("player in $http.delete request: ", player)
-            return $http.delete('/api/queues/' + player.userId).success(function() {
-                $http.get('/api/queues').success(function(dbQueue) {
-                    $rootScope.queue = sortObj(dbQueue, "index");
-                    socket.syncUpdates('queue', $rootScope.queue);
-                });
-            });;
-           
+            return $http.delete('/api/queues/' + player.userId);
         }
 
         factory.removeByUserId = function(player) {
         console.log("player in $http.delete request: ", player)
-            return $http.delete('/api/queues/' + player._id).success(function() {
-                $http.get('/api/queues').success(function(dbQueue) {
-                    $rootScope.queue = sortObj(dbQueue, "index");
-                    socket.syncUpdates('queue', $rootScope.queue);
-                });
-            });
-           
+            return $http.delete('/api/queues/' + player._id);
         }
 
       //   factory.playWithCredits = function(player) {
@@ -86,18 +74,21 @@ angular.module('clawFrontApp')
 
         //check ETAtoPlay
         factory.ETAtoPlay = function(queue, player) {
-            var eta = "";
+           
+            var eta = queue.length;
                 console.log("it's running")
             for (var i = 0; i < queue.length; i++) {
-                console.log("queue[i].userId", queue[i].userId, "player", player._id)
-                if (queue[i].userId == player._id) eta = i;
-                else eta = queue.length;
+                console.log("queue[i].userId", queue[i].userId, "player", player._id, "i: ", i)
+                if (queue[i].userId == player._id) {
+                    eta = i;
+                    console.log("found it!", eta);
+                }
+               
             }
             console.log("eta", eta)
             return eta;
         }
     
-
      
         return factory;
     });
