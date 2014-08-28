@@ -18,8 +18,8 @@ angular.module('clawFrontApp')
                 url: '/api/games/fix',
                 method: 'POST',
                 data: string
-            })
-        }
+            });
+        };
 
         return factory;
     });

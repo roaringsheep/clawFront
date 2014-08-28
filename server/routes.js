@@ -8,8 +8,7 @@ var errors = require('./components/errors');
 
 module.exports = function(app) {
 
-  // Insert routes below
-  
+  // Insert routes below 
   app.use('/api/queues', require('./api/queue'));
   app.use('/api/games', require('./api/game'));
   app.use('/api/things', require('./api/thing'));

@@ -13,13 +13,6 @@ angular.module('clawFrontApp')
             });
         };
 
-        $scope.fixShit = function(){
-            var string = "15,off,16,off";
-            talkToPi.fixShit({
-                'move': string
-            })
-        }
-
         $scope.dropping = false;
         $scope.clawDrop = function() {
             //lower, loclear raise, raclear left, lclear forw, fclear lower, loclear raise, raclear  
