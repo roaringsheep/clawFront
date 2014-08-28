@@ -54,12 +54,6 @@ angular.module('clawFrontApp')
         };
 
         $scope.timer = {}
-        $scope.test = 0;
-        $scope.incrementTest = function() {
-            $scope.test++;
-        }
-
-        // $scope.ETAtoPlay = function (queue, player) {return queueFactory.ETAtoPlay(queue, player);}
         
     
         $scope.countdown = function() {
@@ -69,17 +63,7 @@ angular.module('clawFrontApp')
                         console.log($scope.timer.countdown)
                     if ($scope.timer.countdown == 0) {console.log("You're logged out!")}
                     }}, 1000);
-            }
-                
-//     $scope.getQueue = function () {
-//         $http.get('/api/queues').success(function(dbQueue) {
-//                 $scope.queue = dbQueue;
-//                 socket.syncUpdates('queue', dbQueue);
-//                 console.log("dbQueue:", dbQueue);
-//     })  
-//         return $scope.queue;
-// }   
-
+            } 
 
 
     });

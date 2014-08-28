@@ -89,7 +89,6 @@ angular.module('clawFrontApp')
             return eta;
         }
     
-
      
         return factory;
     });
