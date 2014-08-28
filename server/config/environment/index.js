@@ -44,7 +44,7 @@ var all = {
   facebook: {
     clientID:     process.env.FACEBOOK_ID || 'id',
     clientSecret: process.env.FACEBOOK_SECRET || 'secret',
-    //callbackURL: 'https://cpwtpbpmyy.localtunnel.me/queue.waitPage'
+    //callbackURL: 'https://cpwtpbpmyy.localtunnel.me/profile'
     callbackURL:  process.env.DOMAIN +'/auth/facebook/callback'
   },
 

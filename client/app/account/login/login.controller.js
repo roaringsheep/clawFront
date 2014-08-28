@@ -24,7 +24,7 @@ angular.module('clawFrontApp')
                         // Logged in, redirect to home
                         $('#login').modal('hide');
                         $timeout(function() {
-                          $location.path('/queue.waitPage');
+                          $location.path('/profile');
                         },450)
                         
                     })
