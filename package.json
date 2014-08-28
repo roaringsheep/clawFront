@@ -26,6 +26,7 @@
     "socket.io": "~1.0.6",
     "socketio-jwt": "^2.0.2",
     "static-favicon": "~1.0.1",
+    "stripe": "^2.8.0",
     "swig": "^1.4.2"
   },
   "devDependencies": {
