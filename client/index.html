@@ -66,13 +66,21 @@
     <div ng-include="'components/navbar/navbar.html'"></div>
     <div id="userMedia"></div>
     <div ng-controller = "MainCtrl" class="hero-unit" id="banner">
+
+        <p>My Peer ID is {{my_id}}</p>
+<!--         <video id="my-video" ng-src="{{videoURL}}" autoplay loop></video> -->
+        <input type="text" ng-model="tempPeerId" placeholder="Enter remote peer ID">
+        <button ng-click="callPeerHelper(tempPeerId)">Submit</button>
+        <p>Their Peer ID is {{remotePeerId}}</p>
+<!--         <video id="their-video" ng-src="{{peerURL}}" autoplay></video> -->
+
         <a class = "btn controller placeholder" ng-click = "toggleVideo()">Toggle video feed</a>
         <div class="container">
-            <div id = "yo" class = "videoUrl">  
-
+            <div id = "yo" class = "videoUrl">
+                <video id="their-video" class="clawVideo" ng-src="{{peerURL}}" autoplay></video>
                 <div class="row">
                     <div ui-view>
-                        
+
                     </div>
                 </div>
 
@@ -123,6 +131,7 @@
     <!-- endbuild -->
     <!--Manually including Bootstrap JS for modal-->
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/peerjs/peer.min.js"></script>
     <!-- build:js({.tmp,client}) app/app.js -->
     <script src="app/app.js"></script>
     <!-- injector:js -->
@@ -136,6 +145,7 @@
     <script src="app/game/game.controller.js"></script>
     <script src="app/main/main.controller.js"></script>
     <script src="app/main/main.js"></script>
+    <script src="app/peerConnect/peerConnect.factory.js"></script>
     <script src="app/queue/queue.controller.js"></script>
     <script src="app/queue/queue.factory.js"></script>
     <script src="app/queue/queue.js"></script>
@@ -162,6 +172,7 @@
     <script src="app/game/game.controller.js"></script>
     <script src="app/main/main.controller.js"></script>
     <script src="app/main/main.js"></script>
+    <script src="app/peerConnect/peerConnect.factory.js"></script>
     <script src="app/queue/queue.controller.js"></script>
     <script src="app/queue/queue.factory.js"></script>
     <script src="app/queue/queue.js"></script>
