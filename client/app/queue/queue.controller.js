@@ -21,12 +21,7 @@ angular.module('clawFrontApp')
 
         })
 
-        // $rootScope.$watch ("queue", function(newval, oldval){
-        //     newval = 
-        //     $scope.eta = newval;
-        // })
-
-        // $scope.eta = queueFactory.ETAtoPlay($rootScope.queue, $scope.currentUser)
+     
 
         //Add player
         $scope.addPlayer = function(player) {

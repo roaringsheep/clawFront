@@ -12,9 +12,9 @@
         </div>
         <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
             <ul class="nav navbar-nav">
-                <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
-                    <a ng-href="{{item.link}}">{{item.title}}</a>
-                </li>
+                <li> <a href="/" >the Claw</a></li>
+                <li> <a href="" data-toggle="modal" data-target="#about">About</a></li>
+                <li> <a href="" data-toggle="modal" data-target="#howto">How to Play</a></li>
                 <li ng-show="isAdmin()" ng-class="{active: isActive('/admin')}"><a href="/admin">Admin</a>
                 </li>
             </ul>
@@ -40,4 +40,48 @@
             </div>
         </div>
     </div>
+</div>
+
+
+<div class="modal fade" id="about" tabindex="-1" data-width="760" role="dialog" aria-labelledby="aboutLabel" aria-hidden="true" ng-controller="MainCtrl">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="aboutLabel"></h4>
+                </div>
+                <div class="modal-body">
+       YO YO YO ABOUT
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+</div>
+
+
+<div class="modal fade" id="howto" tabindex="-1" data-width="760" role="dialog" aria-labelledby="howtoLabel" aria-hidden="true" ng-controller="MainCtrl">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="howtoLabel"></h4>
+                </div>
+                <div class="modal-body">
+       YO YO YO HOWTO
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
 </div>

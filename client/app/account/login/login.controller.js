@@ -45,9 +45,6 @@ angular.module('clawFrontApp')
             return queueFactory.addPlayer(player);
         };
 
-        // $scope.paidPlay = function(form) {
-        //     $scope.login(form);
-        // };
 
         $scope.directToSignup = function() {
             $('#login').modal('hide');

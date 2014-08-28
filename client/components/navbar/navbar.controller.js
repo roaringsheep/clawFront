@@ -4,13 +4,19 @@ angular.module('clawFrontApp')
   .controller('NavbarCtrl', function ($scope, $rootScope, $location, Auth, queueFactory) {
     $scope.menu = [{
            'title': 'theClaw',
-           'link': '/'
+           'link': '/',
+            'data-toggle': "", 
+            'data-target': ''
        }, {
            'title': 'About',
-           'link': '/about'
+           'link': '/about',
+            'data-toggle': 'modal', 
+            'data-target': '#about'
        }, {
            'title': 'How to Play',
-           'link': '/howto'
+           'link': '/howto',
+            'data-toggle': "", 
+            'data-target': ''
        }
 
    ];
@@ -33,18 +39,18 @@ angular.module('clawFrontApp')
 
     var currentUser = $scope.CurrentUser; 
 
-    // $scope.logout = function() {
-    //   console.log("scope.removeByUserId: ", $scope.removeByUserId, "$scope.CurrentUser: ", $scope.CurrentUser)
-    //   $scope.removeByUserId($scope.CurrentUser).success(function(){
-    //     Auth.logout();
-    //   })
-    //   $location.path('/');
-    // };
-
-    $scope.logout = function () {
-      Auth.logout();
+    $scope.logout = function() {
+      console.log("scope.removeByUserId: ", $scope.removeByUserId, "$scope.CurrentUser: ", $scope.CurrentUser)
+      $scope.removeByUserId($scope.CurrentUser).success(function(){
+        Auth.logout();
+      })
       $location.path('/');
-    }
+    };
+
+    // $scope.logout = function () {
+    //   Auth.logout();
+    //   $location.path('/');
+    // }
 
     $scope.isActive = function(route) {
       return route === $location.path();
