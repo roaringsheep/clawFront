@@ -19,18 +19,12 @@ angular.module('clawFrontApp')
         })
 
         //Add player
-        $scope.addFreePlayer = function(player) {
-            queueFactory.addFreePlayer(player);
+        $scope.addPlayer = function(player) {
+            return queueFactory.addPlayer(player);
 
 
         };
-        $scope.addPaidPlayer = function(player) {
-            queueFactory.addPaidPlayer(player)
-
-        };
-        $scope.increaseEta = function() {
-            $scope.eta += "plus one";
-        }
+     
 
         //Remove player
         $scope.removeByQueueUserId = function(player) {

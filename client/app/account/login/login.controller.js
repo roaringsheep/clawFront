@@ -1,9 +1,17 @@
 'use strict';
 
 angular.module('clawFrontApp')
-    .controller('LoginCtrl', function($scope, Auth, $location, $window, $timeout) {
+    .controller('LoginCtrl', function($scope, $rootScope, Auth, $location, $window, $timeout, queueFactory) {
         $scope.user = {};
         $scope.errors = {};
+        $scope.currentUser = Auth.getCurrentUser();
+         $scope.queue = '';
+
+        //Get queue
+        $rootScope.$watch('queue', function(newval, oldval) {
+            $scope.queue = newval;
+
+        })
 
         $scope.login = function(form) {
             $scope.submitted = true;
@@ -26,13 +34,19 @@ angular.module('clawFrontApp')
             }
         };
 
-        $scope.freePlay = function(form) {
-            $scope.login(form);
+        $scope.loginModal = function(form) {
+                $scope.login(form);
+                // $scope.addPlayer($scope.currentUser);
+            };
+
+        //Add player
+        $scope.addPlayer = function(player) {
+            return queueFactory.addPlayer(player);
         };
 
-        $scope.paidPlay = function(form) {
-            $scope.login(form);
-        };
+        // $scope.paidPlay = function(form) {
+        //     $scope.login(form);
+        // };
 
         $scope.directToSignup = function() {
             $('#login').modal('hide');
