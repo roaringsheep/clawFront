@@ -14,6 +14,15 @@ exports.register = function(socket) {
     onRemove(socket, doc);
   });
 }
+var piSocket;
+exports.registerPi = function(socket){
+  piSocket = socket;
+}
+
+exports.emitToPi = function(stat, data) {
+  console.log('emiting', stat, data);
+	piSocket.emit(stat,data);
+}
 
 function onSave(socket, doc, cb) {
   socket.emit('game:save', doc);
