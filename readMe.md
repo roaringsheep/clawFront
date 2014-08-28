@@ -11,9 +11,9 @@ Web server code for the Claw Project.
 https://github.com/roaringsheep/theClaw
 
 ##CONTRIBUTORS##
-[Adam Barcan](https://github.com/Adam262)
-[Alp Sarilar](https://github.com/asarilar)
-[Minseon Song](https://github.com/roaringsheep)
+- [Adam Barcan](https://github.com/Adam262)
+- [Alp Sarilar](https://github.com/asarilar)
+- [Minseon Song](https://github.com/roaringsheep)
 
 ##SCREENSHOTS / WEBCAST##
 
