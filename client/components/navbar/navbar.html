@@ -1,87 +1,98 @@
 <div class="navbar navbar-default navbar-static-top" ng-controller="NavbarCtrl">
     <div class="container">
-      <div class="row">
-        <div class="col-lg-4">
-        <div class="navbar-header">
-            <button class="navbar-toggle" type="button" ng-click="isCollapsed = !isCollapsed">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
-            <ul class="nav navbar-nav">
-                <li> <a href="/" >the Claw</a></li>
-                <li> <a href="" data-toggle="modal" data-target="#about">About</a></li>
-                <li> <a href="" data-toggle="modal" data-target="#howto">How to Play</a></li>
-                <li ng-show="isAdmin()" ng-class="{active: isActive('/admin')}"><a href="/admin">Admin</a>
-                </li>
-            </ul>
-        </div>
-         </div>
-          <div class="col-lg-4 center-text">
-          <h1>the Claw</h1>
-          <h4>where the web meets a classic arcade game. just 99 cents to play!</h4>
-          </div>
-        <div class="col-lg-4">
-            <ul class="nav navbar-nav">
-                <!-- <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/signup')}"><a href="/signup">Sign up</a></li>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="navbar-header">
+                    <button class="navbar-toggle" type="button" ng-click="isCollapsed = !isCollapsed">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
+                    <ul class="nav navbar-nav">
+                        <li> <a href="" ng-click="loggedin()">The Claw</a>
+                        </li>
+                        <li> <a href="" data-toggle="modal" data-target="#about">About</a>
+                        </li>
+                        <li> <a href="" data-toggle="modal" data-target="#howto">How to Play</a>
+                        </li>
+                        <li ng-show="isAdmin()" ng-class="{active: isActive('/admin')}"><a href="/admin">Admin</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4 center-text">
+                <h1>The Claw</h1>
+                <h4>Where the web meets a classic arcade game.</h4>
+            </div>
+            <div class="col-lg-4">
+                <ul class="nav navbar-nav">
+                    <!-- <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/signup')}"><a href="/signup">Sign up</a></li>
         <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/login')}"><a href="/login">Login</a></li> -->
-                <!--   <li ng-show="isLoggedIn()"><p class="navbar-text">Hello {{CurrentUser.name }}</p> </li> -->
-                <li ng-show="isLoggedIn()" ng-class="{active: isActive('/settings')}">
-                    <a href="/settings">
-                        <span class="glyphicon glyphicon-cog"></span>
-                    </a>
-                </li>
-                <li ng-show="isLoggedIn()" ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()">Logout</a>
-                </li>
-            </ul>
+                    <!--   <li ng-show="isLoggedIn()"><p class="navbar-text">Hello {{CurrentUser.name }}</p> </li> -->
+                    <li ng-hide="isLoggedIn()">
+                        <a href="" data-toggle="modal" data-target="#login">PLAY!</a>
+                    </li>
+                    <li ng-show="isLoggedIn()" ng-class="{active: isActive('/settings')}">
+                        <a href="/settings">
+                            <span class="glyphicon glyphicon-cog"></span>
+                        </a>
+                    </li>
+                    <li ng-show="isLoggedIn()" ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="userMedia" ng-show="$root.userMedia">
+        <center>
+            <h3>Your Browser Is Not Supported. Please use the most recent version of Chrome, Firefox, or Opera to play.</h3>
+        </center>
+    </div>
+</div>
+
+
+<div class="modal fade" id="about" tabindex="-1" data-width="760" role="dialog" aria-labelledby="aboutLabel" aria-hidden="true" ng-controller="MainCtrl">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="aboutLabel"></h4>
+            </div>
+            <div class="modal-body">
+                YO YO YO ABOUT
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
 
 
-<div class="modal fade" id="about" tabindex="-1" data-width="760" role="dialog" aria-labelledby="aboutLabel" aria-hidden="true" ng-controller="MainCtrl">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">
-                        <span aria-hidden="true">&times;</span>
-                        <span class="sr-only">Close</span>
-                    </button>
-                    <h4 class="modal-title" id="aboutLabel"></h4>
-                </div>
-                <div class="modal-body">
-       YO YO YO ABOUT
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-</div>
-
-
 <div class="modal fade" id="howto" tabindex="-1" data-width="760" role="dialog" aria-labelledby="howtoLabel" aria-hidden="true" ng-controller="MainCtrl">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">
-                        <span aria-hidden="true">&times;</span>
-                        <span class="sr-only">Close</span>
-                    </button>
-                    <h4 class="modal-title" id="howtoLabel"></h4>
-                </div>
-                <div class="modal-body">
-       YO YO YO HOWTO
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="howtoLabel"></h4>
+            </div>
+            <div class="modal-body">
+                YO YO YO HOWTO
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
+    </div>
 </div>

@@ -130,6 +130,11 @@ html, body {
     background-color: blue;
 }
 
+.glyphicon-ok {
+    background-color: green;
+    color: green;
+}
+
 /*VIDEO*/
 .videoUrl {
 /*    background: url("http://192.168.1.124:8080/?action=stream") no-repeat center center;*/
