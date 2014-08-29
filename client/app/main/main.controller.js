@@ -1,14 +1,10 @@
 'use strict';
 
 angular.module('clawFrontApp')
-  .controller('MainCtrl', ['$rootScope', '$scope', '$http', 'socket', 'queueFactory', 'PeerConnect',
-    function($rootScope, $scope, $http, socket, queueFactory, PeerConnect) {
 
-      // $scope.toggleVideo = function() {
+  .controller('MainCtrl', function ($rootScope,$scope, $http, socket, queueFactory, Auth, $location) {
+    
+    $scope.isLoggedIn = Auth.isLoggedIn;
 
-      //   $('#yo').toggleClass('videoUrl2');
-      //   $('#yo').toggleClass('videoUrl');
-      // };
+  });
 
-    }
-  ]);

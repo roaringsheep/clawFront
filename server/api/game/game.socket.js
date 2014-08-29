@@ -21,9 +21,8 @@ exports.registerPi = function(socket){
 }
 
 exports.emitToPi = function(stat, data) {
-  console.log(piSocket);
   console.log('emiting', stat, data);
-	piSocket.emit(stat,data);
+	piSocket.emit(stat, data);
 }
 
 function onSave(socket, doc, cb) {

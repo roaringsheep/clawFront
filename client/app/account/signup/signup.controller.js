@@ -16,7 +16,7 @@ angular.module('clawFrontApp')
         })
         .then( function() {
           // Account created, redirect to home
-          $location.path('/queue.waitPage');
+          $location.path('/profile');
         })
         .catch( function(err) {
           err = err.data;

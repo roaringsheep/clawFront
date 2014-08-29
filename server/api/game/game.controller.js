@@ -145,7 +145,9 @@ exports.pokePi = function(req, res) {
 
 exports.fixShit = function(req, res){
     console.log('move', req.body.move);
-    piSocket.emitToPi('move', req.body.move);
+    var move = req.body.move;
+    piSocket.emitToPi('move', move);
+    res.send(200);
 }
 
 // Get a single game

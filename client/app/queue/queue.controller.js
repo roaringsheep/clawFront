@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('clawFrontApp')
-    .controller('QueueCtrl', function($scope, $rootScope, Auth, $timeout, $interval, queueFactory) {
+    .controller('QueueCtrl', function($scope, $rootScope, Auth, $timeout, $interval, queueFactory, $location, $http) {
 
         //Get current user
         $scope.currentUser = Auth.getCurrentUser();
@@ -31,12 +31,19 @@ angular.module('clawFrontApp')
             if (typeof temp != "undefined") {
                 $rootScope.queue = queueFactory.getQueue()
             }
-        }, 500)
+        }, 10000)
 
         //Add player
         $scope.addPlayer = function(player) {
-            return queueFactory.addPlayer(player);
+            if(player.credits>0){
+                return queueFactory.addPlayer(player);
+            } else {
+                alert('you has no credit');
+            }
+        };
 
+        $scope.playGame = function(player) {
+            queueFactory.playWithCredits(player);
         };
 
 
