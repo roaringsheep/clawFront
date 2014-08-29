@@ -11,7 +11,7 @@ var UserSchema = new Schema({
   name: String,
   email: { type: String, lowercase: true },
   games: [ObjectId],
-  credits: {type: Number, default: 1},
+  credits: {type: Number, default: 10},
   isPlaying: {type: Boolean, default: false},
   address: {street: String, town: String, city: String, state: String, zipcode: Number},
   hashedPassword: String,

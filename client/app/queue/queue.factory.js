@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('clawFrontApp')
-    .factory('queueFactory', function($http, socket, Auth, $rootScope) {
+    .factory('queueFactory', function($location, $http, socket, Auth, $rootScope) {
 
 
         var factory = {};
@@ -52,36 +52,45 @@ angular.module('clawFrontApp')
                     index: Date.now()
                 })
             }
-        }
-
-
+        };
 
         //remove player from queue
         factory.removeByQueueUserId = function(player) {
             console.log("player in $http.delete request: ", player)
-            var there = findPlayerInQueue($rootScope.queue, player);
-            if (there > 0) {
+            var there = findQueuePlayer($rootScope.queue, player);
+            if (there >= 0) {
                 return $http.delete('/api/queues/' + player.userId);
-            } else {
-                return undefined;
             }
         };
 
         factory.removeByUserId = function(player) {
             console.log("player in $http.delete request: ", player)
             var there = findPlayerInQueue($rootScope.queue, player);
-            if (there > 0) {
+            if (there >= 0) {
                 return $http.delete('/api/queues/' + player._id);
-            } else {
-                return undefined;
             }
+        };
+
+        var findQueuePlayer = function(queue, player) {
+            var isThere = -1;
+            if (queue) {
+                for (var i = 0; i < queue.length; i++) {
+                    console.log("queue[i].userId", queue[i], "player", player, "i: ", i)
+                    if (queue[i].userId == player.userId) {
+                        isThere = i;
+                        console.log("found it!", isThere);
+                    }
+                }
+            }
+            console.log('isThere', isThere);
+            return isThere;
         };
 
         var findPlayerInQueue = function(queue, player) {
             var isThere = -1;
             if (queue) {
                 for (var i = 0; i < queue.length; i++) {
-                    console.log("queue[i].userId", queue[i].userId, "player", player._id, "i: ", i)
+                    console.log("queue[i].userId", queue[i], "player", player, "i: ", i)
                     if (queue[i].userId == player._id) {
                         isThere = i;
                         console.log("found it!", isThere);
@@ -112,10 +121,16 @@ angular.module('clawFrontApp')
         // play game with credits
 
         factory.playWithCredits = function(player) {
-            if (player.credits >= 1) player.credits--;
-            $http.put('/api/users/' + user._id, user).success(function() {
-                console.log("$http.put user: ", user);
-            });
+            if(findPlayerInQueue(player) >= 0) {
+                removeByUserId(player);
+            }
+            if (player.credits >= 1) {
+                player.credits--; 
+                $http.post('/api/users/' + player._id, player).success(function() {
+                    console.log("$http.put user: ", player);
+                    $location.path('/game')
+                });
+            }
         }
 
 
