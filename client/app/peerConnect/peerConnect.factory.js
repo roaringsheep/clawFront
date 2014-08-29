@@ -147,8 +147,6 @@ angular.module('clawFrontApp')
           }
         });
 
-        console.log(peer);
-
         var peerLocalStream = stream;
         var blobURL = $sce.trustAsResourceUrl(URL.createObjectURL(stream));
 
