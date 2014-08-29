@@ -16,7 +16,8 @@
     "angular-socket-io": "~0.6.0",
     "angular-ui-router": "~0.2.10",
     "angular-touch": "~1.2.23",
-    "angular-gestures": "~0.2.3"
+    "angular-gestures": "~0.2.3",
+    "peerjs": "~0.3.9"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",

@@ -67,28 +67,20 @@
     <div id="userMedia"></div>
     <div ng-controller = "MainCtrl" class="hero-unit" id="banner">
 
-        <p>My Peer ID is {{my_id}}</p>
-<!--         <video id="my-video" ng-src="{{videoURL}}" autoplay loop></video> -->
-        <input type="text" ng-model="tempPeerId" placeholder="Enter remote peer ID">
-        <button ng-click="callPeerHelper(tempPeerId)">Submit</button>
-        <p>Their Peer ID is {{remotePeerId}}</p>
-<!--         <video id="their-video" ng-src="{{peerURL}}" autoplay></video> -->
-
-        <a class = "btn controller placeholder" ng-click = "toggleVideo()">Toggle video feed</a>
-        <div class="container">
-            <div id = "yo" class = "videoUrl">
-                <video id="their-video" class="clawVideo" ng-src="{{peerURL}}" autoplay></video>
-                <div class="row">
+    <!--     <a class = "btn controller placeholder" ng-click = "toggleVideo()">Toggle video feed</a> -->
+        <div class="container UltimateContainer">
+            <!-- div id = "yo" class = "videoUrl"> -->
+              <!--   <video id="their-video" class="clawVideo" ng-src="{{peerURL}}" autoplay></video> -->
+                <!-- <div class="row"> -->
                     <div ui-view>
 
                     </div>
-                </div>
+              <!--   </div> -->
 
-                </div>
+               <!--  </div> -->
             <!-- <img src="http://192.168.1.124:8080/?action=stream" /> -->
             </div>
         </div>
-    </div>
 
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
