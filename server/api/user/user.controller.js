@@ -20,6 +20,14 @@ exports.index = function(req, res) {
   });
 };
 
+// exports.update = function(req,res) {
+//   User.update({req.body}, function (err, user) {
+//     //adds 1 to their credit
+//     res.json(200, user);
+//   });
+
+// }
+
 /**
  * Creates a new user
  */
