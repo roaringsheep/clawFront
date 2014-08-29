@@ -105,7 +105,8 @@ exports.update = function(req, res, next) {
     User.update({
         _id: userId
     }, {
-        credits: req.body.credits
+        credits: req.body.credits,
+        isPlaying: req.body.isPlaying
     }, function(err, user) {
         if (err) {
             return next(err);
@@ -116,6 +117,7 @@ exports.update = function(req, res, next) {
         res.json(user);
     });
 }
+
 
 /**
  * Authentication callback

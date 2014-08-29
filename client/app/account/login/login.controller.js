@@ -49,7 +49,7 @@ angular.module('clawFrontApp')
         $scope.directToSignup = function() {
             $('#login').modal('hide');
             $timeout(function() {
-                $location.path('/signup');
+                $('#signup').modal('show');
             },450);
         }
 
