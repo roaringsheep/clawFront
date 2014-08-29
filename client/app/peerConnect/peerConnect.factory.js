@@ -95,7 +95,7 @@ angular.module('clawFrontApp')
       }
 
       var deferred = $q.defer();
-      var peerKey = '7k99lrngvwle4s4i';
+      // var peerKey = '7k99lrngvwle4s4i';
       var stunURL = 'stun:stun.l.google.com:19302';
       var existingCall;
       var existingConn;
@@ -103,11 +103,11 @@ angular.module('clawFrontApp')
       // Compatibility shim
       navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
-      // PeerJS object
-      // -- Peer JS CLOUD
-      var peer = new Peer({ key: peerKey, debug: 3, config: {'iceServers': [
-        { url: stunURL } // Pass in optional STUN and TURN server for maximum network compatibility
-      ]}});
+      // // PeerJS object
+      // // -- Peer JS CLOUD
+      // var peer = new Peer({ key: peerKey, debug: 3, config: {'iceServers': [
+      //   { url: stunURL } // Pass in optional STUN and TURN server for maximum network compatibility
+      // ]}});
 
       // navigator.getUserMedia({audio: true, video: true}, function(stream) {
       navigator.getUserMedia({
@@ -116,18 +116,18 @@ angular.module('clawFrontApp')
       }, function(stream) {
         var peerLocalStream = stream;
         var blobURL = $sce.trustAsResourceUrl(URL.createObjectURL(stream));
-        // var peer = new Peer({
-        //   host: $location.host(),
-        //   path: '/',
-        //   port: 3000,
-        //   debug: 3,
-        //   config: {
-        //     'iceServers': [{
-        //         url: stunURL
-        //       } // Pass in optional STUN and TURN server for maximum network compatibility
-        //     ]
-        //   }
-        // });
+        var peer = new Peer({
+          host: $location.host(),
+          path: '/',
+          port: 9001,
+          debug: 3,
+          config: {
+            'iceServers': [{
+                url: stunURL
+              } // Pass in optional STUN and TURN server for maximum network compatibility
+            ]
+          }
+        });
 
         peer.on('open', function() {
           _resolvePeer(peer, peerLocalStream, blobURL);

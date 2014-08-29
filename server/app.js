@@ -22,6 +22,10 @@ if(config.seedDB) { require('./config/seed'); }
 var app = express();
 var server = require('http').createServer(app);
 var socketio = require('socket.io').listen(server);
+
+var PeerServer = require('peer').PeerServer;
+var peerServer = new PeerServer({port: 9001, path: '/'});
+
 require('./config/socketio')(socketio);
 require('./config/express')(app);
 require('./routes')(app);
