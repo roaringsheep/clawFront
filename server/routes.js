@@ -5,13 +5,13 @@
 'use strict';
 
 var errors = require('./components/errors');
-
 var stripe = require('stripe')('sk_test_GMwkILlkJgbxJ7r6HQSEHdfw');
 var bodyParser = require('body-parser');
 
 module.exports = function(app) {
 
   // Insert routes below
+
   app.use('/api/queues', require('./api/queue'));
   app.use('/api/games', require('./api/game'));
   app.use('/api/things', require('./api/thing'));
@@ -35,6 +35,7 @@ module.exports = function(app) {
       if (err) {
         res.status(500, err).end();
       } else {
+
         res.status(204).end();
       }
     });

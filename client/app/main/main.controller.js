@@ -1,13 +1,10 @@
 'use strict';
 
 angular.module('clawFrontApp')
-  .controller('MainCtrl', function ($scope, $http, socket, queueFactory) {
 
-    $scope.toggleVideo = function() {
-      $('#yo').toggleClass('videoUrl1','videoUrl2');
-    }
+  .controller('MainCtrl', function ($rootScope,$scope, $http, socket, queueFactory, Auth, $location) {
+    
+    $scope.isLoggedIn = Auth.isLoggedIn;
 
   });
 
-
-     

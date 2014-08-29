@@ -17,11 +17,12 @@ exports.register = function(socket) {
 var piSocket;
 exports.registerPi = function(socket){
   piSocket = socket;
+  console.log('r,r,registered!')
 }
 
 exports.emitToPi = function(stat, data) {
   console.log('emiting', stat, data);
-	piSocket.emit(stat,data);
+	piSocket.emit(stat, data);
 }
 
 function onSave(socket, doc, cb) {

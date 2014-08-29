@@ -10,7 +10,6 @@ var QueueSchema = new Schema({
   userId: ObjectId,
   username: String,
   index: String,
-  isPaid: {type: Boolean, default: false},
   active: {type: Boolean, default: false}
 
 });

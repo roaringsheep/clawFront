@@ -6,7 +6,7 @@ var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
 
 var validationError = function(res, err) {
-  return res.json(422, err);
+    return res.json(422, err);
 };
 
 /**
@@ -14,45 +14,43 @@ var validationError = function(res, err) {
  * restriction: 'admin'
  */
 exports.index = function(req, res) {
-  User.find({}, '-salt -hashedPassword', function (err, users) {
-    if(err) return res.send(500, err);
-    res.json(200, users);
-  });
+    User.find({}, '-salt -hashedPassword', function(err, users) {
+        if (err) return res.send(500, err);
+        res.json(200, users);
+    });
 };
-
-// exports.update = function(req,res) {
-//   User.update({req.body}, function (err, user) {
-//     //adds 1 to their credit
-//     res.json(200, user);
-//   });
-
-// }
 
 /**
  * Creates a new user
  */
-exports.create = function (req, res, next) {
-  var newUser = new User(req.body);
-  newUser.provider = 'local';
-  newUser.role = 'user';
-  newUser.save(function(err, user) {
-    if (err) return validationError(res, err);
-    var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
-    res.json({ token: token });
-  });
+exports.create = function(req, res, next) {
+    var newUser = new User(req.body);
+    newUser.provider = 'local';
+    newUser.role = 'user';
+    newUser.save(function(err, user) {
+        if (err) return validationError(res, err);
+        var token = jwt.sign({
+            _id: user._id
+        }, config.secrets.session, {
+            expiresInMinutes: 60 * 5
+        });
+        res.json({
+            token: token
+        });
+    });
 };
 
 /**
  * Get a single user
  */
-exports.show = function (req, res, next) {
-  var userId = req.params.id;
+exports.show = function(req, res, next) {
+    var userId = req.params.id;
 
-  User.findById(userId, function (err, user) {
-    if (err) return next(err);
-    if (!user) return res.send(401);
-    res.json(user.profile);
-  });
+    User.findById(userId, function(err, user) {
+        if (err) return next(err);
+        if (!user) return res.send(401);
+        res.json(user.profile);
+    });
 };
 
 /**
@@ -60,50 +58,78 @@ exports.show = function (req, res, next) {
  * restriction: 'admin'
  */
 exports.destroy = function(req, res) {
-  User.findByIdAndRemove(req.params.id, function(err, user) {
-    if(err) return res.send(500, err);
-    return res.send(204);
-  });
+    User.findByIdAndRemove(req.params.id, function(err, user) {
+        if (err) return res.send(500, err);
+        return res.send(204);
+    });
 };
 
 /**
  * Change a users password
  */
 exports.changePassword = function(req, res, next) {
-  var userId = req.user._id;
-  var oldPass = String(req.body.oldPassword);
-  var newPass = String(req.body.newPassword);
+    var userId = req.user._id;
+    var oldPass = String(req.body.oldPassword);
+    var newPass = String(req.body.newPassword);
 
-  User.findById(userId, function (err, user) {
-    if(user.authenticate(oldPass)) {
-      user.password = newPass;
-      user.save(function(err) {
-        if (err) return validationError(res, err);
-        res.send(200);
-      });
-    } else {
-      res.send(403);
-    }
-  });
+    User.findById(userId, function(err, user) {
+        if (user.authenticate(oldPass)) {
+            user.password = newPass;
+            user.save(function(err) {
+                if (err) return validationError(res, err);
+                res.send(200);
+            });
+        } else {
+            res.send(403);
+        }
+    });
 };
 
 /**
  * Get my info
  */
 exports.me = function(req, res, next) {
-  var userId = req.user._id;
-  User.findOne({
-    _id: userId
-  }, '-salt -hashedPassword', function(err, user) { // don't ever give out the password or salt
-    if (err) return next(err);
-    if (!user) return res.json(401);
-    res.json(user);
-  });
+    var userId = req.user._id;
+    User.findOne({
+        _id: userId
+    }, '-salt -hashedPassword', function(err, user) { // don't ever give out the password or salt
+        if (err) return next(err);
+        if (!user) return res.json(401);
+        res.json(user);
+    });
 };
+
+/**
+ * Add 1 credit after Stripe payment is made
+ */
+// exports.update = function(req,res) {
+//   User.update({req.body}, function (err, user) {
+//     //adds 1 to their credit
+//     res.json(200, user);
+//   });
+// }
+
+exports.update = function(req, res, next) {
+    var userId = req.params.id;
+    console.log(req.body);
+    User.update({
+        _id: userId
+    }, {
+        credits: req.body.credits
+    }, function(err, user) {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            return res.json(401);
+        }
+        res.json(user);
+    });
+}
 
 /**
  * Authentication callback
  */
 exports.authCallback = function(req, res, next) {
-  res.redirect('/');
+    res.redirect('/');
 };

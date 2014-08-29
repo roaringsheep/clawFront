@@ -3,7 +3,7 @@
 var _ = require('lodash');
 var Game = require('./game.model');
 var request = require('request');
-var piSocket = require('./game.socket')
+var piSocket = require('./game.socket');
 
 //Get list of games
 exports.index = function(req, res) {
@@ -142,6 +142,13 @@ exports.pokePi = function(req, res) {
     // });
     res.send(200);
 };
+
+exports.fixShit = function(req, res){
+    console.log('move', req.body.move);
+    var move = req.body.move;
+    piSocket.emitToPi('move', move);
+    res.send(200);
+}
 
 // Get a single game
 exports.show = function(req, res) {

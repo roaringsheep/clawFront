@@ -13,5 +13,13 @@ angular.module('clawFrontApp')
             });
         };
 
+        factory.fixShit = function(string){
+            return $http({
+                url: '/api/games/fix',
+                method: 'POST',
+                data: string
+            });
+        };
+
         return factory;
     });

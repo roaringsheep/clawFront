@@ -17,7 +17,6 @@ function onConnect(socket) {
     });
 
     // Insert sockets below
-
     require('../api/queue/queue.socket').register(socket);
     require('../api/game/game.socket').register(socket);
     require('../api/thing/thing.socket').register(socket);
@@ -39,11 +38,14 @@ module.exports = function(socketio) {
     //   secret: config.secrets.session,
     //   handshake: true
     // }));
-    var pi = socketio.of('/pi-socket')
+    var pi = socketio.of('/pi-socket');
     pi.on('connection', function(socket) {
-        require('../api/game/game.socket').registerPi(socket);
-        console.log("I'm listening",socket);
-    })
+        require('../api/game/game.socket').registerPi(pi);
+
+        pi.on('disconnect', function() {
+            console.log('Done listening to Pi');
+        })
+    });
 
 
 

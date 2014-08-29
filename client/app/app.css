@@ -42,3 +42,8 @@
 form {
     margin: auto;
 }
+
+#userMedia {
+    color: white;
+    background-color: red;
+}

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('clawFrontApp')
-    .factory('queueFactory', function($http, socket, Auth, $rootScope) {
+    .factory('queueFactory', function($location, $http, socket, Auth, $rootScope) {
 
 
         var factory = {};
@@ -37,60 +37,102 @@ angular.module('clawFrontApp')
 
         //add player to queue
         factory.addPlayer = function(player) {
-          var alreadyInQueue = false;
-          $rootScope.queue.forEach(function(el){
-              if(el.userId == player._id)
-                  {alreadyInQueue = true;}
-                    return alreadyInQueue;
+            var alreadyInQueue = false;
+            $rootScope.queue.forEach(function(el) {
+                if (el.userId == player._id) {
+                    alreadyInQueue = true;
+                }
+                return alreadyInQueue;
             })
-              if(!alreadyInQueue){ 
-              $http.post('/api/queues', {
-                username: player.name,
-                userId: player._id,
-                active: true,
-                index: Date.now()
-              })
+            if (!alreadyInQueue && player.credits >= 1) {
+                $http.post('/api/queues', {
+                    username: player.name,
+                    userId: player._id,
+                    active: true,
+                    index: Date.now()
+                })
             }
-        }
-
-
+        };
 
         //remove player from queue
         factory.removeByQueueUserId = function(player) {
-        console.log("player in $http.delete request: ", player)
-            return $http.delete('/api/queues/' + player.userId);
-        }
+            console.log("player in $http.delete request: ", player)
+            var there = findQueuePlayer($rootScope.queue, player);
+            if (there >= 0) {
+                return $http.delete('/api/queues/' + player.userId);
+            }
+        };
 
         factory.removeByUserId = function(player) {
-        console.log("player in $http.delete request: ", player)
-            return $http.delete('/api/queues/' + player._id);
-        }
+            console.log("player in $http.delete request: ", player)
+            var there = findPlayerInQueue($rootScope.queue, player);
+            if (there >= 0) {
+                return $http.delete('/api/queues/' + player._id);
+            }
+        };
 
-      //   factory.playWithCredits = function(player) {
-      //       if (player.credits >=1) player.credits--;
-      //       $http.put('/api/users/' + user._id, user).success(function() {console.log("$http.put user: ", user);
-      // });
-        // }
+        var findQueuePlayer = function(queue, player) {
+            var isThere = -1;
+            if (queue) {
+                for (var i = 0; i < queue.length; i++) {
+                    console.log("queue[i].userId", queue[i], "player", player, "i: ", i)
+                    if (queue[i].userId == player.userId) {
+                        isThere = i;
+                        console.log("found it!", isThere);
+                    }
+                }
+            }
+            console.log('isThere', isThere);
+            return isThere;
+        };
+
+        var findPlayerInQueue = function(queue, player) {
+            var isThere = -1;
+            if (queue) {
+                for (var i = 0; i < queue.length; i++) {
+                    console.log("queue[i].userId", queue[i], "player", player, "i: ", i)
+                    if (queue[i].userId == player._id) {
+                        isThere = i;
+                        console.log("found it!", isThere);
+                    }
+                }
+            }
+            console.log('isThere', isThere);
+            return isThere;
+        };
 
         //check ETAtoPlay
         factory.ETAtoPlay = function(queue, player) {
-           
             var eta = queue.length;
-                console.log("it's running")
+            console.log("it's running")
             for (var i = 0; i < queue.length; i++) {
                 console.log("queue[i].userId", queue[i].userId, "player", player._id, "i: ", i)
                 if (queue[i].userId == player._id) {
                     eta = i;
                     console.log("found it!", eta);
                 }
-               
             }
             console.log("eta", eta)
             return eta;
+        };
+
+        // check if player is in queue
+
+        // play game with credits
+
+        factory.playWithCredits = function(player) {
+            if(findPlayerInQueue(player) >= 0) {
+                removeByUserId(player);
+            }
+            if (player.credits >= 1) {
+                player.credits--; 
+                $http.post('/api/users/' + player._id, player).success(function() {
+                    console.log("$http.put user: ", player);
+                    $location.path('/game')
+                });
+            }
         }
-    
-     
+
+
         return factory;
     });
-
-
