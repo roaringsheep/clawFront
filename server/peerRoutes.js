@@ -13,12 +13,6 @@ router.post('/confirmID', auth.isAuthenticated(), function(req, res) {
 
   console.log('Req user is: ', req.user);
 
-  if (typeof req.user !== 'undefined' && req.user.role === 'admin') {
-    peerPool.setMasterPeerID(requestID);
-    console.log(new Date(), 'Set -> Master Peer ID is: ', requestID);
-  }
-
-
   console.log(new Date(), 'Request to add ', requestID, ' to confirmed list...');
 
   if (requestID) {
@@ -35,8 +29,14 @@ router.post('/confirmID', auth.isAuthenticated(), function(req, res) {
 
     console.log('Success - Confirmed Peers List: ', peerPool.confirmedConnectedPeers.length, peerPool.confirmedConnectedPeers);
 
-    // io.sockets.emit('peer_pool', peerPool.confirmedConnectedPeers);
-    res.send(200);
+    if (typeof req.user !== 'undefined' && req.user.role === 'admin') {
+      peerPool.setMasterPeerID(requestID);
+      console.log(new Date(), 'Set -> Master Peer ID is: ', requestID);
+      res.send(200, { isMaster: true });
+    } else {
+      // io.sockets.emit('peer_pool', peerPool.confirmedConnectedPeers);
+      res.send(200, { isMaster: false });
+    }
   }
 
 });
@@ -64,8 +64,7 @@ router.post('/callMaster', function(req, res) {
       res.send(400, {
         error: 'Cannot connect to Master Peer ID: Master is not connected'
       });
-    }
-    else if (!requestID || !success) {
+    } else if (!requestID || !success) {
       res.send(400, {
         error: 'Cannot connect to Master Peer ID: Master is busy'
       });

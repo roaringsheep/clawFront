@@ -244,7 +244,14 @@ angular.module('clawFrontApp')
         id: $scope.my_id,
         secret: mysecret
       }).success(function(res) {
-        console.log(res);
+        console.log('Confirmed ID: ', res);
+        $scope.isMaster = res.isMaster;
+
+        // Set the large video stream for the master
+        if ($scope.isMaster) {
+          $scope.peerURL = $scope.videoURL;
+        }
+
       }).error(function(data, status) {
         console.log('Failed ', data, status);
         $scope.peerError = data.error;
@@ -271,8 +278,12 @@ angular.module('clawFrontApp')
 
       $rootScope.$on('peerStreamReceived', function(event, objURL) {
         console.log('Peer MediaStream received!', objURL);
-        $scope.peerURL = objURL;
-
+        // if this is the master, swap the streams
+        if ($scope.isMaster) {
+          $scope.videoURL = objURL;
+        } else {
+          $scope.peerURL = objURL;
+        }
         // gameBtn.click();
         $scope.$apply();
       });
