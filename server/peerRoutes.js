@@ -4,11 +4,20 @@ var express = require('express');
 var router = express.Router();
 
 var peerPool = require('./config/peerPool');
+var auth = require('./auth/auth.service');
 
-router.post('/confirmID', function(req, res) {
+router.post('/confirmID', auth.isAuthenticated(), function(req, res) {
   var requestID = req.body.id;
   var secret = req.body.secret;
   var added = false;
+
+  console.log('Req user is: ', req.user);
+
+  if (typeof req.user !== 'undefined' && req.user.role === 'admin') {
+    peerPool.setMasterPeerID(requestID);
+    console.log(new Date(), 'Set -> Master Peer ID is: ', requestID);
+  }
+
 
   console.log(new Date(), 'Request to add ', requestID, ' to confirmed list...');
 
@@ -28,6 +37,44 @@ router.post('/confirmID', function(req, res) {
 
     // io.sockets.emit('peer_pool', peerPool.confirmedConnectedPeers);
     res.send(200);
+  }
+
+});
+
+router.post('/callMaster', function(req, res) {
+  var masterPeerID = peerPool.getMasterPeerID();
+  if (masterPeerID === null) {
+    res.send(400, {
+      error: 'No Master Peer ID exists or it is currently unavailable'
+    });
+  } else {
+    var requestID = req.body.id;
+    var secret = req.body.secret;
+    var success = false;
+
+    console.log(new Date(), 'Request to call from [', requestID, '] to MASTER [', masterPeerID, ']');
+
+    if (requestID === masterPeerID) {
+      success = false;
+    } else {
+      success = peerPool.requestConnectPeer(requestID, masterPeerID, secret);
+    }
+
+    if (!masterPeerID) {
+      res.send(400, {
+        error: 'Cannot connect to Master Peer ID: Master is not connected'
+      });
+    }
+    else if (!requestID || !success) {
+      res.send(400, {
+        error: 'Cannot connect to Master Peer ID: Master is busy'
+      });
+    } else {
+      // io.sockets.emit('peer_pool', peerPool.confirmedConnectedPeers);
+      res.send(200, {
+        peerID: masterPeerID
+      });
+    }
   }
 });
 
@@ -87,25 +134,32 @@ router.post('/callRandom', function(req, res) {
 });
 
 router.post('/endCall', function(req, res) {
-    var requestID = req.body.id;
-    var secret = req.body.secret;
-    var confirmed = false;
+  var requestID = req.body.id;
+  var secret = req.body.secret;
+  var confirmed = false;
 
-    console.log(new Date(), 'Request to return ', requestID, ' to connected peers');
+  // var masterPeerID = peerPool.getMasterPeerID();
 
-    if (requestID) {
-      confirmed = peerPool.confirmPeer(requestID, secret);
-    }
+  // // Master disconnected, remove it
+  // if (masterPeerID === requestID) {
+  //   peerPool.setMasterPeerID(null);
+  // }
 
-    if (!requestID || !confirmed) {
-      res.send(400, {
-        error: 'Invalid Peer ID: ' + requestID
-      });
-    } else {
-      // io.sockets.emit('peer_pool', peerPool.confirmedConnectedPeers);
-      console.log('Success - Confirmed Peers List: ', peerPool.confirmedConnectedPeers.length, peerPool.confirmedConnectedPeers);
-      res.send(200);
-    }
-  });
+  console.log(new Date(), 'Request to return ', requestID, ' to connected peers');
+
+  if (requestID) {
+    confirmed = peerPool.confirmPeer(requestID, secret);
+  }
+
+  if (!requestID || !confirmed) {
+    res.send(400, {
+      error: 'Invalid Peer ID: ' + requestID
+    });
+  } else {
+    // io.sockets.emit('peer_pool', peerPool.confirmedConnectedPeers);
+    console.log('Success - Confirmed Peers List: ', peerPool.confirmedConnectedPeers.length, peerPool.confirmedConnectedPeers);
+    res.send(200);
+  }
+});
 
 module.exports = router;

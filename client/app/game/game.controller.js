@@ -323,6 +323,23 @@ angular.module('clawFrontApp')
         });
       };
 
+      $scope.callMasterPeer = function() {
+        $http.post('/peer/callMaster', {
+          id: $scope.my_id,
+          secret: mysecret
+        }).success(function(res) {
+          console.log(res);
+
+          $scope.remotePeerId = res.peerID;
+          $scope.peerError = null;
+          $scope.callPeer(peerObject);
+
+        }).error(function(data, status) {
+          console.log('Failed ', data, status);
+          $scope.peerError = data.error;
+        });
+      };
+
       $scope.callRequestedPeer = function(remotePeerId) {
         $scope.remotePeerId = remotePeerId;
         if (remotePeerId) {

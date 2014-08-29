@@ -12,11 +12,25 @@ function _removeConfirmedPeers(list, idIndex, idIndex2) {
 }
 
 module.exports = {
+
+  // Master Peer ID
+  masterPeerID: null,
+
   // List of all clients (peers) connected to PeerJS Server
   allConnectedPeers: [],
 
   // List of all clients (peers) connected to PeerJS Server that have confirmed ready to connect to others
   confirmedConnectedPeers: [],
+
+  // Set masterPeerID
+  setMasterPeerID: function(masterPeerID) {
+    this.masterPeerID = masterPeerID;
+  },
+
+  // Get masterPeerID
+  getMasterPeerID: function() {
+    return this.masterPeerID;
+  },
 
   // addPeerToPool and removePeerFromPool are used by PeerJS Server only
   addPeerToPool: function(id) {
