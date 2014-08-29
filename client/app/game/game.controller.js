@@ -17,7 +17,7 @@ angular.module('clawFrontApp')
     $scope.clawDrop = function() {
       //lower, loclear raise, raclear left, lclear forw, fclear lower, loclear raise, raclear
       $scope.dropping = true;
-      console.log('lowering...')
+      console.log('lowering...');
       $scope.move('lower');
       $timeout(function() {
         $scope.move('loclear,raise');
@@ -48,7 +48,7 @@ angular.module('clawFrontApp')
             $scope.dropping = false;
             window.location = "http://goo.gl/JzbXWe";
           }, 1300);
-        })
+        });
     };
 
     // $rootScope.$watch("timer", function (newval, oldval){
@@ -187,7 +187,7 @@ angular.module('clawFrontApp')
     //function to increment down turn counter
     $scope.playTurn = function() {
       $scope.game.turns--;
-    }
+    };
 
     //set behavior upon game timer countdown to zero
     $scope.$watch('game.timer', function() {
@@ -267,8 +267,6 @@ angular.module('clawFrontApp')
         console.log('Peer DataConnection received', connection);
         $scope.peerDataConnection = connection;
 
-        // attachReceiptListeners();
-
         $scope.connected = true;
         $scope.remotePeerId = connection.peer;
         $scope.peerError = null;
@@ -290,7 +288,6 @@ angular.module('clawFrontApp')
 
       $rootScope.$on('callEnded', function(event, callObject) {
         console.log('Peer Disconnected!', callObject);
-
 
         $scope.connected = false;
         $scope.waiting = false;
@@ -316,23 +313,23 @@ angular.module('clawFrontApp')
         peerObject.endCall();
       };
 
-      $scope.callRandomPeer = function() {
-        $http.post('/peer/callRandom', {
-          id: $scope.my_id,
-          secret: mysecret
-        }).success(function(res) {
-          console.log(res);
+      // $scope.callRandomPeer = function() {
+      //   $http.post('/peer/callRandom', {
+      //     id: $scope.my_id,
+      //     secret: mysecret
+      //   }).success(function(res) {
+      //     console.log(res);
 
-          $scope.remotePeerId = res.peerID;
-          $scope.peerError = null;
-          $scope.callPeer(peerObject);
+      //     $scope.remotePeerId = res.peerID;
+      //     $scope.peerError = null;
+      //     $scope.callPeer(peerObject);
 
-        }).error(function(data, status) {
-          console.log('Failed ', data, status);
+      //   }).error(function(data, status) {
+      //     console.log('Failed ', data, status);
 
-          $scope.peerError = data.error;
-        });
-      };
+      //     $scope.peerError = data.error;
+      //   });
+      // };
 
       $scope.callMasterPeer = function() {
         $http.post('/peer/callMaster', {
@@ -351,26 +348,26 @@ angular.module('clawFrontApp')
         });
       };
 
-      $scope.callRequestedPeer = function(remotePeerId) {
-        $scope.remotePeerId = remotePeerId;
-        if (remotePeerId) {
-          $http.post('/peer/callPeer', {
-            id: $scope.my_id,
-            callee_id: remotePeerId,
-            secret: mysecret
-          }).success(function(res) {
-            console.log(res);
+      // $scope.callRequestedPeer = function(remotePeerId) {
+      //   $scope.remotePeerId = remotePeerId;
+      //   if (remotePeerId) {
+      //     $http.post('/peer/callPeer', {
+      //       id: $scope.my_id,
+      //       callee_id: remotePeerId,
+      //       secret: mysecret
+      //     }).success(function(res) {
+      //       console.log(res);
 
-            $scope.remotePeerId = res.peerID;
-            $scope.peerError = null;
-            $scope.callPeer(peerObject);
+      //       $scope.remotePeerId = res.peerID;
+      //       $scope.peerError = null;
+      //       $scope.callPeer(peerObject);
 
-          }).error(function(data, status) {
-            console.log('Failed ', data, status);
-            $scope.peerError = data.error;
-          });
-        }
-      };
+      //     }).error(function(data, status) {
+      //       console.log('Failed ', data, status);
+      //       $scope.peerError = data.error;
+      //     });
+      //   }
+      // };
 
     });
 
