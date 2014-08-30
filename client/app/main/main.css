@@ -58,6 +58,32 @@ html, body {
     background: rgba(255, 255, 255, 0.8);
 }
 
+.navbar-nav> li > a{
+    padding-top: 10px !important; 
+    color: #333 !important;
+}
+
+.navbar a {
+    font-size: 1.2em;
+    color: #333 !important;
+ background-color: #ccc !important;
+    border: 1px solid rgba(255,255,255,.75);
+    cursor: pointer;
+}
+.navbar a:hover{
+    border: 1px solid rgba(0,0,0,0.75);
+}
+
+#navbar-main {
+   text-align: center;
+
+}
+
+.ng-scope {
+    top: 0;
+    margin-top: 0;
+}
+
 #banner h1 {
     font-size: 60px;
     line-height: 1;
@@ -74,7 +100,64 @@ html, body {
     width: 100%;
 }
 
-/*BUTTONS*/
+
+
+/*VIDEO*/
+.videoUrl {
+/*    background: url("http://192.168.1.124:8080/?action=stream") no-repeat center center;*/
+    background-size: cover;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+
+.videoUrl2 {
+/*    background: url("http://192.168.1.124:8090/?action=stream") no-repeat center center;*/
+    background-size: cover;
+    min-width: 100vh;
+    min-height: 100vh;
+
+}
+
+.clawVideo {
+    width: 80%;
+}
+
+#their-video    {
+    position: absolute;
+    top:0;
+    left:0;
+    min-width: 100%;
+    min-height: 100%;
+    width:100%;
+    height: 100%;
+    z-index: -1;
+}
+
+#my-video {
+    max-width: 300px;
+    max-height: 300px;
+}
+
+.videoContainer   {
+    position: absolute;
+    bottom: 5%;
+    right: 6%;
+    border: 2px solid #ddd;
+}
+
+
+
+/*FORM*/
+form {
+    width: 70%;
+}
+
+.modal {
+    color: gray;
+}
+
+/*GAME*/
 .btn-main {
     font-size: 1.5em;
     height: 7em;
@@ -114,80 +197,12 @@ html, body {
     border: 1px solid rgba(0,0,0,0.75);
 }
 
-.z0 {
-    z-index:100;
-    alignment: inline-block;
-    position: absolute;
-}
-#container {
-    height: 100vh;
-    width: 100vh;
-    background-size: cover;
-}
-
-/*VIDEO*/
-.videoUrl {
-/*    background: url("http://192.168.1.124:8080/?action=stream") no-repeat center center;*/
-    background-size: cover;
-    min-width: 100%;
-    min-height: 100%;
-}
-
-
-.videoUrl2 {
-/*    background: url("http://192.168.1.124:8090/?action=stream") no-repeat center center;*/
-    background-size: cover;
-    min-width: 100vh;
-    min-height: 100vh;
-
-}
-
-.clawVideo {
-    width: 80%;
-}
-
-
-.modal {
-    color: gray;
-}
-/*FORM*/
-form {
-    width: 70%;
-}
-
-#stripeForm {
-
-}
-
-
-
 .controls   {
     width:100%;
     height:100%;
 }
 
-#their-video    {
-    position: absolute;
-    top:0;
-    left:0;
-    min-width: 100%;
-    min-height: 100%;
-    width:100%;
-    height: 100%;
-    z-index: -1;
-}
 
-#my-video {
-    max-width: 300px;
-    max-height: 300px;
-}
-
-.videoContainer   {
-    position: absolute;
-    bottom: 5%;
-    right: 6%;
-    border: 2px solid #ddd;
-}
 
 .UltimateContainer > div:first-of-type   {
     width:100%;
@@ -244,8 +259,8 @@ form {
     visibility: hidden;
 }
 
-.dropBtn    {
+/*.dropBtn    {
     display: inline-block;
     float: right;
-}
+}*/
 

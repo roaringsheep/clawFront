@@ -1,30 +1,32 @@
-
-<nav class="navbar navbar-default navbar-static-top" ng-controller="NavbarCtrl">
+<nav class="navbar navbar-default" ng-controller="NavbarCtrl">
     <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button class="navbar-toggle " type="button" ng-click="isCollapsed = !isCollapsed">
-                <span class="fa fa-align-justify fa-2x"></span>
+            <button type="button" class="navbar-toggle" type="button" ng-click="isCollapsed = !isCollapsed">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
             </button>
+            <a class="navbar-brand" href="#">Brand</a>
         </div>
-        <center>
-            <h1>The Claw</h1>
-            <h4>Where the web meets a classic arcade game</h4>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
             <ul class="nav navbar-nav">
-                <li>
-                    <a ng-hide="isLoggedIn()" class = "btn btn-primary btn-small controller"href="" data-toggle="modal" data-target="#login">GET STARTED!</a>
-                </li>
-            </ul>
-        </center>
-        <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main" >
-            <ul class="nav nav-justified">
                 <li> <a href="/">The Claw</a>
                 </li>
                 <li> <a href="" data-toggle="modal" data-target="#about">About</a>
                 </li>
                 <li> <a href="" data-toggle="modal" data-target="#howto">How to Play</a>
                 </li>
+                <li ng-hide="isLoggedIn()">
+                    <a href="" data-toggle="modal" data-target="#login">GET STARTED!</a>
+                </li>
                 <li ng-show="isAdmin()" ng-class="{active: isActive('/admin')}"><a href="/admin">Admin</a>
                 </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
                 <li ng-show="isLoggedIn()" ng-class="{active: isActive('/settings')}">
                     <a href="/settings">
                         <span class="glyphicon glyphicon-cog"></span>
@@ -33,18 +35,21 @@
                 <li ng-show="isLoggedIn()" ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()">Logout</a>
                 </li>
             </ul>
-            </div>
-      
+        </div>
+        <!-- /.navbar-collapse -->
     </div>
-
-    <div id="userMedia" ng-show="$root.userMedia">
-        <center>
-            <h3>Your Browser Is Not Supported. Please use the most recent version of Chrome, Firefox, or Opera to play.</h3>
-        </center>
-    </div>
+    <!-- /.container-fluid -->
 </nav>
 
-
+<!-- check browser for userMedia support -->
+<div id="userMedia" ng-show="$root.userMedia">
+    <center>
+        <h3>Your Browser Is Not Supported. Please use the most recent version of Chrome, Firefox, or Opera to play.</h3>
+    </center>
+</div>
+</div>
+<!-- 
+about modal -->
 <div class="modal fade" id="about" tabindex="-1" data-width="760" role="dialog" aria-labelledby="aboutLabel" aria-hidden="true" ng-controller="MainCtrl">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -68,7 +73,7 @@
     </div>
 </div>
 
-
+<!-- how to modal -->
 <div class="modal fade" id="howto" tabindex="-1" data-width="760" role="dialog" aria-labelledby="howtoLabel" aria-hidden="true" ng-controller="MainCtrl">
     <div class="modal-dialog">
         <div class="modal-content">
