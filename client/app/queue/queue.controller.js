@@ -30,6 +30,10 @@ angular.module('clawFrontApp')
           }
         }
 
+        $scope.resetCredits = function (){
+            return $scope.credits = 1;
+        }
+
         $rootScope.$watch('eta', function(newval, oldval) {
             $scope.eta = newval;
             console.log("I updated $rootScope.eta", $rootScope.eta, "$scope.eta: ", $scope.eta)
@@ -70,18 +74,6 @@ angular.module('clawFrontApp')
                 $rootScope.eta = queueFactory.ETAtoPlay($scope.queue, $scope.currentUser);
             });
         };
-
-
-        // $scope.handleStripe = function(status, response) {
-        //   if (response.error) {throw response.error;}
-        //   else {
-        //     var stripeToken = response.id;
-        //     var userId = $scope.currentUser._id;
-        //     $http.post('/charge', stripeToken, userId).success(function(){
-        //       console.log("$http post token, currentUser", stripeToken, playerId)
-        //     });
-        //   }
-        // }
 
 
     // $scope.submitStripe = function() {

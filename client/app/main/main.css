@@ -3,6 +3,9 @@
     text-align: center;
 }
 
+.btn:focus {outline: 0;}
+button:focus {outline: 0;}
+
 .no-margin-left {
     margin-left: 0;
     padding-left:0;
@@ -37,30 +40,29 @@ html, body {
 }
 /*QUEUE*/
 .user-box {
-    height: 600px;
-    width: 500px;
+    height: 27em;
+    width: 20em;
     border: 1px solid black;
     position: absolute;
-    top: 150px;
-    left: 25px;
+    top: 14em;
+    left: 2em;
+}
+
+.row>h4 {
+    margin-top: 0;
 }
 
 /*CREDITS BOX*/
 .creditBox {
   /* basics */
-  background-color: #444;
-  color: #C4BE92;
-    text-align: center;
+background-color: #777;
+color: #fff;
+text-align: center;
+border-radius: 10%;
+padding: .8em .8em 1em;
+width: 12em;
+margin: 0 auto;
 
-  /* rounded corners */
-    -webkit-border-radius: 12px;
-    border-radius: 12px;
-    -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
-    padding: .8em .8em 1em;
-    width: 8em;
-  margin: 0 auto;
-    -webkit-box-shadow: 0px 0px 12px 0px #000;
-    box-shadow: 0px 0px 12px 0px #000;
 }
 
 .creditBtn {
@@ -95,7 +97,7 @@ html, body {
 .navbar a {
     font-size: 1.2em;
     color: #333 !important;
- background-color: #ccc !important;
+    background-color: #ccc !important;
     border: 1px solid rgba(255,255,255,.75);
     cursor: pointer;
 }
@@ -152,6 +154,10 @@ html, body {
     width: 80%;
 }
 
+#peerVidInput {
+    bottom: 20em;
+    position: absolute;
+}
 #their-video    {
     position: absolute;
     top:0;
@@ -203,6 +209,12 @@ form {
     padding: 1%;
 }
 
+.dropBtn {
+    height:200px;
+    width: 200px;
+    float: right;
+    margin-right: 35em;
+}
 #drop {
     border-radius: 50%;
   /*  border: none;*/
@@ -212,7 +224,6 @@ form {
    /* background-color: rgba(255,255,255,0.75);
     color: rgba(0,0,0,0.5);*/
 }
-
 .controller {
     color: rgba(255,255,255,0.75);
     background-color: rgba(255,255,255,0);
@@ -227,11 +238,10 @@ form {
 }
 
 .controls   {
+    position: absolute;
     width:100%;
     height:100%;
 }
-
-
 
 .UltimateContainer > div:first-of-type   {
     width:100%;
@@ -260,6 +270,8 @@ form {
     width: auto !important;
     height: auto !important;
     display: inline-block;
+    float: left;
+    margin-left: 35em;
 
 }
 
