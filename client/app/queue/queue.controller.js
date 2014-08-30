@@ -46,6 +46,7 @@ angular.module('clawFrontApp')
         //Add player
         $scope.addPlayer = function(player) {
             if(player.credits>0){
+                alert ('awesome. you just joined the queue!')
                 return queueFactory.addPlayer(player);
             } else {
                 alert('you have no credit');
