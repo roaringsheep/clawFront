@@ -114,6 +114,7 @@ angular.module('clawFrontApp')
         audio: true,
         video: true
       }, function(stream) {
+        console.log(stream.getVideoTracks());
         var peerLocalStream = stream;
         var blobURL = $sce.trustAsResourceUrl(URL.createObjectURL(stream));
         // var peer = new Peer({
