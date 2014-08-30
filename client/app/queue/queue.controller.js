@@ -41,7 +41,7 @@ angular.module('clawFrontApp')
                 alert('you has no credit');
             }
         };
-
+        //play game with credits
         $scope.playGame = function(player) {
             queueFactory.playWithCredits(player);
         };
@@ -60,8 +60,34 @@ angular.module('clawFrontApp')
             });
         };
 
-        $scope.timer = {}
 
+        // $scope.handleStripe = function(status, response) {
+        //   if (response.error) {throw response.error;}
+        //   else {
+        //     var stripeToken = response.id;
+        //     var userId = $scope.currentUser._id;
+        //     $http.post('/charge', stripeToken, userId).success(function(){
+        //       console.log("$http post token, currentUser", stripeToken, playerId)
+        //     });
+        //   }
+        // }
+
+
+    // $scope.submitStripe = function() {
+    //   console.log('I got here');
+    //   // var user = Auth.getCurrentUser();
+    //   // user.credits++;
+    //   // queueFactory.updateUser(user);
+    //   // console.log("token", response);
+    //   // if (response.error) {throw response.error;}
+    //   //     else {
+    //   //       var stripeToken = response.id;
+    //   //       var userId = $scope.currentUser._id;
+    //   //       $http.post('/charge', stripeToken, userId).success(function(){
+    //   //         console.log("$http post token, currentUser", stripeToken, userId)
+    //   //       });
+    //   //     }
+    // }
 
         $scope.countdown = function() {
             $interval(function() {
