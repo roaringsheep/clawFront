@@ -188,6 +188,11 @@ form {
     z-index: -1;
 }
 
+#my-video {
+    max-width: 300px;
+    max-height: 300px;
+}
+
 .videoContainer   {
     position: absolute;
     bottom: 5%;
