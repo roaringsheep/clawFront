@@ -37,27 +37,14 @@
     <!-- endbuild -->
 
     <!-- Stripe.js -->
-    <!-- <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script src="https://checkout.stripe.com/checkout.js"></script>
+ <!--   <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script type="text/javascript">
       // This identifies your website in the createToken call below
       // This key is for testing. Change to live key when ready
       Stripe.setPublishableKey('pk_test_bE12QyEg4nE1pzUEw2OI6riK');
-
-      jQuery(function($) {
-        $('#payment-form').submit(function(event) {
-          var $form = $(this);
-
-          // Disable the submit button to prevent repeated clicks
-          $form.find('button').prop('disabled', true);
-
-          Stripe.card.createToken($form, stripeResponseHandler);
-
-          // Prevent the form from submitting with the default action
-          return false;
-        });
-      });
-    </script> -->
-</head>
+    </script>   -->
+  </head>
 
 <body ng-app="clawFrontApp">
     <!--[if lt IE 7]>
@@ -143,6 +130,7 @@
     <script src="app/main/main.controller.js"></script>
     <script src="app/main/main.js"></script>
     <script src="app/peerConnect/peerConnect.factory.js"></script>
+    <script src="app/queue/angular-payments.min.js"></script>
     <script src="app/queue/queue.controller.js"></script>
     <script src="app/queue/queue.factory.js"></script>
     <script src="app/queue/queue.js"></script>
@@ -175,6 +163,7 @@
     <script src="app/main/main.controller.js"></script>
     <script src="app/main/main.js"></script>
     <script src="app/peerConnect/peerConnect.factory.js"></script>
+    <script src="app/queue/angular-payments.min.js"></script>
     <script src="app/queue/queue.controller.js"></script>
     <script src="app/queue/queue.factory.js"></script>
     <script src="app/queue/queue.js"></script>

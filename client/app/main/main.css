@@ -37,7 +37,7 @@ html, body {
 }
 /*QUEUE*/
 .user-box {
-    height: 300px;
+    height: 600px;
     width: 500px;
     border: 1px solid black;
     position: absolute;
@@ -125,19 +125,6 @@ html, body {
     background-size: cover;
 }
 
-.red {
-    background-color: red;
-}
-
-.blue {
-    background-color: blue;
-}
-
-.glyphicon-ok {
-    background-color: green;
-    color: green;
-}
-
 /*VIDEO*/
 .videoUrl {
 /*    background: url("http://192.168.1.124:8080/?action=stream") no-repeat center center;*/
@@ -159,21 +146,20 @@ html, body {
     width: 80%;
 }
 
-.footer {
-    text-align: center;
-    padding: 30px 0;
-    margin-top: 70px;
-    border-top: 1px solid #E5E5E5;
-}
-
 
 .modal {
     color: gray;
 }
-
+/*FORM*/
 form {
     width: 70%;
 }
+
+#stripeForm {
+
+}
+
+
 
 .controls   {
     width:100%;
@@ -235,7 +221,7 @@ form {
 }
 
 .arrows a:first-child   {
-    display: block;  
+    display: block;
     margin: 0 auto 5px auto;
 }
 .arrows a:last-child    {

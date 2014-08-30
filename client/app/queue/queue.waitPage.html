@@ -1,3 +1,4 @@
+
 <div ui-view>
     <div class="controller user-box" ng-show="isLoggedIn">
                 <div class="row">
@@ -55,11 +56,11 @@
         <div class="row">
 
 
-          <h3>Buy credits</h3>
-            <div class="col-lg-12 col-md-12 col-sm-12">
-
-                <form action="" method="POST">
-                    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_bE12QyEg4nE1pzUEw2OI6riK" data-amount="100" data-name="The Claw" data-description="1 game ($1.00)" data-image=""></script>
+  <h3>Buy credits</h3>
+                <form action="/charge" method="POST">
+                  <input type="hidden" name="userId" value="{{currentUser._id}}">
+                  <input name = "numCredits" placeholder = "number of credits" type = "number" min="1" required>
+                    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_bE12QyEg4nE1pzUEw2OI6riK" data-name="The Claw" data-description="1 game credit = $0.99" data-image=""></script>
                 </form>
 
             </div>
