@@ -57,10 +57,25 @@
 
 
   <h3>Buy credits</h3>
-                <form action="/charge" method="POST">
+
+
+<div class="creditBox">
+  <strong><font size="5">{{credits}}</font></strong><br>
+  <button class="creditBtn" ng-click="changeCredit(-1)">-1</button>
+  <button class="creditBtn" ng-click="changeCredit(1)">+1</button><br>
+  Total cost: <br>
+  <strong>{{credits * .99 | currency}}</strong>
+</div>
+
+                <form action="/charge" method="POST" ng-model="credits">
                   <input type="hidden" name="userId" value="{{currentUser._id}}">
-                  <input name = "numCredits" placeholder = "number of credits" type = "number" min="1" required>
-                    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_bE12QyEg4nE1pzUEw2OI6riK" data-name="The Claw" data-description="1 game credit = $0.99" data-image=""></script>
+                  <input type = "hidden" name="numCredits" value="{{credits}}">
+                  <!-- Number of credits: -->
+
+                  <br>
+                  <!-- <input name="numCredits" placeholder = "number of credits" type = "number" min="1" ng-model="credits" integer required><br> -->
+
+                    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_bE12QyEg4nE1pzUEw2OI6riK" data-name="The Claw" data-image=""></script>
                 </form>
 
             </div>

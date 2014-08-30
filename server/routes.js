@@ -59,13 +59,19 @@ module.exports = function(app) {
 /**use with stripe checkout*/
   app.post('/charge', function(req, res) {
     console.log("req.body: ", req.body)
-    var amount = '';
+
+    var creditsParam = "";
     var stripeToken = req.body.stripeToken;
     var userId = req.body.userId;
+
     req.body.numCredits > 0?
-    amount = 99 * req.body.numCredits:
-    amount = 99;
+    creditsParam = req.body.numCredits:
+    creditsParam = 1;
+
+    var amount = creditsParam * 99;
+
     console.log("amount", amount);
+
     stripe.charges.create({
       card: stripeToken,
       currency: 'usd',
@@ -76,12 +82,14 @@ module.exports = function(app) {
         res.status(500, err).end();
       } else {
         console.log("success");
-          User.update({
-        _id: userId
-    }, {
-        $inc:{credits: req.body.numCredits}
-    }, function(err, user) {res.status(204).end();
-    })
+        User.update({
+            _id: userId
+          }, {
+            $inc:{credits: creditsParam}
+          }, function(err, user) {
+            res.status(204).end();
+          }
+        );
       }
     });
   });

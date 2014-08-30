@@ -45,6 +45,35 @@ html, body {
     left: 25px;
 }
 
+/*CREDITS BOX*/
+.creditBox {
+  /* basics */
+  background-color: #444;
+  color: #C4BE92;
+    text-align: center;
+
+  /* rounded corners */
+    -webkit-border-radius: 12px;
+    border-radius: 12px;
+    -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
+    padding: .8em .8em 1em;
+    width: 8em;
+  margin: 0 auto;
+    -webkit-box-shadow: 0px 0px 12px 0px #000;
+    box-shadow: 0px 0px 12px 0px #000;
+}
+
+.creditBtn {
+  /* basics */
+  color: #444;
+  background-color: #B5B198;
+  /* rounded corners */
+    -webkit-border-radius: 6px;
+          border-radius: 6px;
+    -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
+  font-weight: bold;
+}
+
 
 /*NAVBAR + HEADER*/
 #banner {
