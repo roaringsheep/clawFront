@@ -3,7 +3,6 @@
 angular.module('clawFrontApp')
     .controller('GameCtrl', function($scope, $rootScope, $interval, queueFactory, Auth, talkToPi, $http, $timeout, $location, PeerConnect) {
 
-
         $scope.move = function(status) {
             console.log('moving..');
             talkToPi.pressButton({
@@ -46,121 +45,15 @@ angular.module('clawFrontApp')
                     return $timeout(function() {
                         $scope.move('raclear');
                         $scope.dropping = false;
+                    }, 1300)
+                })
+                .then(function() {
+                    $scope.game.player.isPlaying = false;
+                    queueFactory.updateUser($scope.game.player).success(function() {
                         window.location = "http://goo.gl/JzbXWe";
-                    }, 1300);
+                    })
                 })
         };
-
-        // $rootScope.$watch("timer", function (newval, oldval){
-        //         $scope.notes = newval;
-        //     }) 
-        // $scope.findPortByNum = function(portNum) {
-        //     for (var i = 0; i < $scope.ports.length; i++) {
-        //         var port = $scope.ports[i];
-        //         if (port.num == portNum) {
-        //             return port;
-        //         }
-        //     }
-        //     console.log("Couldn't find any! :(");
-        // };
-
-        // $scope.togglePort = function(portArr, stateArr) {
-        //     var ports = "";
-        //     for (var i = 0; i < portArr.length; i++) {
-        //         var port = $scope.findPortByNum(portArr[i]);
-        //         port.state = stateArr[i];
-        //         if (i == portArr.length - 1) {
-        //             ports += port.port + ',' + stateArr[i];
-        //         } else {
-        //             ports += port.port + "," + stateArr[i] + ',';
-        //         }
-        //     }
-        //     talkToPi.pressButton({
-        //         'ports': ports
-        //     }).success(function(res) {
-        //         console.log('port', ports, '!', res);
-        //     });
-        // }
-
-        // $scope.goFront = function() {
-        //     // Port 12 on, port 7 off
-        //     var btn = $('#front');
-        //     btn.toggleClass('btn-primary');
-        //     btn.toggleClass('on');
-        //     if (btn.hasClass('on')) {
-        //         console.log('going to me...');
-        //         $scope.togglePort(['2', '1', '7'], ['on', 'off', 'off']);
-        //     } else {
-        //         console.log('stopping...')
-        //         $scope.togglePort(['2'], ['off']);
-        //     }
-        // };
-
-        // $scope.goBack = function() {
-        //     //Port 7 on, port 12 off
-        //     var btn = $('#back');
-        //     btn.toggleClass('on');
-        //     btn.toggleClass('btn-primary');
-        //     if (btn.hasClass('on')) {
-        //         console.log('going back...');
-        //         $scope.togglePort(['2', '1', '7'], ['off', 'on', 'on']);
-        //     } else {
-        //         console.log('stopping...')
-        //         $scope.togglePort(['1', '7'], ['off', 'off']);
-        //     }
-        // };
-
-        // $scope.goLeft = function() {
-        //     var btn = $('#left');
-        //     btn.toggleClass('on');
-        //     btn.toggleClass('btn-primary');
-        //     if (btn.hasClass('on')) {
-        //         console.log('going left...');
-        //         $scope.togglePort(['3', '4', '8'], ['off', 'on', 'off']);
-        //     } else {
-        //         console.log('stopping...');
-        //         $scope.togglePort(['4'], ['off']);
-        //     }
-        // };
-
-        // $scope.goRight = function() {
-        //     var btn = $('#right');
-        //     btn.toggleClass('on');
-        //     btn.toggleClass('btn-primary');
-        //     if (btn.hasClass('on')) {
-        //         console.log('going right...');
-        //         $scope.togglePort(['3', '4', '8'], ['on', 'off', 'on']);
-        //     } else {
-        //         console.log('stopping...')
-        //         $scope.togglePort(['3','8'], ['off','off']);
-        //     }
-        // };
-
-        // $scope.raise = function() {
-        //     var btn = $('#raise');
-        //     btn.toggleClass('on');
-        //     btn.toggleClass('btn-primary');
-        //     if (btn.hasClass('on')) {
-        //         console.log('raising claw...')
-        //         $scope.togglePort(['5', '6'], ['off', 'on']);
-        //     } else {
-        //         console.log('stopping...')
-        //         $scope.togglePort(['6'], ['off']);
-        //     }
-        // };
-
-        // $scope.lower = function() {
-        //     var btn = $('#lower');
-        //     btn.toggleClass('on');
-        //     btn.toggleClass('btn-primary');
-        //     if (btn.hasClass('on')) {
-        //         console.log('lowering claw...');
-        //         $scope.togglePort(['5', '6'], ['on', 'off']);
-        //     } else {
-        //         console.log('stopping...');
-        //         $scope.togglePort(['5'], ['off']);
-        //     }
-        // };
 
         var timerInit = 5,
             turnsInit = 3,
@@ -213,145 +106,145 @@ angular.module('clawFrontApp')
 
         $scope.countdown();
 
-              $scope.callPeer = function(peerObject) {
-        var remotePeerId = $scope.remotePeerId;
-        $scope.peerDataConnection = peerObject.makeCall(remotePeerId);
+        $scope.callPeer = function(peerObject) {
+            var remotePeerId = $scope.remotePeerId;
+            $scope.peerDataConnection = peerObject.makeCall(remotePeerId);
 
-        $scope.peerDataConnection.on('open', function() {
-          // attachReceiptListeners();
+            $scope.peerDataConnection.on('open', function() {
+                // attachReceiptListeners();
 
-          $scope.peerError = null;
-          $scope.connected = true;
-          // gameBtn.click();
+                $scope.peerError = null;
+                $scope.connected = true;
+                // gameBtn.click();
 
-          $scope.$apply();
-        });
+                $scope.$apply();
+            });
 
-        $scope.peerDataConnection.on('error', function(err) {
-          console.log('Failed to connect to given peerID', err);
-        });
-      };
-
-      PeerConnect.getPeer().then(function(peerObject) {
-        $scope.my_id = peerObject.peer.id;
-        $scope.streamReady = true;
-        var mysecret = Math.random().toString(36).substring(10);
-
-        $scope.videoURL = peerObject.videoURL;
-
-        // Confirm to the server that my peerID is ready to be connected to
-        // $http.post('/confirmID', {
-        //   id: $scope.my_id,
-        //   secret: mysecret
-        // }).success(function(res) {
-        //   console.log(res);
-
-        // }).error(function(data, status) {
-        //   console.log('Failed ', data, status);
-
-        //   $scope.peerError = data.error;
-        // });
-
-        $rootScope.$on('callFailed', function(event, error) {
-          console.log('Call failed: ', error, error.message);
-          $scope.peerError = error.message;
-          $scope.$apply();
-        });
-
-        $rootScope.$on('peerConnectionReceived', function(event, connection) {
-          console.log('Peer DataConnection received', connection);
-          $scope.peerDataConnection = connection;
-
-          // attachReceiptListeners();
-
-          $scope.connected = true;
-          $scope.remotePeerId = connection.peer;
-          $scope.peerError = null;
-
-          $scope.$apply();
-        });
-
-        $rootScope.$on('peerStreamReceived', function(event, objURL) {
-          console.log('Peer MediaStream received!', objURL);
-          $scope.peerURL = objURL;
-
-          // gameBtn.click();
-          $scope.$apply();
-        });
-
-        $rootScope.$on('callEnded', function(event, callObject) {
-          console.log('Peer Disconnected!', callObject);
-
-
-          $scope.connected = false;
-          $scope.waiting = false;
-          $scope.otherWaiting = false;
-
-          // $http.post('/endCall', {
-          //   id: $scope.my_id,
-          //   secret: mysecret
-          // }).success(function(res) {
-          //   console.log(res);
-          //   $scope.remotePeerId = null;
-
-          //   $scope.peerError = null;
-          // }).error(function(data, status) {
-          //   console.log('Failed ', data, status);
-
-          //   $scope.peerError = data.error;
-          // });
-
-        });
-
-        $scope.endCall = function() {
-          peerObject.endCall();
+            $scope.peerDataConnection.on('error', function(err) {
+                console.log('Failed to connect to given peerID', err);
+            });
         };
 
-        // $scope.callRandomPeer = function() {
-        //   $http.post('/callRandom', {
-        //     id: $scope.my_id,
-        //     secret: mysecret
-        //   }).success(function(res) {
-        //     console.log(res);
+        PeerConnect.getPeer().then(function(peerObject) {
+            $scope.my_id = peerObject.peer.id;
+            $scope.streamReady = true;
+            var mysecret = Math.random().toString(36).substring(10);
 
-        //     $scope.remotePeerId = res.peerID;
-        //     $scope.peerError = null;
-        //     callPeer(peerObject);
+            $scope.videoURL = peerObject.videoURL;
 
-        //   }).error(function(data, status) {
-        //     console.log('Failed ', data, status);
+            // Confirm to the server that my peerID is ready to be connected to
+            // $http.post('/confirmID', {
+            //   id: $scope.my_id,
+            //   secret: mysecret
+            // }).success(function(res) {
+            //   console.log(res);
 
-        //     $scope.peerError = data.error;
-        //   });
-        // };
+            // }).error(function(data, status) {
+            //   console.log('Failed ', data, status);
 
-        // $scope.callRequestedPeer = function() {
-        //   var remotePeerId = $scope.remotePeerId;
-        //   if (remotePeerId) {
-        //     $http.post('/callPeer', {
-        //       id: $scope.my_id,
-        //       callee_id: remotePeerId,
-        //       secret: mysecret
-        //     }).success(function(res) {
-        //       console.log(res);
+            //   $scope.peerError = data.error;
+            // });
 
-        //       $scope.remotePeerId = res.peerID;
-        //       $scope.peerError = null;
-        //       callPeer(peerObject);
+            $rootScope.$on('callFailed', function(event, error) {
+                console.log('Call failed: ', error, error.message);
+                $scope.peerError = error.message;
+                $scope.$apply();
+            });
 
-        //     }).error(function(data, status) {
-        //       console.log('Failed ', data, status);
-        //       $scope.peerError = data.error;
-        //     });
-        //   }
-        // };
+            $rootScope.$on('peerConnectionReceived', function(event, connection) {
+                console.log('Peer DataConnection received', connection);
+                $scope.peerDataConnection = connection;
 
-        $scope.callPeerHelper = function(remotePeerId) {
-          $scope.remotePeerId = remotePeerId;
-          $scope.callPeer(peerObject);
+                // attachReceiptListeners();
 
-          console.log('Calling ', remotePeerId);
-        };
+                $scope.connected = true;
+                $scope.remotePeerId = connection.peer;
+                $scope.peerError = null;
+
+                $scope.$apply();
+            });
+
+            $rootScope.$on('peerStreamReceived', function(event, objURL) {
+                console.log('Peer MediaStream received!', objURL);
+                $scope.peerURL = objURL;
+
+                // gameBtn.click();
+                $scope.$apply();
+            });
+
+            $rootScope.$on('callEnded', function(event, callObject) {
+                console.log('Peer Disconnected!', callObject);
+
+
+                $scope.connected = false;
+                $scope.waiting = false;
+                $scope.otherWaiting = false;
+
+                // $http.post('/endCall', {
+                //   id: $scope.my_id,
+                //   secret: mysecret
+                // }).success(function(res) {
+                //   console.log(res);
+                //   $scope.remotePeerId = null;
+
+                //   $scope.peerError = null;
+                // }).error(function(data, status) {
+                //   console.log('Failed ', data, status);
+
+                //   $scope.peerError = data.error;
+                // });
+
+            });
+
+            $scope.endCall = function() {
+                peerObject.endCall();
+            };
+
+            // $scope.callRandomPeer = function() {
+            //   $http.post('/callRandom', {
+            //     id: $scope.my_id,
+            //     secret: mysecret
+            //   }).success(function(res) {
+            //     console.log(res);
+
+            //     $scope.remotePeerId = res.peerID;
+            //     $scope.peerError = null;
+            //     callPeer(peerObject);
+
+            //   }).error(function(data, status) {
+            //     console.log('Failed ', data, status);
+
+            //     $scope.peerError = data.error;
+            //   });
+            // };
+
+            // $scope.callRequestedPeer = function() {
+            //   var remotePeerId = $scope.remotePeerId;
+            //   if (remotePeerId) {
+            //     $http.post('/callPeer', {
+            //       id: $scope.my_id,
+            //       callee_id: remotePeerId,
+            //       secret: mysecret
+            //     }).success(function(res) {
+            //       console.log(res);
+
+            //       $scope.remotePeerId = res.peerID;
+            //       $scope.peerError = null;
+            //       callPeer(peerObject);
+
+            //     }).error(function(data, status) {
+            //       console.log('Failed ', data, status);
+            //       $scope.peerError = data.error;
+            //     });
+            //   }
+            // };
+
+            $scope.callPeerHelper = function(remotePeerId) {
+                $scope.remotePeerId = remotePeerId;
+                $scope.callPeer(peerObject);
+
+                console.log('Calling ', remotePeerId);
+            };
 
         });
 

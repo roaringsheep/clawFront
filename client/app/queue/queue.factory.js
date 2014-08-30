@@ -118,20 +118,29 @@ angular.module('clawFrontApp')
 
         // check if player is in queue
 
-        // play game with credits
+        factory.updateUser = function(player) {
+            return $http.post('/api/users/' + player._id, player);
+        }
 
+        var userUpdate = function(player) {
+            return $http.post('/api/users/' + player._id, player);
+        };
+
+        // play game with credits
         factory.playWithCredits = function(player) {
             if(findPlayerInQueue(player) >= 0) {
                 removeByUserId(player);
             }
             if (player.credits >= 1) {
                 player.credits--; 
-                $http.post('/api/users/' + player._id, player).success(function() {
-                    console.log("$http.put user: ", player);
+                player.isPlaying = true;
+                userUpdate(player).success(function() {
+                    console.log("$http.post user: ", player);
                     $location.path('/game')
                 });
             }
-        }
+        };
+
 
 
         return factory;

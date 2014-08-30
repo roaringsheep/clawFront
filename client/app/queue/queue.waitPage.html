@@ -1,8 +1,6 @@
+
 <div ui-view>
     <div class="controller user-box" ng-show="isLoggedIn">
-
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="row">
                     <span>
                         <h3>Welcome {{currentUser.name}}</h3>
@@ -16,10 +14,17 @@
 
                 <div class="row">
                     <span ng-if="currentUser.credits>=1 && eta==0">
+
+                          <h5>
+                            There is nobody ahead of you!
+                            <br>
+                            Click <button class="btn btn-success btn-sm" ng-disabled="eta>0" ng-click="playGame(player)">Play with 1 credit</button> to start game.
+
                         <h5>
                             There is nobody ahead of you!
                             <br><br>
                             <button class="btn btn-success btn-sm" ng-disabled="eta>0" ng-click="playGame(currentUser)">Play</button>
+
                         </h5>
                     </span>
                 </div>
@@ -42,6 +47,7 @@
                         </h5>
                 </span>
                     <span ng-show="eta==0">
+
                     </span>
                 </div> <!-- row -->
             </div> <!-- col -->
@@ -49,11 +55,12 @@
 
         <div class="row">
 
-            <h3>Buy credits</h3>
-            <div class="col-lg-12 col-md-12 col-sm-12">
-                <form action="" method="POST">
-                    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_bE12QyEg4nE1pzUEw2OI6riK" data-amount="100" data-name="The Claw" data-description="1 game ($1.00)" data-image="">
-                    </script>
+
+  <h3>Buy credits</h3>
+                <form action="/charge" method="POST">
+                  <input type="hidden" name="userId" value="{{currentUser._id}}">
+                  <input name = "numCredits" placeholder = "number of credits" type = "number" min="1" required>
+                    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_bE12QyEg4nE1pzUEw2OI6riK" data-name="The Claw" data-description="1 game credit = $0.99" data-image=""></script>
                 </form>
 
             </div>

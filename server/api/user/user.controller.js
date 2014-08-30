@@ -99,13 +99,25 @@ exports.me = function(req, res, next) {
     });
 };
 
+/**
+ * Add 1 credit after Stripe payment is made
+ */
+// exports.update = function(req,res) {
+//   User.update({req.body}, function (err, user) {
+//     //adds 1 to their credit
+//     res.json(200, user);
+//   });
+// }
+
+
 exports.update = function(req, res, next) {
     var userId = req.params.id;
     console.log(req.body);
     User.update({
         _id: userId
     }, {
-        credits: req.body.credits
+        credits: req.body.credits,
+        isPlaying: req.body.isPlaying
     }, function(err, user) {
         if (err) {
             return next(err);
@@ -116,6 +128,7 @@ exports.update = function(req, res, next) {
         res.json(user);
     });
 }
+
 
 /**
  * Authentication callback
