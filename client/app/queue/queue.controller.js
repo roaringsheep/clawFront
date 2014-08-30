@@ -38,7 +38,7 @@ angular.module('clawFrontApp')
             if(player.credits>0){
                 return queueFactory.addPlayer(player);
             } else {
-                alert('you has no credit');
+                alert('you have no credit');
             }
         };
         //play game with credits
