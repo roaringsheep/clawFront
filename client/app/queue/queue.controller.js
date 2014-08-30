@@ -20,6 +20,16 @@ angular.module('clawFrontApp')
 
         })
 
+        $scope.credits = 1;
+
+        $scope.changeCredit = function (num){
+          $scope.credits = $scope.credits + num;
+
+          if($scope.credits === 0){
+            $scope.credits = 1;
+          }
+        }
+
         $rootScope.$watch('eta', function(newval, oldval) {
             $scope.eta = newval;
             console.log("I updated $rootScope.eta", $rootScope.eta, "$scope.eta: ", $scope.eta)
