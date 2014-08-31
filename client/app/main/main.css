@@ -3,6 +3,9 @@
     text-align: center;
 }
 
+.btn:focus {outline: 0;}
+button:focus {outline: 0;}
+
 .no-margin-left {
     margin-left: 0;
     padding-left:0;
@@ -37,12 +40,40 @@ html, body {
 }
 /*QUEUE*/
 .user-box {
-    height: 600px;
-    width: 500px;
+    height: 28em;
+    width: 20em;
     border: 1px solid black;
     position: absolute;
-    top: 150px;
-    left: 25px;
+    top: 14em;
+    left: 2em;
+}
+
+.row>h4 {
+    margin-top: 0;
+}
+
+/*CREDITS BOX*/
+.creditBox {
+  /* basics */
+background-color: #777;
+color: #fff;
+text-align: center;
+border-radius: 10%;
+padding: 0 0.2em;
+width: 12em;
+margin: 0 auto;
+
+}
+
+.creditBtn {
+  /* basics */
+  color: #444;
+  background-color: #B5B198;
+  /* rounded corners */
+    -webkit-border-radius: 6px;
+          border-radius: 6px;
+    -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
+  font-weight: bold;
 }
 
 
@@ -56,6 +87,32 @@ html, body {
     position: fixed;
     margin-top: 20px;
     background: rgba(255, 255, 255, 0.8);
+}
+
+.navbar-nav> li > a{
+    padding-top: 10px !important; 
+    color: #333 !important;
+}
+
+.navbar a {
+    font-size: 1.2em;
+    color: #333 !important;
+    background-color: #ccc !important;
+    border: 1px solid rgba(255,255,255,.75);
+    cursor: pointer;
+}
+.navbar a:hover{
+    border: 1px solid rgba(0,0,0,0.75);
+}
+
+#navbar-main {
+   text-align: center;
+
+}
+
+.ng-scope {
+    top: 0;
+    margin-top: 0;
 }
 
 #banner h1 {
@@ -74,56 +131,7 @@ html, body {
     width: 100%;
 }
 
-/*BUTTONS*/
-.btn-main {
-    font-size: 1.5em;
-    height: 7em;
-    width: 7em;
-    text-align: center;
-    border-radius: 5%;
-    white-space: pre-wrap;
-}
 
-.badge {
-    font-size: 1.5em;
-    text-align: center;
-    white-space: pre-wrap;
-    padding: 1%;
-}
-
-#drop {
-    border-radius: 50%;
-  /*  border: none;*/
-    height: 200px;
-    width: 200px;
-    font-size: 2.5em;
-   /* background-color: rgba(255,255,255,0.75);
-    color: rgba(0,0,0,0.5);*/
-}
-
-.controller {
-    color: rgba(255,255,255,0.75);
-    background-color: rgba(255,255,255,0);
-    border: 1px solid rgba(255,255,255,.75);
-    cursor: pointer;
-}
-
-.controller:hover{
-    color: rgba(0,0,0,0.75);
-    background-color: rgba(255,255,255,0.75);
-    border: 1px solid rgba(0,0,0,0.75);
-}
-
-.z0 {
-    z-index:100;
-    alignment: inline-block;
-    position: absolute;
-}
-#container {
-    height: 100vh;
-    width: 100vh;
-    background-size: cover;
-}
 
 /*VIDEO*/
 .videoUrl {
@@ -146,26 +154,10 @@ html, body {
     width: 80%;
 }
 
-
-.modal {
-    color: gray;
+#peerVidInput {
+    bottom: 20em;
+    position: absolute;
 }
-/*FORM*/
-form {
-    width: 70%;
-}
-
-#stripeForm {
-
-}
-
-
-
-.controls   {
-    width:100%;
-    height:100%;
-}
-
 #their-video    {
     position: absolute;
     top:0;
@@ -177,11 +169,78 @@ form {
     z-index: -1;
 }
 
+#my-video {
+    max-width: 300px;
+    max-height: 300px;
+}
+
 .videoContainer   {
     position: absolute;
     bottom: 5%;
     right: 6%;
     border: 2px solid #ddd;
+}
+
+
+
+/*FORM*/
+form {
+    width: 70%;
+}
+
+.modal {
+    color: gray;
+}
+
+/*GAME*/
+.btn-main {
+    font-size: 1.5em;
+    height: 7em;
+    width: 7em;
+    text-align: center;
+    border-radius: 5%;
+    white-space: pre-wrap;
+}
+
+.badge {
+    font-size: 1.5em;
+    text-align: center;
+    white-space: pre-wrap;
+    padding: 1.5%;
+}
+
+.dropBtn {
+    height:200px;
+    width: 200px;
+    float: right;
+    margin-right: 35em;
+}
+#drop {
+    border-radius: 50%;
+  /*  border: none;*/
+    height: 200px;
+    width: 200px;
+    font-size: 2.5em;
+   /* background-color: rgba(255,255,255,0.75);
+    color: rgba(0,0,0,0.5);*/
+}
+.controller {
+    color: rgba(255,255,255,0.75);
+    background-color: rgba(255,255,255,0);
+    border: 1px solid rgba(255,255,255,.75);
+    cursor: pointer;
+}
+
+.controller:hover{
+    color: rgba(0,0,0,0.75);
+    background-color: rgba(255,255,255,0.75);
+    border: 1px solid rgba(0,0,0,0.75);
+}
+
+.controls   {
+    position: absolute;
+    width:100%;
+    height:100%;
 }
 
 .UltimateContainer > div:first-of-type   {
@@ -211,6 +270,8 @@ form {
     width: auto !important;
     height: auto !important;
     display: inline-block;
+    float: left;
+    margin-left: 35em;
 
 }
 
@@ -239,8 +300,8 @@ form {
     visibility: hidden;
 }
 
-.dropBtn    {
+/*.dropBtn    {
     display: inline-block;
     float: right;
-}
+}*/
 

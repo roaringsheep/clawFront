@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('clawFrontApp')
-  .controller('SignupCtrl', function ($scope, Auth, $location, $window) {
+  .controller('SignupCtrl', function ($scope, Auth, $location, $window, $timeout) {
     $scope.user = {};
     $scope.errors = {};
 
@@ -14,10 +14,14 @@ angular.module('clawFrontApp')
           email: $scope.user.email,
           password: $scope.user.password
         })
-        .then( function() {
-          // Account created, redirect to home
-          $location.path('/profile');
-        })
+          .then(function() {
+                        // Logged in, redirect to home
+                        $('#signup').modal('hide');
+                        $timeout(function() {
+                          $location.path('/profile');
+                        },450)
+                        
+                    })
         .catch( function(err) {
           err = err.data;
           $scope.errors = {};

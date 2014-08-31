@@ -1,62 +1,50 @@
 <div ui-view>
-  
     <div class="controls">
+        <video id="their-video" ng-src="{{peerURL}}" autoplay class="videoUrl">
+        </video>
+        <section class="keypad">
+            <div class="arrowsNbuttons">
+                <div class="arrows">
 
-    <video id="their-video" ng-src="{{peerURL}}" autoplay class="videoUrl">
+                    <a ng-mousedown="move('back')" ng-mouseup="move('bclear')" id='back' class="btn controller">
+                        <span class="fa fa-arrow-up fa-3x"></span>
+                    </a>
 
-     </video>
+                    <a ng-mousedown="move('left')" ng-mouseup="move('lclear')" id="left" class="btn controller  ">
+                        <span class="fa fa-arrow-left fa-3x "></span>
+                    </a>
 
-    <section class="keypad">
-        <div class="arrowsNbuttons">
-        <!--  <p>My Peer ID is {{my_id}}</p>
-        <input type="text" ng-model="tempPeerId" placeholder="Enter remote peer ID">
-         <button ng-click="callPeerHelper(tempPeerId)">Submit</button>
- -->
-            <div class="arrows">
+                    <a class="btn controller dummy-arrow ">
+                        <span class="fa fa-arrow-up fa-3x "></span>
+                    </a>
+                    <a ng-mousedown="move('right')" ng-mouseup="move('rclear')" id="right" class="btn controller">
+                        <span class="fa fa-arrow-right fa-3x"></span>
+                    </a>
+                    <a ng-mousedown="move('forw')" ng-mouseup="move('fclear')" id="front" class="btn controller">
+                        <span class="fa fa-arrow-down fa-3x"></span>
+                    </a>
 
-                <a ng-mousedown="move('back')" ng-mouseup="move('bclear')" id='back' class="btn ">
-                    <span class="fa fa-arrow-up fa-3x"></span>
-                </a>
+                </div>
+                <!-- arrows -->
 
-                <a ng-mousedown="move('left')" ng-mouseup="move('lclear')" id="left" class="btn   ">
-                    <span class="fa fa-arrow-left fa-3x "></span>
-                </a>
+                <div class="dropBtn">
 
-                <a class="btn controller dummy-arrow ">
-                    <span class="fa fa-arrow-up fa-3x "></span>
-                </a>
-                <a ng-mousedown="move('right')" ng-mouseup="move('rclear')" id="right" class="btn ">
-                    <span class="fa fa-arrow-right fa-3x"></span>
-                </a>
-                <a ng-mousedown="move('forw')" ng-mouseup="move('fclear')" id="front" class="btn ">
-                    <span class="fa fa-arrow-down fa-3x"></span></a>
+                    <button ng-click="clawDrop()" id="drop" ng-disabled="dropping" class="btn btn-xl controller">DROP</button>
 
-            </div> <!-- arrows -->
-
-            <div class="dropBtn">
-
-                <button ng-click="clawDrop()" id="drop" ng-disabled="dropping" class="btn btn-xl controller">DROP</button>
-
+                </div>
+                
+                <span id = "peerVidInput" class = "pull-left">
+                      <p>My Peer ID is {{my_id}}</p>
+                    <input type="text" ng-model="tempPeerId" placeholder="Enter remote peer ID">
+                    <button ng-click="callPeerHelper(tempPeerId)">Submit</button>
+                </span>
             </div>
-    
-        </div>
+        </section>
     </div>
 
-    
-        </section>
-        
-        <div class="videoContainer">
+    <div class="videoContainer">
         <p>Their Peer ID is {{remotePeerId}}</p>
         <video id="my-video" ng-src="{{videoURL}}" autoplay loop></video>
-        </div>
-
-
-
-
-
     </div>
+
 </div>
-
-
- 
-

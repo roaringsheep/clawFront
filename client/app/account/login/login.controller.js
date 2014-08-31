@@ -55,5 +55,6 @@ angular.module('clawFrontApp')
 
         $scope.loginOauth = function(provider) {
             $window.location.href = '/auth/' + provider;
+            
         };
     });

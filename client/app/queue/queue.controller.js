@@ -8,6 +8,7 @@ angular.module('clawFrontApp')
         $scope.isLoggedIn = Auth.isLoggedIn();
         console.log("currentUser: ", $scope.currentUser);
         $scope.queue = queueFactory.getQueue();
+        $scope.inQueue = false;
 
         //Get queue
         $rootScope.$watch('queue', function(newval, oldval) {
@@ -19,6 +20,20 @@ angular.module('clawFrontApp')
             }
 
         })
+
+        $scope.credits = 1;
+
+        $scope.changeCredit = function (num){
+          $scope.credits = $scope.credits + num;
+
+          if($scope.credits === 0){
+            $scope.credits = 1;
+          }
+        }
+
+        $scope.resetCredits = function (){
+            return $scope.credits = 1;
+        }
 
         $rootScope.$watch('eta', function(newval, oldval) {
             $scope.eta = newval;
@@ -36,6 +51,9 @@ angular.module('clawFrontApp')
         //Add player
         $scope.addPlayer = function(player) {
             if(player.credits>0){
+                alert ('awesome. you just joined the queue!');
+                $scope.inQueue = true;
+
                 return queueFactory.addPlayer(player);
             } else {
                 alert('you have no credit');
@@ -50,27 +68,27 @@ angular.module('clawFrontApp')
         //Remove player
         $scope.removeByQueueUserId = function(player) {
             queueFactory.removeByQueueUserId(player).success(function() {
+                $scope.inQueue = false;
                 $rootScope.eta = queueFactory.ETAtoPlay($scope.queue, $scope.currentUser);
             });
         };
 
         $scope.removeByUserId = function(player) {
             queueFactory.removeByUserId(player).success(function() {
+                $scope.inQueue = false;
+                alert("You just left the queue")
                 $rootScope.eta = queueFactory.ETAtoPlay($scope.queue, $scope.currentUser);
             });
         };
 
-
-        // $scope.handleStripe = function(status, response) {
-        //   if (response.error) {throw response.error;}
-        //   else {
-        //     var stripeToken = response.id;
-        //     var userId = $scope.currentUser._id;
-        //     $http.post('/charge', stripeToken, userId).success(function(){
-        //       console.log("$http post token, currentUser", stripeToken, playerId)
-        //     });
-        //   }
-        // }
+        $scope.isInQueue = function(){
+            var bool = '';
+            var temp = queueFactory.getQueue();
+            if (temp != undefined) {
+            bool = queueFactory.findPlayerInQueue($scope.queue, currentUser)
+            }
+            bool>-1? $scope.inQueue = true: $scope.inQueue = false;
+        }
 
 
     // $scope.submitStripe = function() {
