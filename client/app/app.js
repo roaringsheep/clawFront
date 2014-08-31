@@ -7,8 +7,7 @@ angular.module('clawFrontApp', [
   'btford.socket-io',
   'ui.router',
   'ui.bootstrap',
-  'ngTouch',
-  'angularPayments'
+  'ngTouch'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
