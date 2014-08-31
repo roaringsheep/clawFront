@@ -40,7 +40,7 @@ html, body {
 }
 /*QUEUE*/
 .user-box {
-    height: 27em;
+    height: 28em;
     width: 20em;
     border: 1px solid black;
     position: absolute;
@@ -59,7 +59,7 @@ background-color: #777;
 color: #fff;
 text-align: center;
 border-radius: 10%;
-padding: .8em .8em 1em;
+padding: 0 0.2em;
 width: 12em;
 margin: 0 auto;
 
@@ -206,7 +206,7 @@ form {
     font-size: 1.5em;
     text-align: center;
     white-space: pre-wrap;
-    padding: 1%;
+    padding: 1.5%;
 }
 
 .dropBtn {
