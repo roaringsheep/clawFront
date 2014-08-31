@@ -1,0 +1,26 @@
+
+
+    <h1><a href='../../index.html' title='simpl.info home page'>simpl.info</a> MediaStreamTrack.getSources</h1>
+
+    <div class='select'>
+        <label for='audioSource'>Audio source:</label>
+        <select id='audioSource'></select>
+    </div>
+
+    <div class='select'>
+        <label for='videoSource'>Video source:</label>
+        <select id="videoSource" ng-model="videoSelect" ng-options="opt.txt for opt in videoOption track by opt.value"></select>
+    </div>
+    <div>
+        <video id="video0" muted autoplay></video>
+    </div>
+    <hr><br>
+    <div>
+        <video id="video1" muted autoplay></video>
+    </div>
+
+    <p>This demo requires Chrome 30 or later.</p>
+
+    <p>For more information, see <a href='http://www.html5rocks.com/en/tutorials/getusermedia/intro/' title='Media capture article by Eric Bidelman on HTML5 Rocks'>Capturing Audio &amp; Video in HTML5</a> on HTML5 Rocks.</p>
+
+    <a href='https://github.com/samdutton/simpl/blob/master/getusermedia/sources/js/main.js' title='View source for this page on GitHub' id='viewSource'>View source on github</a>
