@@ -45,21 +45,28 @@ angular.module('clawFrontApp')
                 return alreadyInQueue;
             })
             if (!alreadyInQueue && player.credits >= 1) {
+                player.inQueue = true;
                 $http.post('/api/queues', {
                     username: player.name,
                     userId: player._id,
                     active: true,
                     index: Date.now()
+                }).success(function(){
+                    $http.post('/api/users/' + player._id, player);
                 })
             }
         };
 
         //remove player from queue
         factory.removeByQueueUserId = function(player) {
+
             console.log("player in $http.delete request: ", player)
             var there = findQueuePlayer($rootScope.queue, player);
             if (there >= 0) {
-                return $http.delete('/api/queues/' + player.userId);
+                player.inQueue = false;
+                return $http.delete('/api/queues/' + player.userId).success(function(){
+                    $http.post('/api/users/' + player.userId, player);
+                });
             }
         };
 
@@ -67,7 +74,10 @@ angular.module('clawFrontApp')
             console.log("player in $http.delete request: ", player)
             var there = findPlayerInQueue($rootScope.queue, player);
             if (there >= 0) {
-                return $http.delete('/api/queues/' + player._id);
+                player.inQueue = false;
+                return $http.delete('/api/queues/' + player._id).success(function(){
+                    $http.post('/api/users/' + player._id, player);
+                });
             }
         };
 

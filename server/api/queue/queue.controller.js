@@ -22,6 +22,7 @@ exports.show = function(req, res) {
 
 // Pushes user to the queue the DB.
 exports.create = function(req, res) {
+  console.log("req.body", req.body)
   var username = req.body.username,
   userId = req.body.userId,
   active = req.body.active,

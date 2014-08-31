@@ -40,7 +40,7 @@ html, body {
 }
 /*QUEUE*/
 .user-box {
-    height: 28em;
+    height: 36em;
     width: 20em;
     border: 1px solid black;
     position: absolute;
@@ -133,7 +133,7 @@ margin: 0 auto;
 
 
 
-/*VIDEO*/
+/*VIDEO + IMAGE*/
 .videoUrl {
 /*    background: url("http://192.168.1.124:8080/?action=stream") no-repeat center center;*/
     background-size: cover;
@@ -181,7 +181,11 @@ margin: 0 auto;
     border: 2px solid #ddd;
 }
 
-
+#fbPhoto {
+    height: 8em;
+    width: 8em;
+    border-radius: 50%;
+}
 
 /*FORM*/
 form {

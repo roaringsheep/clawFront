@@ -8,7 +8,6 @@ angular.module('clawFrontApp')
         $scope.isLoggedIn = Auth.isLoggedIn();
         console.log("currentUser: ", $scope.currentUser);
         $scope.queue = queueFactory.getQueue();
-        $scope.inQueue = false;
 
         //Get queue
         $rootScope.$watch('queue', function(newval, oldval) {
@@ -52,16 +51,17 @@ angular.module('clawFrontApp')
         $scope.addPlayer = function(player) {
             if(player.credits>0){
                 alert ('awesome. you just joined the queue!');
-                $scope.inQueue = true;
-
-                return queueFactory.addPlayer(player);
+                queueFactory.addPlayer(player);
+                console.log("player", player)
             } else {
                 alert('you have no credit');
             }
         };
+
         //play game with credits
         $scope.playGame = function(player) {
             queueFactory.playWithCredits(player);
+
         };
 
 
@@ -76,7 +76,7 @@ angular.module('clawFrontApp')
         $scope.removeByUserId = function(player) {
             queueFactory.removeByUserId(player).success(function() {
                 $scope.inQueue = false;
-                alert("You just left the queue")
+                alert("You just left the queue");
                 $rootScope.eta = queueFactory.ETAtoPlay($scope.queue, $scope.currentUser);
             });
         };

@@ -99,16 +99,7 @@ exports.me = function(req, res, next) {
     });
 };
 
-/**
- * Add 1 credit after Stripe payment is made
- */
-// exports.update = function(req,res) {
-//   User.update({req.body}, function (err, user) {
-//     //adds 1 to their credit
-//     res.json(200, user);
-//   });
-// }
-
+/* Universal put. Use to add credit(s) after Stripe payment is made, toggle inQueue and isPlaying properties*/
 
 exports.update = function(req, res, next) {
     var userId = req.params.id;
@@ -117,7 +108,8 @@ exports.update = function(req, res, next) {
         _id: userId
     }, {
         credits: req.body.credits,
-        isPlaying: req.body.isPlaying
+        isPlaying: req.body.isPlaying,
+        inQueue: req.body.inQueue
     }, function(err, user) {
         if (err) {
             return next(err);

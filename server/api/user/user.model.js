@@ -13,6 +13,7 @@ var UserSchema = new Schema({
   games: [ObjectId],
   credits: {type: Number, default: 10},
   isPlaying: {type: Boolean, default: false},
+  inQueue: {type: Boolean, default: false},
   address: {street: String, town: String, city: String, state: String, zipcode: Number},
   hashedPassword: String,
   provider: String,
