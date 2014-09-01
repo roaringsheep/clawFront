@@ -22,6 +22,8 @@ var UserSchema = new Schema({
     type: String,
     default: 'user'
   },
+  resetPasswordToken: String,
+  resetPasswordExpires: Number,
   facebook: {},
   github: {}
 });

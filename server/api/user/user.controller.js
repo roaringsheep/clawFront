@@ -4,6 +4,10 @@ var User = require('./user.model');
 var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
+var async = require('async');
+var crypto = require('crypto');
+var nodemailer = require('nodemailer');
+var smtpTransport = require('nodemailer-smtp-transport');
 
 var validationError = function(res, err) {
     return res.json(422, err);
@@ -19,6 +23,83 @@ exports.index = function(req, res) {
         res.json(200, users);
     });
 };
+
+exports.pwcheck = function(req, res) {
+    async.waterfall([
+        function(done) {
+            crypto.randomBytes(20, function(err, buf) {
+                var token = buf.toString('hex');
+                done(err, token)
+            });
+        },
+        function(token, done) {
+            User.findOne({email: req.body.email}, function(err, user) {
+                if (!user) {
+                    console.log('didnot find user');
+                    res.send("nouser");
+                } else {
+                    console.log('found!');
+                    user.resetPasswordToken = token;
+                    user.resetPasswordExpires = Date.now() + 3600000;
+                    user.save(function(err){
+                        done(err,token,user);
+                    })
+                }
+            });
+        },
+        function(token, user, done){
+            var transport = nodemailer.createTransport(smtpTransport({
+                service:'gmail',
+                auth: {
+                    user: 'arcadewebclaw@gmail.com',
+                    pass: 'WebArcadeClaw'
+                }
+            }));
+            var mailOptions = {
+                to: user.email,
+                from: 'pwrecovery@arcadeclaw.com',
+                subject: 'Arcade Claw Password Reset',
+                text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account. \n\n'+ 'Please click on the following link, or paste this into your browser to complete the process:\n\n' + 'http://'+req.headers.host +'/api/users/reset/'+token+'\n\n'+'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+            };
+            transport.sendMail(mailOptions, function(err){
+                done(err, 'done');
+            });
+        }
+    ], function(err){
+        if(err) {
+            console.log('err',err);
+            res.status(500).send(err);
+        }
+        res.send('done');
+    })
+};
+
+
+exports.reset = function(req,res,next){
+    User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: {$gt: Date.now()}}, function(err, user){
+        if(!user){
+            res.send('nope');
+        } else {
+            res.send(user);
+        }
+    })
+}
+
+exports.resetPassword = function(req, res){
+    User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: {$gt: Data.now()}}, function(err, user){
+        if (!user) {
+            res.send('nope');
+        } else {
+            user.password = req.body.password;
+            user.resetPasswordExpires = undefined;
+            user.resetPasswordToken = undefined;
+            user.save(function(err){
+                if(err) console.log('reset Password error',err);
+                res.status(200).send('done');
+            })
+        }
+    })
+}
 
 /**
  * Creates a new user

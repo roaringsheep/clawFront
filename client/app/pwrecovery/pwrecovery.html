@@ -1,0 +1,12 @@
+<div id="pwrecovery" class="col-md-12">
+<div ng-show="success" id="success-alert" class="alert alert-success alert-dismissible"></div>
+<div ng-show="error" id="error-alert" class="alert alert-danger alert-dismissible"></div>
+<div ng-show="info" id="info-alert" class="alert alert-info alert-dismissible"></div>
+<div ng-show="warning" id="warning-alert" class="alert alert-warning alert-dismissible"></div>
+<h1>Password Recovery</h1>
+<form ng-submit="emailCheck()">
+	<label>email</label>
+	<input ng-model="email" type="email">
+	<button>Submit</button>
+</form>
+</div>
