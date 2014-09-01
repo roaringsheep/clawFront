@@ -38,8 +38,9 @@ html, body {
     margin-right: 0;
     padding-right: 0;
 }
-/*QUEUE*/
+/*PROFILE*/
 .user-box {
+    padding-top: 0.25%;
     height: 36em;
     width: 20em;
     border: 1px solid black;
@@ -52,7 +53,11 @@ html, body {
     margin-top: 0;
 }
 
-/*CREDITS BOX*/
+#start-btn {
+    border-radius: 5%;
+    font-size: 1.5em;
+    margin-top: 2%;
+}
 .creditBox {
   /* basics */
 background-color: #777;

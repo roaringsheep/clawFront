@@ -51,7 +51,7 @@ angular.module('clawFrontApp')
                     userId: player._id,
                     active: true,
                     index: Date.now()
-                }).success(function(){
+                }).success(function() {
                     $http.post('/api/users/' + player._id, player);
                 })
             }
@@ -61,10 +61,10 @@ angular.module('clawFrontApp')
         factory.removeByQueueUserId = function(player) {
 
             console.log("player in $http.delete request: ", player)
-            var there = findQueuePlayer($rootScope.queue, player);
+            var there = factory.findQueuePlayer($rootScope.queue, player);
             if (there >= 0) {
                 player.inQueue = false;
-                return $http.delete('/api/queues/' + player.userId).success(function(){
+                return $http.delete('/api/queues/' + player.userId).success(function() {
                     $http.post('/api/users/' + player.userId, player);
                 });
             }
@@ -72,16 +72,18 @@ angular.module('clawFrontApp')
 
         factory.removeByUserId = function(player) {
             console.log("player in $http.delete request: ", player)
-            var there = findPlayerInQueue($rootScope.queue, player);
+            var there = factory.findPlayerInQueue($rootScope.queue, player);
             if (there >= 0) {
                 player.inQueue = false;
-                return $http.delete('/api/queues/' + player._id).success(function(){
+
+                return $http.delete('/api/queues/' + player._id).success(function() {
                     $http.post('/api/users/' + player._id, player);
                 });
             }
         };
 
-        var findQueuePlayer = function(queue, player) {
+        //search queue by queue.userId
+        factory.findQueuePlayer = function(queue, player) {
             var isThere = -1;
             if (queue) {
                 for (var i = 0; i < queue.length; i++) {
@@ -96,7 +98,17 @@ angular.module('clawFrontApp')
             return isThere;
         };
 
-        var findPlayerInQueue = function(queue, player) {
+
+        // factory.getQueuePlayer = function(queue, player) {
+        //     if (factory.findQueuePlayer(queue, player) >= 0) {
+        //         return queue[i];
+        //     }
+
+        // }
+
+
+        //search queue by currentUser._id, stored as queue.userId. returns index
+        factory.findPlayerInQueue = function(queue, player) {
             var isThere = -1;
             if (queue) {
                 for (var i = 0; i < queue.length; i++) {
@@ -110,19 +122,34 @@ angular.module('clawFrontApp')
             console.log('isThere', isThere);
             return isThere;
         };
+       //search queue by currentUser._id, stored as queue.userId. returns object
+        factory.getPlayerInQueue = function(queue, player) {
+            var player;
+            var playerIndex = factory.findPlayerInQueue(queue, player)
+            console.log("playerIndex", playerIndex)
+            console.log("queuePlayer", queue[playerIndex]);
+            if (playerIndex >= 0) {
+
+                player = queue[playerIndex];
+            }
+
+            return player;
+        }
+
+
 
         //check ETAtoPlay
         factory.ETAtoPlay = function(queue, player) {
             var eta = queue.length;
-            console.log("it's running")
+            // console.log("it's running")
             for (var i = 0; i < queue.length; i++) {
-                console.log("queue[i].userId", queue[i].userId, "player", player._id, "i: ", i)
+                // console.log("queue[i].userId", queue[i].userId, "player", player._id, "i: ", i)
                 if (queue[i].userId == player._id) {
                     eta = i;
-                    console.log("found it!", eta);
+                    //console.log("found it!", eta);
                 }
             }
-            console.log("eta", eta)
+            //console.log("eta", eta)
             return eta;
         };
 
@@ -132,26 +159,67 @@ angular.module('clawFrontApp')
             return $http.post('/api/users/' + player._id, player);
         }
 
-        var userUpdate = function(player) {
+        factory.userUpdate = function(player) {
             return $http.post('/api/users/' + player._id, player);
         };
 
+
         // play game with credits
-        factory.playWithCredits = function(player) {
-            if(findPlayerInQueue(player) >= 0) {
-                removeByUserId(player);
+        factory.playWithCredits = function(queue, player) {
+            if (factory.findPlayerInQueue(queue, player) >= 0) {
+                factory.removeByUserId(player);
             }
             console.log(player);
             if (player.credits >= 1) {
-                player.credits--; 
+                player.credits--;
                 player.isPlaying = true;
-                userUpdate(player).success(function() {
+                factory.userUpdate(player).success(function() {
                     console.log("$http.post user: ", player);
                     $location.path('/game')
                 });
             }
         };
 
+
+        factory.persistHeadByCurrentUser = function(player) {
+            if (typeof $rootScope.queue[0] != "undefined") {
+                var queueHead = $rootScope.queue[0];
+                console.log(queueHead);
+                if (queueHead.userId == player._id) {
+                    console.log('got this far');
+                    queueHead.timeAtHead = Date.now();
+                    $http.put('/api/queues/' + queueHead.userId, queueHead);
+                }
+
+            }
+
+        };
+
+        factory.persistHead = function(player) {
+            if (typeof $rootScope.queue[0] != "undefined") {
+                var queueHead = $rootScope.queue[0];
+                console.log(queueHead);
+                if (queueHead.userId == player.userId) {
+                    console.log('got this far');
+                    queueHead.timeAtHead = Date.now();
+                    $http.put('/api/queues/' + queueHead.userId, queueHead);
+                }
+
+            }
+
+        };
+
+
+        // factory.checkHead = function(player) {
+        //     if (factory.findPlayerInQueue(queue, player) == 0){
+        //         var queueHead = queue[0];
+        //         var playDeadline = Date.now() - queueHead.timeAtHead;
+        //         if (playDeadline >= 30000) {
+        //             alert('timed out of queue');
+        //             factory.removeByUserId(player)}
+        //     }
+
+        // } 
 
 
         return factory;

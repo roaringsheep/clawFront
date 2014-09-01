@@ -45,6 +45,7 @@ angular.module('clawFrontApp')
        * @param  {Function}
        */
       logout: function() {
+        console.log("Yo logging out");
         $cookieStore.remove('token');
         currentUser = {};
       },
