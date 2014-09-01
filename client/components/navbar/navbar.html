@@ -6,22 +6,24 @@
                 <span class="fa fa-align-justify fa-2x"></span>
             </button>
         </div>
-        <center>
-            <h1>the Claw</h1>
-            <h4>Where the web meets a classic arcade game</h4>
+      
+            <h1 class = "center-text">Arcade Claw</h1>
+            <h4 class = "center-text">Claw your way to glory</h4>
             <ul class="nav navbar-nav">
                 <li>
                     <a ng-hide="isLoggedIn()" class = "btn btn-primary btn-small controller"href="" data-toggle="modal" data-target="#login">GET STARTED!</a>
                 </li>
             </ul>
-        </center>
+       
         <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main" >
             <ul class="nav nav-justified">
-                <li> <a href="/">the Claw</a>
+                <li> <a href="/">Arcade Claw</a>
                 </li>
                 <li> <a href="" data-toggle="modal" data-target="#about">About</a>
                 </li>
                 <li> <a href="" data-toggle="modal" data-target="#howto">How to Play</a>
+                </li>
+                <li ng-show="isLoggedIn()"><a href="/profile">My Profile</a>
                 </li>
                 <li ng-show="isAdmin()" ng-class="{active: isActive('/admin')}"><a href="/admin">Admin</a>
                 </li>
@@ -36,9 +38,9 @@
     </div>
 
     <div id="userMedia" ng-show="$root.userMedia">
-        <center>
-            <h3>Your Browser Is Not Supported. Please use the most recent version of Chrome, Firefox, or Opera to play.</h3>
-        </center>
+       
+            <h3 class = "center-text">Your Browser Is Not Supported. Please use the most recent version of Chrome, Firefox, or Opera to play.</h3>
+       
     </div>
 </nav>
 
@@ -51,12 +53,20 @@
                     <span aria-hidden="true">&times;</span>
                     <span class="sr-only">Close</span>
                 </button>
-                <h4 class="modal-title" id="aboutLabel"></h4>
+                <h4 class="modal-title center-text" id="aboutLabel">About Arcade Claw</h4>
             </div>
-            <div class="modal-body">
-                <center>
-                    <strong class="center-block">ABOUT THE CLAW</strong>
-                </center>
+            <div class="modal-body" id = "modal-body">
+                
+                <p>Arcade Claw solves a real problem -- awesome arcade games are expensive and take up space. So we made one you can play anywhere.  Yep, it's a real claw and it lives somewhere in New York City. Launched summer 2014.  
+                </p>
+               
+                <p>
+                What makes Arcade Claw so awesomely unlike any other claw game you've ever played? You control it from your broswer.  Our slick WebRTC functionality ensures your game experience is rich, high quality and real time. And an audience follows your moves on our Twitch.tv stream. 
+                </p>
+               
+                <p>
+                Watching is free.  Login to claw your way to glory. Just 99 cents a game. 
+                </p>
 
             </div>
             <div class="modal-footer">
@@ -75,11 +85,14 @@
                     <span aria-hidden="true">&times;</span>
                     <span class="sr-only">Close</span>
                 </button>
-                <h4 class="modal-title" id="howtoLabel"></h4>
+                <h4 class="modal-title center-text" id="howtoLabel">How to Play</h4>
             </div>
             <div class="modal-body">
-                YO YO YO HOWTO
+            <p>We built Arcade Claw to put a first-rate game experience in a simple package.</p>
 
+            <p>Just sign up or login to get started. All you need to play are game credits and a spot in our queue -- get them both at your profile page.  <a href="https://stripe.com/help/security" target = "_blank">Stripe</a> handles our payments; they safely process billions of dollars in payments a year.   </p>
+            
+            <p>Arcade Claw's controls are just like you remember from the arcade. Hold an arrow key to move. Hit the Drop button once to grab a prize. Play as much as you want in 60 seconds. Grabbing a prize gets you a free game.</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

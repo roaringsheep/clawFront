@@ -196,6 +196,10 @@ form {
     color: gray;
 }
 
+#modal-body {
+    text-align: justify !important;
+    text-justify: distribute;
+}
 /*GAME*/
 .btn-main {
     font-size: 1.5em;

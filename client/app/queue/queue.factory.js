@@ -141,6 +141,7 @@ angular.module('clawFrontApp')
             if(findPlayerInQueue(player) >= 0) {
                 removeByUserId(player);
             }
+            console.log(player);
             if (player.credits >= 1) {
                 player.credits--; 
                 player.isPlaying = true;

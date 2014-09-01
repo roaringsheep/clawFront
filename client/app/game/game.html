@@ -4,7 +4,7 @@
         </video>
         <section class="keypad">
             <div class="arrowsNbuttons">
-                <div class="arrows">
+                <div class="arrows" tooltip = "Hold down an arrow controller to move the claw. Release the arrow to stop.">
 
                     <a ng-mousedown="move('back')" ng-mouseup="move('bclear')" id='back' class="btn controller">
                         <span class="fa fa-arrow-up fa-3x"></span>
@@ -29,7 +29,7 @@
 
                 <div class="dropBtn">
 
-                    <button ng-click="clawDrop()" id="drop" ng-disabled="dropping" class="btn btn-xl controller">DROP</button>
+                    <button ng-click="clawDrop()" id="drop" ng-disabled="dropping" class="btn btn-xl controller" tooltip = "hit the DROP button ONCE to drop the claw. We're wicked smart and programmed the claw to do the rest. ">DROP</button>
 
                 </div>
                 
