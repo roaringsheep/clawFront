@@ -1,10 +1,8 @@
 <div ui-view>
     <div class="controller user-box" ng-show="isLoggedIn">
-       <!-- {{queue[0]}} -->
-        {{eta}}
         <div class="row">
-            <button class = "btn btn-main" ng-click = "persistHead()" >persist head</button>
-           <!--  <timer start-time = "Date.now()"> </timer> -->
+          <!--   <button class = "btn btn-main" ng-click = "persistHead()" >persist head</button>
+            <timer start-time = ""> </timer> -->
             <span>
                 <h4 ng-if="currentUser.provider == 'local'">Hello {{currentUser.name}}</h4>
                 <h4 ng-if="currentUser.provider == 'facebook'">Hello {{currentUser.facebook.first_name}}</h4>
