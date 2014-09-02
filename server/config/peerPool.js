@@ -13,8 +13,10 @@ function _removeConfirmedPeers(list, idIndex, idIndex2) {
 
 module.exports = {
 
-  // Master Peer ID
-  masterPeerID: null,
+  activeMasterPeerID: null,
+
+  // Master Peer ID pool -- list of all master candidates
+  masterPeerPool: [],
 
   // List of all clients (peers) connected to PeerJS Server
   allConnectedPeers: [],
@@ -22,14 +24,24 @@ module.exports = {
   // List of all clients (peers) connected to PeerJS Server that have confirmed ready to connect to others
   confirmedConnectedPeers: [],
 
-  // Set masterPeerID
-  setMasterPeerID: function(masterPeerID) {
-    this.masterPeerID = masterPeerID;
+  // Add masterPeerID to pool
+  addMasterPeerID: function(masterPeerID) {
+    this.masterPeerPool.push(masterPeerID);
   },
 
   // Get masterPeerID
   getMasterPeerID: function() {
-    return this.masterPeerID;
+    if (this.activeMasterPeerID !== null) {
+      return this.activeMasterPeerID;
+    }
+
+    if (this.masterPeerPool.length > 0) {
+      // take the next oldest one
+      this.activeMasterPeerID = this.masterPeerPool[0];
+      return this.activeMasterPeerID;
+    }
+
+    return null;
   },
 
   // addPeerToPool and removePeerFromPool are used by PeerJS Server only
@@ -45,6 +57,16 @@ module.exports = {
     if (this.allConnectedPeers.hasOwnProperty(id)) {
       delete this.allConnectedPeers[id];
     }
+
+    // remove master from master pool
+    var mIndex = this.masterPeerPool.indexOf(id);
+    if (mIndex > -1) {
+      this.masterPeerPool.splice(mIndex, 1);
+    }
+    if (id === this.activeMasterPeerID) {
+      this.activeMasterPeerID = null;
+    }
+
     // Need to also remove them from the confirmedConnectedPeers list
     var cIndex = this.confirmedConnectedPeers.indexOf(id);
     if (cIndex > -1) {
@@ -58,13 +80,13 @@ module.exports = {
 
     if (this.allConnectedPeers.hasOwnProperty(id)) {
       // has not been initialized yet
-      if(this.allConnectedPeers[id] === false) {
+      if (this.allConnectedPeers[id] === false) {
         this.allConnectedPeers[id] = secret;
       }
 
       // if secret matches, add confirm the peer to list if it doesn't already exist
-      if (this.allConnectedPeers[id] === secret ) {
-        if(cIndex === -1) {
+      if (this.allConnectedPeers[id] === secret) {
+        if (cIndex === -1) {
           this.confirmedConnectedPeers.push(id);
         }
         return true;
@@ -81,7 +103,7 @@ module.exports = {
   requestConnectPeer: function(origID, requestID, secret) {
     // First check if the given IDs are even present in the pool
     if (this.allConnectedPeers.hasOwnProperty(origID) &&
-        this.allConnectedPeers.hasOwnProperty(requestID)) {
+      this.allConnectedPeers.hasOwnProperty(requestID)) {
 
       if (this.allConnectedPeers[origID] !== secret) {
         console.log('\tSecret does not match for requestID', origID, ' secret given: ', secret);
@@ -92,7 +114,7 @@ module.exports = {
       var oIndex = this.confirmedConnectedPeers.indexOf(origID);
       var rIndex = this.confirmedConnectedPeers.indexOf(requestID);
 
-      console.log("directed request confirmed ", this.confirmedConnectedPeers, oIndex, rIndex);
+      // console.log("directed request confirmed ", this.confirmedConnectedPeers, oIndex, rIndex);
 
       if ((oIndex > -1) && (rIndex > -1)) {
         // Remove them from the confirmed list of peers
@@ -121,7 +143,7 @@ module.exports = {
     } else {
       var otherPeerIdIndex;
       do {
-        otherPeerIdIndex = Math.floor(Math.random()*this.confirmedConnectedPeers.length);
+        otherPeerIdIndex = Math.floor(Math.random() * this.confirmedConnectedPeers.length);
       } while (otherPeerIdIndex === idIndex);
 
       var otherPeerId = this.confirmedConnectedPeers[otherPeerIdIndex];

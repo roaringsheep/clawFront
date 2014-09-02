@@ -30,8 +30,8 @@ router.post('/confirmID', auth.isAuthenticated(), function(req, res) {
     console.log('Success - Confirmed Peers List: ', peerPool.confirmedConnectedPeers.length, peerPool.confirmedConnectedPeers);
 
     if (typeof req.user !== 'undefined' && req.user.role === 'admin') {
-      peerPool.setMasterPeerID(requestID);
-      console.log(new Date(), 'Set -> Master Peer ID is: ', requestID);
+      peerPool.addMasterPeerID(requestID);
+      console.log(new Date(), 'Add -> Master Peer ID: ', requestID);
       res.send(200, { isMaster: true });
     } else {
       // io.sockets.emit('peer_pool', peerPool.confirmedConnectedPeers);
@@ -51,6 +51,9 @@ router.post('/callMaster', function(req, res) {
     var requestID = req.body.id;
     var secret = req.body.secret;
     var success = false;
+
+    console.log('\tMaster Peer ID: ', masterPeerID);
+    console.log('\tMaster Pool: ', peerPool.masterPeerPool);
 
     console.log(new Date(), 'Request to call from [', requestID, '] to MASTER [', masterPeerID, ']');
 
@@ -136,13 +139,6 @@ router.post('/endCall', function(req, res) {
   var requestID = req.body.id;
   var secret = req.body.secret;
   var confirmed = false;
-
-  // var masterPeerID = peerPool.getMasterPeerID();
-
-  // // Master disconnected, remove it
-  // if (masterPeerID === requestID) {
-  //   peerPool.setMasterPeerID(null);
-  // }
 
   console.log(new Date(), 'Request to return ', requestID, ' to connected peers');
 
