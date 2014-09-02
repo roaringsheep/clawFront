@@ -2,7 +2,7 @@
 
 angular.module('clawFrontApp')
     .controller('PwrecoveryCtrl', function($scope, $http) {
-        $scope.email;
+        $scope.email='';
         $scope.error = false;
         $scope.success = false;
         $scope.info = false;
@@ -29,10 +29,10 @@ angular.module('clawFrontApp')
                     $scope.error = true;
                 } else if (data == 'done') {
                     console.log('done');
-                    $('#info-alert').html('An email has been sent to ' + $scope.email + "with further instructions." )
+                    $('#info-alert').html('An email has been sent to ' + $scope.email + " with further instructions." )
                     $scope.info = true;
+                    $scope.email='';
                 }
             })
         };
-
     });

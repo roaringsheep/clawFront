@@ -103,32 +103,51 @@ angular.module('clawFrontApp')
       // Compatibility shim
       navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
-      // PeerJS object
-      // -- Peer JS CLOUD
-      var peer = new Peer({ key: peerKey, debug: 3, config: {'iceServers': [
-        { url: stunURL } // Pass in optional STUN and TURN server for maximum network compatibility
-      ]}});
+      // // PeerJS object
+      // // -- Peer JS CLOUD
+      // var peer = new Peer({
+      //   key: peerKey,
+      //   debug: 3,
+      //   config: {
+      //     'iceServers': [{
+      //         url: stunURL
+      //       } // Pass in optional STUN and TURN server for maximum network compatibility
+      //     ]
+      //   }
+      // });
+
+      // var peer = new Peer({
+      //   host: $location.host(),
+      //   path: '/',
+      //   port: 3000,
+      //   debug: 3,
+      //   config: {
+      //     'iceServers': [{
+      //         url: stunURL
+      //       } // Pass in optional STUN and TURN server for maximum network compatibility
+      //     ]
+      //   }
+      // });
 
       // navigator.getUserMedia({audio: true, video: true}, function(stream) {
       navigator.getUserMedia({
         audio: true,
         video: true
       }, function(stream) {
-        console.log(stream.getVideoTracks());
+        var peer = new Peer({
+          host: $location.host(),
+          path: '/',
+          port: 3000,
+          debug: 3,
+          config: {
+            'iceServers': [{
+                url: stunURL
+              } // Pass in optional STUN and TURN server for maximum network compatibility
+            ]
+          }
+        });
         var peerLocalStream = stream;
         var blobURL = $sce.trustAsResourceUrl(URL.createObjectURL(stream));
-        // var peer = new Peer({
-        //   host: $location.host(),
-        //   path: '/',
-        //   port: 3000,
-        //   debug: 3,
-        //   config: {
-        //     'iceServers': [{
-        //         url: stunURL
-        //       } // Pass in optional STUN and TURN server for maximum network compatibility
-        //     ]
-        //   }
-        // });
 
         peer.on('open', function() {
           _resolvePeer(peer, peerLocalStream, blobURL);

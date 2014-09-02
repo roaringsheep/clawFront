@@ -1,13 +1,14 @@
-<div class="col-md-12">
+<div id="pwreset" class="col-md-12">
 <div ng-show="success" id="success-alert" class="alert alert-success alert-dismissible"></div>
 <div ng-show="error" id="error-alert" class="alert alert-danger alert-dismissible"></div>
 <div ng-show="info" id="info-alert" class="alert alert-info alert-dismissible"></div>
 <div ng-show="warning" id="warning-alert" class="alert alert-warning alert-dismissible"></div>
+<h1>Reset Password</h1>
 <form ng-submit="changePw()">
 	<label>New Password: </label>
 	<input type="password" ng-model="firstpw">
 	<label>Confirm Password: </label>
-	<input type="password" ng-model"secondpw">
+	<input type="password" ng-model="secondpw">
 	<button>Submit</button>
 </form>
 </div>
