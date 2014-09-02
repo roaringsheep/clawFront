@@ -134,24 +134,28 @@ margin: 0 auto;
     background: black;
     height: 100%;
     width: 100%;
+
+   
 }
 
 
 
 /*VIDEO + IMAGE*/
 .videoUrl {
-/*    background: url("http://192.168.1.124:8080/?action=stream") no-repeat center center;*/
+    background: url("http://192.168.1.124:8080/?action=stream") no-repeat center center;
     background-size: cover;
     min-width: 100%;
     min-height: 100%;
+    z-index: 1;
 }
 
 
 .videoUrl2 {
-/*    background: url("http://192.168.1.124:8090/?action=stream") no-repeat center center;*/
-    background-size: cover;
-    min-width: 100vh;
-    min-height: 100vh;
+    background: url("http://192.168.1.124:8090/?action=stream") no-repeat center center;
+  /*  background-size: cover;*/
+    min-width: 30vh;
+    min-height: 30vh;
+    z-index: 2;
 
 }
 
@@ -171,7 +175,7 @@ margin: 0 auto;
     min-height: 100%;
     width:100%;
     height: 100%;
-    z-index: -1;
+  /*  z-index: -1;*/
 }
 
 #my-video {
@@ -227,6 +231,7 @@ form {
     width: 200px;
     float: right;
     margin-right: 35em;
+    z-index: 100;
 }
 #drop {
     border-radius: 50%;
@@ -234,6 +239,7 @@ form {
     height: 200px;
     width: 200px;
     font-size: 2.5em;
+    z-index: 100;
    /* background-color: rgba(255,255,255,0.75);
     color: rgba(0,0,0,0.5);*/
 }
@@ -271,7 +277,8 @@ form {
     width: 100%;
     height: 100%;
     display: table;
-    z-index: 30;
+    z-index: 100;
+    position: absolute;
 }
 
 .arrowsNbuttons {
@@ -285,6 +292,7 @@ form {
     display: inline-block;
     float: left;
     margin-left: 35em;
+    z-index: 100;
 
 }
 
@@ -292,6 +300,7 @@ form {
     width: 65px;
     color: white;
     border : 2px solid #ddd;
+    z-index: 100;
 }
 
 .arrows a:first-child   {

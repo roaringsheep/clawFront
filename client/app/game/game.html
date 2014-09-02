@@ -1,10 +1,9 @@
 <div ui-view>
     <div class="controls">
-        <video id="their-video" ng-src="{{peerURL}}" autoplay class="videoUrl">
-        </video>
+        <div id="their-video" class="videoUrl"></div>
         <section class="keypad">
             <div class="arrowsNbuttons">
-                <div class="arrows" tooltip = "Hold down an arrow controller to move the claw. Release the arrow to stop.">
+                <div class="arrows" tooltip="Hold down an arrow controller to move the claw. Release the arrow to stop.">
 
                     <a ng-mousedown="move('back')" ng-mouseup="move('bclear')" id='back' class="btn controller">
                         <span class="fa fa-arrow-up fa-3x"></span>
@@ -29,23 +28,28 @@
 
                 <div class="dropBtn">
 
-                    <button ng-click="clawDrop()" id="drop" ng-disabled="dropping" class="btn btn-xl controller" tooltip = "hit the DROP button ONCE to drop the claw. We're wicked smart and programmed the claw to do the rest. ">DROP</button>
+                    <button ng-click="clawDrop()" id="drop" ng-disabled="dropping" class="btn btn-xl controller" tooltip="hit the DROP button ONCE to drop the claw. We're wicked smart and programmed the claw to do the rest. ">DROP</button>
 
                 </div>
-                
-                <span id = "peerVidInput" class = "pull-left">
+
+                <div class="videoUrl2"></div>
+
+                <!--    <span id = "peerVidInput" class = "pull-left">
                       <p>My Peer ID is {{my_id}}</p>
                     <input type="text" ng-model="tempPeerId" placeholder="Enter remote peer ID">
                     <button ng-click="callPeerHelper(tempPeerId)">Submit</button>
-                </span>
+                </span> -->
             </div>
         </section>
     </div>
 
-    <div class="videoContainer">
+
+
+
+    <!--  <div class="videoContainer">
         <p>Their Peer ID is {{remotePeerId}}</p>
         <video id="my-video" ng-src="{{videoURL}}" autoplay loop></video>
-    </div>
+    </div> -->
 
 </div>
 
@@ -59,7 +63,7 @@
         <input type="text" ng-model="tempPeerId" placeholder="Enter remote peer ID"> -->
 <!--         <button ng-click="callRequestedPeer(tempPeerId)">Call</button>
         <button ng-click="callRandomPeer()">Call Random</button> -->
-        <!-- <button ng-hide="isMaster" ng-click="callMasterPeer()">Call Master</button>
+<!-- <button ng-hide="isMaster" ng-click="callMasterPeer()">Call Master</button>
         <button ng-hide="isMaster" ng-click="endCall()">End Call</button>
 
         <div ng-hide="isMaster" class="arrows">
@@ -102,4 +106,3 @@
 
 
 </div> -->
-
