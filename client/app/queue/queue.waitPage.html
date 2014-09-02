@@ -1,8 +1,13 @@
 <div ui-view>
     <div class="controller user-box" ng-show="isLoggedIn">
+       <!-- {{queue[0]}} -->
+        {{eta}}
         <div class="row">
+            <button class = "btn btn-main" ng-click = "persistHead()" >persist head</button>
+           <!--  <timer start-time = "Date.now()"> </timer> -->
             <span>
-                <h4>Hello {{currentUser.name}}</h4>
+                <h4 ng-if="currentUser.provider == 'local'">Hello {{currentUser.name}}</h4>
+                <h4 ng-if="currentUser.provider == 'facebook'">Hello {{currentUser.facebook.first_name}}</h4>
                 <span ng-if = "currentUser.provider == 'facebook'"> <img id = "fbPhoto" src="https://graph.facebook.com/{{currentUser.facebook.id}}/picture?type=large"></span>
                 <h5 ng-if="currentUser.credits>=1">
                     You have
@@ -21,8 +26,8 @@
 
                 <h5>
                     There is nobody ahead of you!
-                    <br>Click
-                    <button class="btn btn-success btn-sm" ng-disabled="eta>0" ng-click="playGame(currentUser)">Play with 1 credit</button>to start game
+                    <br>
+                    <button class="btn btn-success btn-sm" id = "start-btn"ng-disabled="eta>0" ng-click="playGame(queue,currentUser)">Start game (1 credit) </button>
 
                 </h5>
             </span>

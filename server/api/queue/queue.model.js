@@ -9,7 +9,9 @@ var QueueSchema = new Schema({
 
   userId: ObjectId,
   username: String,
-  index: String,
+  index: Number,
+  timeAtHead: Number,
+  timer: {type: Number, default: 60},
   active: {type: Boolean, default: false}
 
 });

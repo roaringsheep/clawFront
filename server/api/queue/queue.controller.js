@@ -20,7 +20,7 @@ exports.show = function(req, res) {
   });
 };
 
-// Pushes user to the queue the DB.
+// Pushes user to the queue.
 exports.create = function(req, res) {
   console.log("req.body", req.body)
   var username = req.body.username,
@@ -40,18 +40,37 @@ exports.create = function(req, res) {
 };
 
 // Updates an existing user in the queue in the DB.
-exports.update = function(req, res) {
-  if(req.body._id) { delete req.body._id; }
-  Queue.findById(req.params.id, function (err, queue) {
-    if (err) { return handleError(res, err); }
-    if(!queue) { return res.send(404); }
-    var updated = _.merge(queue, req.body);
-    updated.save(function (err) {
-      if (err) { return handleError(res, err); }
-      return res.json(200, queue);
+// exports.update = function(req, res) {
+//   if(req.body._id) { delete req.body._id; }
+//   Queue.findById(req.params.id, function (err, queue) {
+//     if (err) { return handleError(res, err); }
+//     if(!queue) { return res.send(404); }
+//     var updated = _.merge(queue, req.body);
+//     updated.save(function (err) {
+//       if (err) { return handleError(res, err); }
+//       return res.json(200, queue);
+//     });
+//   });
+// };
+
+exports.update = function(req, res, next) {
+    
+    console.log(req.body);
+    Queue.update({
+        userId: req.params.id
+    }, {
+        timeAtHead: req.body.timeAtHead
+    }, function(err, queue) {
+        if (err) {
+            return next(err);
+        }
+        if (!queue) {
+            return res.json(401);
+        }
+        res.json(queue);
     });
-  });
-};
+}
+
 
 // Deletes a user from the queue in the DB.
 exports.destroy = function(req, res) {
