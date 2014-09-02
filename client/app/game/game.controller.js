@@ -12,6 +12,8 @@ angular.module('clawFrontApp')
             });
         };
 
+        $rootScope.game = true;
+
         $scope.dropping = false;
         $scope.clawDrop = function() {
             //lower, loclear raise, raclear left, lclear forw, fclear lower, loclear raise, raclear  
