@@ -14,17 +14,13 @@ var User = require('./api/user/user.model');
 module.exports = function(app) {
 
   // Insert routes below
-<<<<<<< HEAD
 
-=======
->>>>>>> ec2a51f3ef9bb0c8f8d0907e68c513d41bfdef0c
   app.use('/api/queues', require('./api/queue'));
   app.use('/api/games', require('./api/game'));
   app.use('/api/things', require('./api/thing'));
   app.use('/api/users', require('./api/user'));
   app.use('/auth', require('./auth'));
 
-<<<<<<< HEAD
   app.use(bodyParser.urlencoded({
     extended: true
   }));
@@ -100,11 +96,8 @@ module.exports = function(app) {
   });
 
 
-
-
-=======
   app.use('/peer', require('./peerRoutes'));
->>>>>>> ec2a51f3ef9bb0c8f8d0907e68c513d41bfdef0c
+
 
   // All undefined asset or api routes should return a 404
   app.route('/:url(api|auth|components|app|bower_components|assets)/*')

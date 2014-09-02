@@ -94,7 +94,7 @@ angular.module('clawFrontApp')
                 $scope.game.gameOver = true;
                 $scope.game.timer = 0;
             }
-    };
+    });
 
             // Confirm to the server that my peerID is ready to be connected to
             // $http.post('/confirmID', {
@@ -155,7 +155,6 @@ angular.module('clawFrontApp')
                 console.log('Calling ', remotePeerId);
             };
 
-=======
     //Queue logic
     $rootScope.$watch('queue', function(newval, oldval) {
       $scope.queue = newval;

@@ -58,6 +58,8 @@ angular.module('clawFrontApp')
             $location.path('/');
         };
 
+        $scope.isLoggedIn = Auth.isLoggedIn;
+
         // $scope.logout = function () {
         //   Auth.logout();
         //   $location.path('/');
