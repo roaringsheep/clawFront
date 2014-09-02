@@ -95,7 +95,7 @@ margin: 0 auto;
 }
 
 .navbar-nav> li > a{
-    padding-top: 10px !important; 
+    padding-top: 10px !important;
     color: #333 !important;
 }
 
@@ -175,7 +175,7 @@ margin: 0 auto;
     min-height: 100%;
     width:100%;
     height: 100%;
-  /*  z-index: -1;*/
+    z-index: -1;
 }
 
 #my-video {
@@ -327,3 +327,7 @@ form {
     float: right;
 }*/
 
+#live_embed_player_flash {
+    margin-top: 160px;
+    margin-left: 200px;
+}
