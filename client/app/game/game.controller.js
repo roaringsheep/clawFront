@@ -14,7 +14,7 @@ angular.module('clawFrontApp')
 
         $scope.dropping = false;
         $scope.clawDrop = function() {
-            //lower, loclear raise, raclear left, lclear forw, fclear lower, loclear raise, raclear  
+            //lower, loclear raise, raclear left, lclear forw, fclear lower, loclear raise, raclear
             $scope.dropping = true;
             console.log('lowering...')
             $scope.move('lower');
@@ -55,67 +55,6 @@ angular.module('clawFrontApp')
                 })
         };
 
- 
-
-            // Confirm to the server that my peerID is ready to be connected to
-            // $http.post('/confirmID', {
-            //   id: $scope.my_id,
-            //   secret: mysecret
-            // }).success(function(res) {
-            //   console.log(res);
-
-            // }).error(function(data, status) {
-            //   console.log('Failed ', data, status);
-
-            //   $scope.peerError = data.error;
-            // });
-
-            // $scope.callRandomPeer = function() {
-            //   $http.post('/callRandom', {
-            //     id: $scope.my_id,
-            //     secret: mysecret
-            //   }).success(function(res) {
-            //     console.log(res);
-
-            //     $scope.remotePeerId = res.peerID;
-            //     $scope.peerError = null;
-            //     callPeer(peerObject);
-
-            //   }).error(function(data, status) {
-            //     console.log('Failed ', data, status);
-
-            //     $scope.peerError = data.error;
-            //   });
-            // };
-
-            // $scope.callRequestedPeer = function() {
-            //   var remotePeerId = $scope.remotePeerId;
-            //   if (remotePeerId) {
-            //     $http.post('/callPeer', {
-            //       id: $scope.my_id,
-            //       callee_id: remotePeerId,
-            //       secret: mysecret
-            //     }).success(function(res) {
-            //       console.log(res);
-
-            //       $scope.remotePeerId = res.peerID;
-            //       $scope.peerError = null;
-            //       callPeer(peerObject);
-
-            //     }).error(function(data, status) {
-            //       console.log('Failed ', data, status);
-            //       $scope.peerError = data.error;
-            //     });
-            //   }
-            // };
-
-            $scope.callPeerHelper = function(remotePeerId) {
-                $scope.remotePeerId = remotePeerId;
-                $scope.callPeer(peerObject);
-
-                console.log('Calling ', remotePeerId);
-            };
-
     //Queue logic
     $rootScope.$watch('queue', function(newval, oldval) {
       $scope.queue = newval;
@@ -123,7 +62,7 @@ angular.module('clawFrontApp')
     });
     $scope.getQueue = queueFactory.getQueue();
 
-    
+
     $scope.callPeer = function(peerObject) {
       var remotePeerId = $scope.remotePeerId;
       $scope.peerDataConnection = peerObject.makeCall(remotePeerId);
@@ -223,24 +162,6 @@ angular.module('clawFrontApp')
       $scope.endCall = function() {
         peerObject.endCall();
       };
-
-      // $scope.callRandomPeer = function() {
-      //   $http.post('/peer/callRandom', {
-      //     id: $scope.my_id,
-      //     secret: mysecret
-      //   }).success(function(res) {
-      //     console.log(res);
-
-      //     $scope.remotePeerId = res.peerID;
-      //     $scope.peerError = null;
-      //     $scope.callPeer(peerObject);
-
-      //   }).error(function(data, status) {
-      //     console.log('Failed ', data, status);
-
-      //     $scope.peerError = data.error;
-      //   });
-      // };
 
       $scope.callMasterPeer = function() {
         $http.post('/peer/callMaster', {

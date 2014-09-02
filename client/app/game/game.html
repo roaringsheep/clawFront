@@ -29,32 +29,31 @@
 
                 <div class="dropBtn">
 
-                    <button ng-click="clawDrop()" id="drop" ng-disabled="dropping" class="btn btn-xl controller" tooltip = "hit the DROP button ONCE to drop the claw. We're wicked smart and programmed the claw to do the rest. ">DROP</button>
+                    <button ng-hide="isMaster" ng-click="clawDrop()" id="drop" ng-disabled="dropping" class="btn btn-xl controller" tooltip = "hit the DROP button ONCE to drop the claw. We're wicked smart and programmed the claw to do the rest. ">DROP</button>
 
                 </div>
-                
-                <span id = "peerVidInput" class = "pull-left">
-                      <p>My Peer ID is {{my_id}}</p>
-                    <input type="text" ng-model="tempPeerId" placeholder="Enter remote peer ID">
-                    <button ng-click="callPeerHelper(tempPeerId)">Submit</button>
+
+                <span id="peerVidInput" class="pull-left">
+                    <button ng-hide="isMaster" ng-click="callMasterPeer()">Call Master</button>
+                    <button ng-hide="isMaster" ng-click="endCall()">End Call</button>
                 </span>
             </div>
         </section>
     </div>
 
     <div class="videoContainer">
-        <p>Their Peer ID is {{remotePeerId}}</p>
+        <p>STATUS: {{peerError || 'All OK'}}</p>
         <video id="my-video" ng-src="{{videoURL}}" autoplay loop></video>
     </div>
 
 </div>
 
-<!-- 
+<!--
   <video id="their-video" ng-src="{{peerURL}}" autoplay class="videoUrl"></video>
   <div class="controls">
 
     <section class="keypad">
-      <div class="arrowsNbuttons"> -->
+      <div class="arrowsNbuttons">
 <!--         <p>My Peer ID is {{my_id}}</p>
         <input type="text" ng-model="tempPeerId" placeholder="Enter remote peer ID"> -->
 <!--         <button ng-click="callRequestedPeer(tempPeerId)">Call</button>
