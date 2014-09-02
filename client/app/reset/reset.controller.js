@@ -15,18 +15,21 @@ angular.module('clawFrontApp')
             $('#info-alert').html('');
             $scope.warning = false;
             $('#warning-alert').html('');
+            $scope.firstpw = '';
+            $scope.secondpw = '';
         };
         var tokenArr = document.URL.split('/');
         var token = tokenArr[tokenArr.length-1];
-        $scope.firstpw;
-        $scope.secondpw;
+        $scope.firstpw = '';
+        $scope.secondpw = '';
         $scope.changePw = function() {
         	$scope.clean()
         	if($scope.firstpw !== $scope.secondpw){
         		$('#error-alert').html('Password does not match. Try again.')
         		$scope.error = true;
         	} else{
-        		$http.post('/api/users/reset/'+token, {password: $scope.firstpw}).success(function(data){
+        		$http.post('/api/users/reset/'+token, {password: $scope.firstpw}).success(function(data, status, headers, config, statusText){
+        			console.log('data',data,'status',status,'headers',headers,'config',config,'statusText',statusText)
         			if(data == 'nope') {
         				$scope.clean();
         				$('#error-alert').html('Password reset token is invalid or has expired');

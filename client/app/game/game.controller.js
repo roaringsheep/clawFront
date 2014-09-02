@@ -55,82 +55,7 @@ angular.module('clawFrontApp')
                 })
         };
 
-        var timerInit = 5,
-            turnsInit = 3,
-            localUser = "";
-
-        $scope.game = {
-            turns: turnsInit,
-            timer: timerInit,
-            gameOver: false,
-            gameWon: false,
-            player: Auth.getCurrentUser() || localUser
-        };
-
-        //increment down game timer 
-        $scope.countdown = function() {
-            if (!$scope.game.gameOver) {
-                $interval(function() {
-                    if ($scope.game.timer > 0)
-                        $scope.game.timer--;
-                }, 1000);
-            }
-        };
-
-        //function to increment down turn counter
-        $scope.playTurn = function() {
-            $scope.game.turns--;
-        }
-
-        //set behavior upon game timer countdown to zero
-        $scope.$watch('game.timer', function() {
-            console.log("gameover? ", $scope.game.gameOver)
-            if ($scope.game.turns > 0) {
-                if ($scope.game.timer == 0) {
-                    $scope.playTurn();
-                    $scope.game.timer = timerInit;
-                }
-            } else {
-                $scope.game.gameOver = true;
-                $scope.game.timer = 0;
-            }
-
-        })
-
-        //Queue logic
-        $rootScope.$watch('queue', function(newval, oldval) {
-            $scope.queue = newval;
-            console.log("newval", newval);
-        });
-        $scope.getQueue = queueFactory.getQueue();
-
-        $scope.countdown();
-
-        $scope.callPeer = function(peerObject) {
-            var remotePeerId = $scope.remotePeerId;
-            $scope.peerDataConnection = peerObject.makeCall(remotePeerId);
-
-            $scope.peerDataConnection.on('open', function() {
-                // attachReceiptListeners();
-
-                $scope.peerError = null;
-                $scope.connected = true;
-                // gameBtn.click();
-
-                $scope.$apply();
-            });
-
-            $scope.peerDataConnection.on('error', function(err) {
-                console.log('Failed to connect to given peerID', err);
-            });
-        };
-
-        PeerConnect.getPeer().then(function(peerObject) {
-            $scope.my_id = peerObject.peer.id;
-            $scope.streamReady = true;
-            var mysecret = Math.random().toString(36).substring(10);
-
-            $scope.videoURL = peerObject.videoURL;
+ 
 
             // Confirm to the server that my peerID is ready to be connected to
             // $http.post('/confirmID', {
@@ -144,61 +69,6 @@ angular.module('clawFrontApp')
 
             //   $scope.peerError = data.error;
             // });
-
-            $rootScope.$on('callFailed', function(event, error) {
-                console.log('Call failed: ', error, error.message);
-                $scope.peerError = error.message;
-                $scope.$apply();
-            });
-
-            $rootScope.$on('peerConnectionReceived', function(event, connection) {
-                console.log('Peer DataConnection received', connection);
-                $scope.peerDataConnection = connection;
-
-                // attachReceiptListeners();
-
-                $scope.connected = true;
-                $scope.remotePeerId = connection.peer;
-                $scope.peerError = null;
-
-                $scope.$apply();
-            });
-
-            $rootScope.$on('peerStreamReceived', function(event, objURL) {
-                console.log('Peer MediaStream received!', objURL);
-                $scope.peerURL = objURL;
-
-                // gameBtn.click();
-                $scope.$apply();
-            });
-
-            $rootScope.$on('callEnded', function(event, callObject) {
-                console.log('Peer Disconnected!', callObject);
-
-
-                $scope.connected = false;
-                $scope.waiting = false;
-                $scope.otherWaiting = false;
-
-                // $http.post('/endCall', {
-                //   id: $scope.my_id,
-                //   secret: mysecret
-                // }).success(function(res) {
-                //   console.log(res);
-                //   $scope.remotePeerId = null;
-
-                //   $scope.peerError = null;
-                // }).error(function(data, status) {
-                //   console.log('Failed ', data, status);
-
-                //   $scope.peerError = data.error;
-                // });
-
-            });
-
-            $scope.endCall = function() {
-                peerObject.endCall();
-            };
 
             // $scope.callRandomPeer = function() {
             //   $http.post('/callRandom', {
@@ -246,6 +116,170 @@ angular.module('clawFrontApp')
                 console.log('Calling ', remotePeerId);
             };
 
+    //Queue logic
+    $rootScope.$watch('queue', function(newval, oldval) {
+      $scope.queue = newval;
+      console.log("newval", newval);
+    });
+    $scope.getQueue = queueFactory.getQueue();
+
+    
+    $scope.callPeer = function(peerObject) {
+      var remotePeerId = $scope.remotePeerId;
+      $scope.peerDataConnection = peerObject.makeCall(remotePeerId);
+
+      $scope.peerDataConnection.on('open', function() {
+        // attachReceiptListeners();
+
+        $scope.peerError = null;
+        $scope.connected = true;
+        // gameBtn.click();
+
+        $scope.$apply();
+      });
+
+      $scope.peerDataConnection.on('error', function(err) {
+        console.log('Failed to connect to given peerID', err);
+      });
+    };
+
+    PeerConnect.getPeer().then(function(peerObject) {
+      $scope.my_id = peerObject.peer.id;
+      $scope.streamReady = true;
+      var mysecret = Math.random().toString(36).substring(10);
+
+      $scope.videoURL = peerObject.videoURL;
+
+      // Confirm to the server that my peerID is ready to be connected to
+      $http.post('/peer/confirmID', {
+        id: $scope.my_id,
+        secret: mysecret
+      }).success(function(res) {
+        console.log('Confirmed ID: ', res);
+        $scope.isMaster = res.isMaster;
+
+        // Set the large video stream for the master
+        if ($scope.isMaster) {
+          $scope.peerURL = $scope.videoURL;
+        }
+
+      }).error(function(data, status) {
+        console.log('Failed ', data, status);
+        $scope.peerError = data.error;
+      });
+
+      $rootScope.$on('callFailed', function(event, error) {
+        console.log('Call failed: ', error, error.message);
+        $scope.peerError = error.message;
+        $scope.$apply();
+      });
+
+      $rootScope.$on('peerConnectionReceived', function(event, connection) {
+        console.log('Peer DataConnection received', connection);
+        $scope.peerDataConnection = connection;
+
+        $scope.connected = true;
+        $scope.remotePeerId = connection.peer;
+        $scope.peerError = null;
+
+        $scope.$apply();
+      });
+
+      $rootScope.$on('peerStreamReceived', function(event, objURL) {
+        console.log('Peer MediaStream received!', objURL);
+        // if this is the master, swap the streams
+        if ($scope.isMaster) {
+          $scope.videoURL = objURL;
+        } else {
+          $scope.peerURL = objURL;
+        }
+        // gameBtn.click();
+        $scope.$apply();
+      });
+
+      $rootScope.$on('callEnded', function(event, callObject) {
+        console.log('Peer Disconnected!', callObject);
+
+        $scope.connected = false;
+        $scope.waiting = false;
+        $scope.otherWaiting = false;
+
+        $http.post('/peer/endCall', {
+          id: $scope.my_id,
+          secret: mysecret
+        }).success(function(res) {
+          console.log(res);
+          $scope.remotePeerId = null;
+
+          $scope.peerError = null;
+        }).error(function(data, status) {
+          console.log('Failed ', data, status);
+
+          $scope.peerError = data.error;
         });
 
+      });
+
+      $scope.endCall = function() {
+        peerObject.endCall();
+      };
+
+      // $scope.callRandomPeer = function() {
+      //   $http.post('/peer/callRandom', {
+      //     id: $scope.my_id,
+      //     secret: mysecret
+      //   }).success(function(res) {
+      //     console.log(res);
+
+      //     $scope.remotePeerId = res.peerID;
+      //     $scope.peerError = null;
+      //     $scope.callPeer(peerObject);
+
+      //   }).error(function(data, status) {
+      //     console.log('Failed ', data, status);
+
+      //     $scope.peerError = data.error;
+      //   });
+      // };
+
+      $scope.callMasterPeer = function() {
+        $http.post('/peer/callMaster', {
+          id: $scope.my_id,
+          secret: mysecret
+        }).success(function(res) {
+          console.log(res);
+
+          $scope.remotePeerId = res.peerID;
+          $scope.peerError = null;
+          $scope.callPeer(peerObject);
+
+        }).error(function(data, status) {
+          console.log('Failed ', data, status);
+          $scope.peerError = data.error;
+        });
+      };
+
+      // $scope.callRequestedPeer = function(remotePeerId) {
+      //   $scope.remotePeerId = remotePeerId;
+      //   if (remotePeerId) {
+      //     $http.post('/peer/callPeer', {
+      //       id: $scope.my_id,
+      //       callee_id: remotePeerId,
+      //       secret: mysecret
+      //     }).success(function(res) {
+      //       console.log(res);
+
+      //       $scope.remotePeerId = res.peerID;
+      //       $scope.peerError = null;
+      //       $scope.callPeer(peerObject);
+
+      //     }).error(function(data, status) {
+      //       console.log('Failed ', data, status);
+      //       $scope.peerError = data.error;
+      //     });
+      //   }
+      // };
+
     });
+
+  });

@@ -59,7 +59,7 @@ exports.pwcheck = function(req, res) {
                 to: user.email,
                 from: 'pwrecovery@arcadeclaw.com',
                 subject: 'Arcade Claw Password Reset',
-                text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account. \n\n'+ 'Please click on the following link, or paste this into your browser to complete the process:\n\n' + 'http://'+req.headers.host +'/api/users/reset/'+token+'\n\n'+'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+                text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account. \n\n'+ 'Please click on the following link, or paste this into your browser to complete the process:\n\n' + 'http://'+req.headers.host +'/reset/'+token+'\n\n'+'If you did not request this, please ignore this email and your password will remain unchanged.\n'
             };
             transport.sendMail(mailOptions, function(err){
                 done(err, 'done');
@@ -86,9 +86,10 @@ exports.reset = function(req,res,next){
 }
 
 exports.resetPassword = function(req, res){
-    User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: {$gt: Data.now()}}, function(err, user){
+    console.log('req',req.body, 'req.params',req.params);
+    User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: {$gt: Date.now()}}, function(err, user){
         if (!user) {
-            res.send('nope');
+            res.status(200).send('nope');
         } else {
             user.password = req.body.password;
             user.resetPasswordExpires = undefined;

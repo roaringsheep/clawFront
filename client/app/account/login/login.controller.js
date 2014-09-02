@@ -5,7 +5,7 @@ angular.module('clawFrontApp')
         $scope.user = {};
         $scope.errors = {};
         $scope.currentUser = Auth.getCurrentUser();
-         $scope.queue = '';
+        $scope.queue = '';
 
         //Get queue
         $rootScope.$watch('queue', function(newval, oldval) {
@@ -24,9 +24,9 @@ angular.module('clawFrontApp')
                         // Logged in, redirect to home
                         $('#login').modal('hide');
                         $timeout(function() {
-                          $location.path('/profile');
-                        },450)
-                        
+                            $location.path('/profile');
+                        }, 450)
+
                     })
                     .catch(function(err) {
                         $scope.errors.other = err.message;
@@ -34,11 +34,19 @@ angular.module('clawFrontApp')
             }
         };
 
+
+        $scope.pwRecovery = function() {
+            $('#login').modal('hide');
+            $timeout(function() {
+                $location.path('/pwrecovery');
+            }, 450)
+        }
+
         $scope.loginModal = function(form) {
-                $scope.login(form);
-                //$scope.eta = queueFactory.ETAtoPlay($scope.queue, $scope.currentUser)
-                // $scope.addPlayer($scope.currentUser);
-            };
+            $scope.login(form);
+            //$scope.eta = queueFactory.ETAtoPlay($scope.queue, $scope.currentUser)
+            // $scope.addPlayer($scope.currentUser);
+        };
 
         //Add player
         $scope.addPlayer = function(player) {
@@ -50,11 +58,11 @@ angular.module('clawFrontApp')
             $('#login').modal('hide');
             $timeout(function() {
                 $('#signup').modal('show');
-            },450);
+            }, 450);
         }
 
         $scope.loginOauth = function(provider) {
             $window.location.href = '/auth/' + provider;
-            
+
         };
     });
