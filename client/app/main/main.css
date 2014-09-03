@@ -231,7 +231,7 @@ form {
     height:200px;
     width: 200px;
     float: right;
-    margin-right: 35em;
+    margin-right: 15%;
     z-index: 100;
 }
 #drop {
@@ -292,7 +292,7 @@ form {
     height: auto !important;
     display: inline-block;
     float: left;
-    margin-left: 35em;
+    margin-left: 15%;
     z-index: 100;
 
 }
@@ -332,3 +332,29 @@ form {
     margin-top: 160px;
     margin-left: 200px;
 }
+
+
+@media (max-width: 620px) { 
+
+.arrows {
+    margin-left: auto;
+    clear:both;
+    float: none;
+}
+
+.dropBtn {
+    margin-right: auto;
+    float: none;
+    margin: 50px auto;
+}
+
+.videoUrl2  {
+    display: none;
+}
+
+}
+
+
+
+
+
