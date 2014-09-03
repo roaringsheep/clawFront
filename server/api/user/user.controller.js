@@ -24,6 +24,13 @@ exports.index = function(req, res) {
     });
 };
 
+exports.playingUsers = function(req, res) {
+    User.find({isPlaying: true}, function(err, users){
+        if (err) return res.status(500).send(err);
+        res.status(200).send(users);
+    })
+}
+
 exports.pwcheck = function(req, res) {
     async.waterfall([
         function(done) {

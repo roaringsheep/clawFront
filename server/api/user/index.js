@@ -11,6 +11,7 @@ router.get('/', auth.hasRole('admin'), controller.index);
 router.delete('/:id', auth.hasRole('admin'), controller.destroy);
 router.get('/me', auth.isAuthenticated(), controller.me);
 router.put('/:id/password', auth.isAuthenticated(), controller.changePassword);
+router.get('/playing', controller.playingUsers);
 router.post('/pwrecovery', controller.pwcheck);
 router.get('/reset/:token', controller.reset);
 router.post('/reset/:token', controller.resetPassword);

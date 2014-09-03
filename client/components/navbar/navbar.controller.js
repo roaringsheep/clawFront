@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('clawFrontApp')
-    .controller('NavbarCtrl', function($scope, $rootScope, $location, $timeout, Auth, queueFactory) {
+    .controller('NavbarCtrl', function($scope, $rootScope, $location, $timeout, Auth, queueFactory, $http) {
         $scope.menu = [{
                 'title': 'theClaw',
                 'link': '/',
@@ -53,6 +53,9 @@ angular.module('clawFrontApp')
 
         $scope.logout = function() {
             console.log("$scope.currentUserPre: ", $scope.currentUser)
+            $scope.currentUser.isPlaying = false
+            var id = $scope.currentUser._id;
+            $http.post('/api/users/'+id, $scope.currentUser);
             $scope.removeByUserId($scope.currentUser);
              console.log("$scope.currentUserPost: ", $scope.currentUser)
             $timeout(function(){

@@ -9,6 +9,18 @@ angular.module('clawFrontApp')
         //console.log("currentUser: ", $scope.currentUser);
         $scope.queue = queueFactory.getQueue();
         // persist time entering head of queue
+        $interval(function(){
+            $http.get('/api/users/playing').success(function(data){
+                if(data.length > 0){
+                    $scope.playerInGame = true;
+                    $rootScope.playerInGame = true;
+                } else if (data.length == 0){
+                    $scope.playerInGame = false;
+                    $rootScope.playerInGame = false;
+                }
+                console.log('playerInGame', $scope.playerInGame);
+            })
+        },1000)
 
         $scope.persistHeadByCurrentUser = function(player) {
             return queueFactory.persistHeadByCurrentUser(player);
@@ -18,14 +30,9 @@ angular.module('clawFrontApp')
             return queueFactory.persistHead(player);
         }
 
-        // $scope.checkHead = function (player) {
-            
-        // }
-
         //Get queue
         $rootScope.$watch('queue', function(newval, oldval) {
             $scope.queue = newval;
-
             if (typeof $rootScope.queue == "undefined") {
                 // run nothing
             } else {
@@ -33,11 +40,7 @@ angular.module('clawFrontApp')
                 $rootScope.playerInQueue = queueFactory.getPlayerInQueue(newval, $scope.currentUser);
                 $scope.persistHeadByCurrentUser($scope.currentUser);
             }
-
-
-
         })
-
 
         $rootScope.$watch('eta', function(newval, oldval) {
             $scope.eta = newval;
@@ -66,7 +69,6 @@ angular.module('clawFrontApp')
             return $scope.credits = 1;
         }
 
-
         //Poll queue
         $interval(function() {
             var temp = queueFactory.getQueue();
@@ -74,7 +76,6 @@ angular.module('clawFrontApp')
                 $rootScope.queue = queueFactory.getQueue()
             }
         }, 30001)
-
 
         //Add player
         $scope.addPlayer = function(player) {
@@ -90,10 +91,7 @@ angular.module('clawFrontApp')
         //play game with credits
         $scope.playGame = function(queue, player) {
             queueFactory.playWithCredits(queue, player);
-
         };
-
-
 
         //Remove player
         $scope.removeByQueueUserId = function(player) {
@@ -111,7 +109,6 @@ angular.module('clawFrontApp')
             });
         };
 
-
         // $scope.countdown = function() {
         //     $interval(function() {
         //         if ($scope.timer.countdown > 0) {
@@ -123,6 +120,4 @@ angular.module('clawFrontApp')
         //         }
         //     }, 1000);
         // }
-
-
     });

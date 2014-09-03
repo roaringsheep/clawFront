@@ -32,7 +32,6 @@ angular.module('clawFrontApp')
                 socket.syncUpdates('queue', $rootScope.queue);
                 return $rootScope.queue;
             })
-
         };
 
         //add player to queue
@@ -59,7 +58,6 @@ angular.module('clawFrontApp')
 
         //remove player from queue
         factory.removeByQueueUserId = function(player) {
-
             console.log("player in $http.delete request: ", player)
             var there = factory.findQueuePlayer($rootScope.queue, player);
             if (there >= 0) {
@@ -122,7 +120,7 @@ angular.module('clawFrontApp')
             console.log('isThere', isThere);
             return isThere;
         };
-       //search queue by currentUser._id, stored as queue.userId. returns object
+        //search queue by currentUser._id, stored as queue.userId. returns object
         factory.getPlayerInQueue = function(queue, player) {
             var player;
             var playerIndex = factory.findPlayerInQueue(queue, player)
@@ -135,8 +133,6 @@ angular.module('clawFrontApp')
 
             return player;
         }
-
-
 
         //check ETAtoPlay
         factory.ETAtoPlay = function(queue, player) {
@@ -154,7 +150,6 @@ angular.module('clawFrontApp')
         };
 
         // check if player is in queue
-
         factory.updateUser = function(player) {
             return $http.post('/api/users/' + player._id, player);
         }

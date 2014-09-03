@@ -20,7 +20,7 @@
         <!-- row -->
 
         <div class="row">
-            <span ng-if="currentUser.credits>=1 && eta==0">
+            <span ng-if="currentUser.credits>=1 && eta==0 && !playerInGame">
 
                 <h5>
                     There is nobody ahead of you!
@@ -29,6 +29,23 @@
 
                 </h5>
             </span>
+
+               <span ng-if="currentUser.credits>=1 && eta==0 && playerInGame && !currentUser.inQueue">
+
+                <h5>
+                    Somebody is playing, but you are next!
+                    <br>
+                    <button class="btn btn-success btn-sm" ng-disabled="currentUser.credits==0" ng-click="addPlayer(currentUser)">Join</button>the game queue
+
+                </h5>
+            </span>
+        </div>
+
+        <div ng-if = "currentUser.inQueue && eta==0">
+                <h5>
+                    You are next!
+                </h5>
+          
         </div>
 
         <div ng-if = "currentUser.inQueue && eta>1">
@@ -56,7 +73,7 @@
                     <button class="btn btn-success btn-sm" ng-disabled="currentUser.credits==0" ng-click="addPlayer(currentUser)">Join</button>the game queue
                 </h5>
             </span>
-            <span ng-show="currentUser.credits>=1 && eta==1 && !currentUser.inQueue">
+            <span ng-if="currentUser.credits>=1 && eta==1 && !currentUser.inQueue">
                 <h5>
                     There is 
                     <span class="badge">{{eta}}</span>player ahead of you
