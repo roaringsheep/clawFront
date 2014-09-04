@@ -11,10 +11,10 @@ angular.module('clawFrontApp')
         // persist time entering head of queue
         $interval(function(){
             $http.get('/api/users/playing').success(function(data){
-                if(data.length > 0){
+                if(data.length > 1){
                     $scope.playerInGame = true;
                     $rootScope.playerInGame = true;
-                } else if (data.length == 0){
+                } else if (data.length == 1){
                     $scope.playerInGame = false;
                     $rootScope.playerInGame = false;
                 }

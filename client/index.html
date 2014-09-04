@@ -59,7 +59,7 @@
     <div ng-include="'components/navbar/navbar.html'"></div>
     <div id="userMedia"></div>
     <div ng-controller="MainCtrl" class="hero-unit" id="banner">
-    <object ng-hide="$root.game" type="application/x-shockwave-flash" height="491" width="806" id="live_embed_player_flash" data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=roaringsheep" bgcolor="#000000"><param name="allowFullScreen" value="true" /><param name="allowScriptAccess" value="always" /><param name="allowNetworking" value="all" /><param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" /><param name="flashvars" value="hostname=www.twitch.tv&channel=roaringsheep&auto_play=true&start_volume=25" /></object>
+    <object ng-hide="$root.game" type="application/x-shockwave-flash" height="736" width="1209" id="live_embed_player_flash" data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=roaringsheep" bgcolor="#000000"><param name="allowFullScreen" value="true" /><param name="allowScriptAccess" value="always" /><param name="allowNetworking" value="all" /><param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" /><param name="flashvars" value="hostname=www.twitch.tv&channel=roaringsheep&auto_play=true&start_volume=25" /></object>
     <!-- <a href="http://www.twitch.tv/roaringsheep" style="padding:2px 0px 4px; display:block; width:345px; font-weight:normal; font-size:10px;text-decoration:underline; text-align:center;">Watch live video from Roaringsheep on www.twitch.tv</a> -->
 
 
@@ -127,46 +127,10 @@
 
     <!-- build:js({.tmp,client}) app/app.js -->
     <script src="app/app.js"></script>
-    <!-- injector:js -->
-    <script src="app/account/account.js"></script>
-    <script src="app/account/login/login.controller.js"></script>
-    <script src="app/account/settings/settings.controller.js"></script>
-    <script src="app/account/signup/signup.controller.js"></script>
-    <script src="app/account/signup/userSignUp.factory.js"></script>
-    <script src="app/admin/admin.controller.js"></script>
-    <script src="app/admin/admin.js"></script>
-    <script src="app/emergency/emergency.controller.js"></script>
-    <script src="app/emergency/emergency.js"></script>
-    <script src="app/game/game.controller.js"></script>
-    <script src="app/game/game.js"></script>
-    <script src="app/main/main.controller.js"></script>
-    <script src="app/main/main.js"></script>
-    <script src="app/multiCam/multiCam.controller.js"></script>
-    <script src="app/multiCam/multiCam.js"></script>
-    <script src="app/peerConnect/peerConnect.factory.js"></script>
-    <script src="app/peerConnect/peerOld.js"></script>
-    <script src="app/pwrecovery/pwrecovery.controller.js"></script>
-    <script src="app/pwrecovery/pwrecovery.js"></script>
-    <script src="app/queue/angular-payments.min.js"></script>
-    <script src="app/queue/queue.controller.js"></script>
-    <script src="app/queue/queue.factory.js"></script>
-    <script src="app/queue/queue.js"></script>
-    <script src="app/reset/reset.controller.js"></script>
-    <script src="app/reset/reset.js"></script>
-    <script src="app/stripe/stripe.controller.js"></script>
-    <script src="app/stripe/stripe.js"></script>
-    <script src="app/talkToPi/talkToPi.service.js"></script>
     <script src="components/auth/auth.service.js"></script>
     <script src="components/auth/user.service.js"></script>
-    <script src="components/mongoose-error/mongoose-error.directive.js"></script>
-    <script src="components/navbar/navbar.controller.js"></script>
     <script src="components/socket/socket.service.js"></script>
-    <!-- endinjector -->
-    <!-- endbuild -->
-
-
-    <!-- build:js({.tmp,client}) app/app.js -->
-    <script src="app/app.js"></script>
+    <script src="app/queue/queue.factory.js"></script>
     <!-- injector:js -->
     <script src="app/account/account.js"></script>
     <script src="app/account/login/login.controller.js"></script>
