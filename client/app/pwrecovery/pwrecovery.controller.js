@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('clawFrontApp')
-    .controller('PwrecoveryCtrl', function($scope, $http) {
+    .controller('PwrecoveryCtrl', function($scope, $rootScope, $http) {
+        $rootScope.game = true;
         $scope.email='';
         $scope.error = false;
         $scope.success = false;
