@@ -5,7 +5,7 @@ angular.module('clawFrontApp')
     $stateProvider
       .state('main', {
         url: '/',
-        templateUrl: 'assets/main.html',
+        templateUrl: '/main.html',
         controller: 'MainCtrl'
       })
         .state('about', {
@@ -20,7 +20,7 @@ angular.module('clawFrontApp')
       })
       .state('navbar', {
         url: '/navbar',
-        templateUrl: 'assets/navbar.html',
+        templateUrl: '/navbar.html',
         controller: 'NavbarCtrl'
       });
       //  .state('game', {
