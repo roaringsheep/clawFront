@@ -1,0 +1,243 @@
+asset
+<nav class="navbar navbar-default navbar-static-top" ng-controller="NavbarCtrl">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button class="navbar-toggle " type="button" ng-click="isCollapsed = !isCollapsed">
+                <span class="fa fa-align-justify fa-2x"></span>
+            </button>
+        </div>
+
+        <h1 class="center-text">Arcade Claw</h1>
+        <h4 class="center-text">Claw your way to glory</h4>
+        <ul class="nav navbar-nav">
+            <li>
+                <a ng-hide="isLoggedIn()" class="btn btn-primary btn-small controller" href="" data-toggle="modal" data-target="#login">GET STARTED!</a>
+            </li>
+        </ul>
+
+        <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
+            <ul class="nav nav-justified">
+                <li> <a href="/">Arcade Claw</a>
+                </li>
+                <li> <a href="" data-toggle="modal" data-target="#about">About</a>
+                </li>
+                <li> <a href="" data-toggle="modal" data-target="#howto">How to Play</a>
+                </li>
+                <li ng-show="isLoggedIn()"><a href="/profile">My Profile</a>
+                </li>
+                <li ng-show="isAdmin()" ng-class="{active: isActive('/admin')}"><a href="/admin">Admin</a>
+                </li>
+                <li ng-show="isLoggedIn()" ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()">Logout</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div id="userMedia" ng-show="$root.userMedia">
+        <center>
+            <div class="alert alert-danger" role="alert">
+                <strong>This browser is not supported. Please use the most recent version of Chrome, Firefox, or Opera.</strong>
+            </div>
+        </center>
+    </div>
+</nav>
+
+<!-- LOGIN MODAL  -->
+<div class="modal fade" id="login" tabindex="-1" data-width="760" role="dialog" aria-labelledby="loginLabel" aria-hidden="true" ng-controller="LoginCtrl">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title center-text" id="loginLabel">Login</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form" name="form" novalidate>
+
+                    <div class="form-group">
+                        <label>Email</label>
+
+                        <input type="email" name="email" class="form-control" ng-model="user.email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Password</label>
+
+                        <input type="password" name="password" class="form-control" ng-model="user.password" required>
+                    </div>
+
+                    <div class="form-group has-error">
+                        <p class="help-block" ng-show="form.email.$error.required && form.password.$error.required && submitted">
+                            Please enter your email and password.
+                        </p>
+                        <p class="help-block" ng-show="form.email.$error.email && submitted">
+                            Please enter a valid email.
+                        </p>
+
+                        <p class="help-block">{{ errors.other }}</p>
+                    </div>
+
+                    <div>
+                        <button ng-click="loginModal(form)" class="btn btn-success btn-lg btn-login">
+                            Login
+                        </button>
+                        <br>Or <a href="" ng-click="directToSignup()">
+            register</a> here.
+                        <br>Forgot password? <a href="" ng-click="pwRecovery()">reset password</a>
+                    </div>
+
+                    <hr>
+                    <div>
+                        <a class="btn btn-facebook" href="" ng-click="loginOauth('facebook')">
+                            <i class="fa fa-facebook"></i> Login with Facebook
+                        </a>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal-->
+
+<!-- SIGN UP MODAL  -->
+<div class="modal fade" id="signup" tabindex="-1" data-width="760" role="dialog" aria-labelledby="signupLabel" aria-hidden="true" ng-controller="SignupCtrl">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title center-text" id="signupLabel">Sign Up</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form" name="form" ng-submit="register(form)" novalidate>
+
+                    <div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
+                                            'has-error': form.name.$invalid && submitted }">
+                        <label>Name</label>
+
+                        <input type="text" name="name" class="form-control" ng-model="user.name" required/>
+                        <p class="help-block" ng-show="form.name.$error.required && submitted">
+                            A name is required
+                        </p>
+                    </div>
+
+                    <div class="form-group" ng-class="{ 'has-success': form.email.$valid && submitted,
+                                            'has-error': form.email.$invalid && submitted }">
+                        <label>Email</label>
+
+                        <input type="email" name="email" class="form-control" ng-model="user.email" required mongoose-error/>
+                        <p class="help-block" ng-show="form.email.$error.email && submitted">
+                            Doesn't look like a valid email.
+                        </p>
+                        <p class="help-block" ng-show="form.email.$error.required && submitted">
+                            What's your email address?
+                        </p>
+                        <p class="help-block" ng-show="form.email.$error.mongoose">
+                            {{ errors.email }}
+                        </p>
+                    </div>
+
+                    <div class="form-group" ng-class="{ 'has-success': form.password.$valid && submitted,
+                                            'has-error': form.password.$invalid && submitted }">
+                        <label>Password</label>
+
+                        <input type="password" name="password" class="form-control" ng-model="user.password" ng-minlength="3" required mongoose-error/>
+                        <p class="help-block" ng-show="(form.password.$error.minlength || form.password.$error.required) && submitted">
+                            Password must be at least 3 characters.
+                        </p>
+                        <p class="help-block" ng-show="form.password.$error.mongoose">
+                            {{ errors.password }}
+                        </p>
+                    </div>
+
+                    <div>
+                        <button class="btn btn-success btn-lg btn-register" type="submit">
+                            Sign up
+                        </button>
+                        <br>Got an account? <a href="" ng-click="directToLogin()">
+            login</a> here.
+                        <!--       <a class="btn btn-default btn-lg btn-login" href="/login"> 
+          </a>-->
+                    </div>
+
+                    <hr>
+                    <div>
+                        <a class="btn btn-facebook" href="" ng-click="loginOauth('facebook')">
+                            <i class="fa fa-facebook"></i> Register with Facebook
+                        </a>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal-->
+
+
+<div class="modal fade" id="about" tabindex="-1" data-width="760" role="dialog" aria-labelledby="aboutLabel" aria-hidden="true" ng-controller="MainCtrl">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title center-text" id="aboutLabel">About Arcade Claw</h4>
+            </div>
+            <div class="modal-body" id="modal-body">
+
+                <p>Arcade Claw solves a real problem -- awesome arcade games are expensive and take up space. So we made one you can play anywhere. Yep, it's a real claw and it lives somewhere in New York City. Launched summer 2014.
+                </p>
+
+                <p>
+                    What makes Arcade Claw so awesomely unlike any other claw game you've ever played? You control it from your broswer. Our slick WebRTC functionality ensures your game experience is rich, high quality and real time. And an audience follows your moves on our Twitch.tv stream.
+                </p>
+
+                <p>
+                    Watching is free. Login to claw your way to glory. Just 99 cents a game.
+                </p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="howto" tabindex="-1" data-width="760" role="dialog" aria-labelledby="howtoLabel" aria-hidden="true" ng-controller="MainCtrl">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title center-text" id="howtoLabel">How to Play</h4>
+            </div>
+            <div class="modal-body">
+                <p>We built Arcade Claw to put a first-rate game experience in a simple package.</p>
+
+                <p>Just sign up or login to get started. All you need to play are game credits and a spot in our queue -- get them both at your profile page. <a href="https://stripe.com/help/security" target="_blank">Stripe</a> handles our payments; they safely process billions of dollars in payments a year.</p>
+
+                <p>Arcade Claw's controls are just like you remember from the arcade. Hold an arrow key to move. Hit the Drop button once to grab a prize. Play as much as you want in 60 seconds. Grabbing a prize gets you a free game.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
