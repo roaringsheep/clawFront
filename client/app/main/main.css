@@ -143,10 +143,11 @@ margin: 0 auto;
 
 /*VIDEO + IMAGE*/
 .videoUrl {
-    background: url("http://192.168.1.124:8080/?action=stream") no-repeat center center;
-    background-size: cover;
-    min-width: 100%;
-    min-height: 100%;
+    background: url("http://192.168.1.124:8080/?action=stream"), url("http://192.168.1.124:8090/?action=stream");
+    /*background-size: cover;*/
+    background-repeat: no-repeat, no-repeat;
+    background-position: left center, right center;
+    background-size: 50% 100%, 50% 100%;
     z-index: 1;
 }
 
@@ -330,7 +331,7 @@ form {
 
 #live_embed_player_flash {
     margin-top: 160px;
-    margin-left: 200px;
+    margin-left: 400px;
 }
 
 

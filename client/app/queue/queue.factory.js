@@ -73,7 +73,6 @@ angular.module('clawFrontApp')
             var there = factory.findPlayerInQueue($rootScope.queue, player);
             if (there >= 0) {
                 player.inQueue = false;
-
                 return $http.delete('/api/queues/' + player._id).success(function() {
                     $http.post('/api/users/' + player._id, player);
                 });

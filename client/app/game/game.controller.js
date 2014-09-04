@@ -53,7 +53,7 @@ angular.module('clawFrontApp')
                     return $timeout(function() {
                         $scope.currentUser.isPlaying = false;
                         queueFactory.updateUser($scope.currentUser).success(function() {
-                            $state.go('main')
+                            window.location = 'http://192.168.1.60:9000/profile'
                         }, 2000)
                     })
                 })
@@ -80,7 +80,7 @@ angular.module('clawFrontApp')
 
                 $scope.$apply();
             });
-
+0
             $scope.peerDataConnection.on('error', function(err) {
                 console.log('Failed to connect to given peerID', err);
             });

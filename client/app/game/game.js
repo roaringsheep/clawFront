@@ -11,24 +11,27 @@ angular.module('clawFrontApp')
                 onEnter: function(Auth, $state, $http) {
                     $http.get('/api/users/playing').success(function(data) {
                         var usersInGame = data;
-                        console.log('gameArr', usersInGame.length);
-                        if (usersInGame.length > 1) {
-                            $state.go('main')
-                        } else if (usersInGame.length == 1) {
-                            var user = Auth.getCurrentUser();
-                            console.log('user isPlaying', user.isPlaying)
-                            if (user.isPlaying == false) {
+                        console.log('usersInGame',data);
+                        var user = Auth.getCurrentUser();
+                        if (user.role !== 'admin') {
+                            console.log('gameArr', usersInGame.length);
+                            if (usersInGame.length > 2) {
+                                $state.go('main')
+                            } else if (usersInGame.length == 2) {
+                                console.log('user isPlaying', user.isPlaying)
+                                if (user.isPlaying == false) {
+                                    $state.go('main');
+                                }
+                            } else {
                                 $state.go('main');
                             }
-                        } else {
-                            $state.go('main');
                         }
                     })
                 },
-                onExit: function(Auth, $state, $http){
+                onExit: function(Auth, $state, $http) {
                     var currUser = Auth.getCurrentUser();
                     currUser.isPlaying = false;
-                    $http.post('/api/users/'+currUser._id, currUser);
+                    $http.post('/api/users/' + currUser._id, currUser);
                 }
             });
     });
