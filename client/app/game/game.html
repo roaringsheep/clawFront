@@ -1,7 +1,7 @@
 <div ui-view>
   <div class="controls">
     <video id="their-video" ng-src="{{peerURL}}" autoplay loop></video>
-    <section class="keypad">
+    <section class="keypad" ng-hide="isMaster">
       <div class="arrowsNbuttons">
         <div class="arrows" tooltip="Hold down an arrow controller to move the claw. Release the arrow to stop.">
 
