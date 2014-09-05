@@ -53,7 +53,7 @@ angular.module('clawFrontApp')
             _endExistingCalls();
           }
         };
-
+        $rootScope.peerObject = peerObject;
         deferred.resolve(peerObject);
       }
 
