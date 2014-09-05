@@ -80,7 +80,6 @@ angular.module('clawFrontApp')
 
                 $scope.$apply();
             });
-0
             $scope.peerDataConnection.on('error', function(err) {
                 console.log('Failed to connect to given peerID', err);
             });

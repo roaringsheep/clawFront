@@ -26,7 +26,7 @@ angular.module('clawFrontApp')
                                 $state.go('main');
                             }
                         }
-                    })
+                    });
                 },
                 onExit: function(Auth, $state, $http) {
                     var currUser = Auth.getCurrentUser();
