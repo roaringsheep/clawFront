@@ -58,6 +58,8 @@ angular.module('clawFrontApp')
             $http.post('/api/users/'+id, $scope.currentUser);
             $scope.removeByUserId($scope.currentUser);
              console.log("$scope.currentUserPost: ", $scope.currentUser)
+             console.log("$rootScope.peerObject: ", $rootScope.peerObject)
+            if ($rootScope.peerObject) $rootScope.peerObject.endCall()
             $timeout(function(){
                 Auth.logout()}, 500
             );

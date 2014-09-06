@@ -53,7 +53,7 @@ angular.module('clawFrontApp')
             _endExistingCalls();
           }
         };
-
+        $rootScope.peerObject = peerObject;
         deferred.resolve(peerObject);
       }
 
@@ -94,7 +94,7 @@ angular.module('clawFrontApp')
         });
       }
 
-      var deferred = $q.defer();
+      var deferred;
       var peerKey = '7k99lrngvwle4s4i';
       var stunURL = 'stun:stun.l.google.com:19302';
       var existingCall;
@@ -130,60 +130,64 @@ angular.module('clawFrontApp')
       // });
 
       // navigator.getUserMedia({audio: true, video: true}, function(stream) {
-      navigator.getUserMedia({
-        audio: true,
-        video: true
-      }, function(stream) {
-        var peer = new Peer({
-          host: $location.host(),
-          path: '/',
-          port: 3000,
-          debug: 3,
-          config: {
-            'iceServers': [{
-                url: stunURL
-              } // Pass in optional STUN and TURN server for maximum network compatibility
-            ]
-          }
+      var regetUserMedia = function() {
+        navigator.getUserMedia({
+          audio: true,
+          video: true
+        }, function(stream) {
+          var peer = new Peer({
+            host: $location.host(),
+            path: '/',
+            port: 3000,
+            debug: 3,
+            config: {
+              'iceServers': [{
+                  url: stunURL
+                } // Pass in optional STUN and TURN server for maximum network compatibility
+              ]
+            }
+          });
+          var peerLocalStream = stream;
+          var blobURL = $sce.trustAsResourceUrl(URL.createObjectURL(stream));
+
+          peer.on('open', function() {
+            _resolvePeer(peer, peerLocalStream, blobURL);
+          });
+
+          // Receiving a call -- answer automatically
+          peer.on('call', function(call) {
+            console.log('Answering a call!');
+
+            call.answer(peerLocalStream);
+            _setupCallEvents(call);
+          });
+
+          // Receiving a data connection
+          peer.on('connection', function(connection) {
+            console.log('Answering a connection!', connection);
+            $rootScope.$emit('peerConnectionReceived', connection);
+          });
+
+          peer.on('error', function(err) {
+            console.log('ERROR! Couldn\'t connect to given peer');
+
+            $rootScope.$emit('callFailed', err);
+          });
+
+          // As convenience, add our localStream to global window object
+          console.log('Peer Connect: Stream ready: ', stream);
+          window.localStream = stream;
+
+        }, function() {
+          deferred.reject('Failed to getUserMedia!');
         });
-        var peerLocalStream = stream;
-        var blobURL = $sce.trustAsResourceUrl(URL.createObjectURL(stream));
-
-        peer.on('open', function() {
-          _resolvePeer(peer, peerLocalStream, blobURL);
-        });
-
-        // Receiving a call -- answer automatically
-        peer.on('call', function(call) {
-          console.log('Answering a call!');
-
-          call.answer(peerLocalStream);
-          _setupCallEvents(call);
-        });
-
-        // Receiving a data connection
-        peer.on('connection', function(connection) {
-          console.log('Answering a connection!', connection);
-          $rootScope.$emit('peerConnectionReceived', connection);
-        });
-
-        peer.on('error', function(err) {
-          console.log('ERROR! Couldn\'t connect to given peer');
-
-          $rootScope.$emit('callFailed', err);
-        });
-
-        // As convenience, add our localStream to global window object
-        console.log('Peer Connect: Stream ready: ', stream);
-        window.localStream = stream;
-
-      }, function() {
-        deferred.reject('Failed to getUserMedia!');
-      });
+      };
 
 
       return {
         getPeer: function() {
+          deferred = $q.defer();
+          regetUserMedia();
           return deferred.promise;
         }
       };

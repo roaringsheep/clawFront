@@ -136,30 +136,30 @@ margin: 0 auto;
     width: 100%;
     z-index: 0;
 
-   
+
 }
 
 
 
 /*VIDEO + IMAGE*/
-.videoUrl {
+/*.videoUrl {
     background: url("http://192.168.1.124:8080/?action=stream"), url("http://192.168.1.124:8090/?action=stream");
-    /*background-size: cover;*/
+    background-size: cover;
     background-repeat: no-repeat, no-repeat;
     background-position: left center, right center;
     background-size: 50% 100%, 50% 100%;
     z-index: 1;
 }
+*/
 
-
-.videoUrl2 {
+/*.videoUrl2 {
     background: url("http://192.168.1.124:8090/?action=stream") no-repeat center center;
-  /*  background-size: cover;*/
+    background-size: cover;
     min-width: 30vh;
     min-height: 30vh;
     z-index: 2;
 
-}
+}*/
 
 .clawVideo {
     width: 80%;
@@ -168,6 +168,7 @@ margin: 0 auto;
 #peerVidInput {
     bottom: 20em;
     position: absolute;
+    z-index: 100;
 }
 #their-video    {
     position: absolute;
@@ -335,7 +336,7 @@ form {
 }
 
 
-@media (max-width: 620px) { 
+@media (max-width: 620px) {
 
 .arrows {
     margin-left: auto;
