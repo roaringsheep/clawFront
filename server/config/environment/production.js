@@ -13,10 +13,10 @@ module.exports = {
             80,
 
   // MongoDB connection options
-  mongo: {  'mongodb://localhost/clawfront' ||
-    uri:    'mongodb://104.131.2.169/clawFront' ||
+  mongo: {
+    uri:    process.env.MONGOLAB_URI ||
             process.env.MONGOHQ_URL ||
-            process.env.OPENSHIFT_MONGODB_DB_URL+process.env.OPENSHIFT_APP_NAME 
-            
+            process.env.OPENSHIFT_MONGODB_DB_URL+process.env.OPENSHIFT_APP_NAME ||
+            'mongodb://localhost/clawfront'
   }
 };
