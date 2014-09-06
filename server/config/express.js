@@ -18,6 +18,7 @@ var passport = require('passport');
 
 module.exports = function(app) {
   var env = app.get('env');
+  console.log(" node env: ", process.env.NODE_ENV)
 
   app.set('views', config.root + '/server/views');
   app.engine('html', require('ejs').renderFile);
