@@ -9,13 +9,12 @@ module.exports = {
             undefined,
 
   // Server port
-  port:     process.env.OPENSHIFT_NODEJS_PORT ||
-            process.env.PORT ||
-            8080,
+  port:     process.env.PORT ||
+            80,
 
   // MongoDB connection options
   mongo: {
-    uri:    process.env.MONGOLAB_URI ||
+    uri:    'mongodb://104.131.2.169/clawFront' ||
             process.env.MONGOHQ_URL ||
             process.env.OPENSHIFT_MONGODB_DB_URL+process.env.OPENSHIFT_APP_NAME ||
             'mongodb://localhost/clawfront'
