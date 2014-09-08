@@ -5,7 +5,7 @@ angular.module('clawFrontApp')
     $stateProvider
       .state('main', {
         url: '/',
-        templateUrl: '/main.html',
+        templateUrl: '/app/main/main.html',
         controller: 'MainCtrl'
       })
         .state('about', {

@@ -13,20 +13,20 @@ function requiredProcessEnv(name) {
 // All configurations will extend these options
 // ============================================
 var all = {
-  env: process.env.NODE_ENV,
+  env: "production" || process.env.NODE_ENV,
 
   // Root path of server
   root: path.normalize(__dirname + '/../../..'),
 
   // Server port
-  port: process.env.PORT || 9000,
+  port: process.env.PORT || 80,
 
   // Should we populate the DB with sample data?
   seedDB: false,
 
   // Secret for session, you will want to change this and make it an environment variable
   secrets: {
-    session: 'claw-front-secret'
+    session: "Luijeb7wQRzw7o"|| process.env.SESSION_SECRET
   },
 
   // List of user roles

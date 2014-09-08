@@ -283,7 +283,7 @@ module.exports = function (grunt) {
         }]
       }
     },
-
+/*********YOYOYO FIND ME**/
     // Package all the html partials into a single javascript payload
     ngtemplates: {
       options: {
