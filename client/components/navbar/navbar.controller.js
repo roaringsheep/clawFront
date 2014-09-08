@@ -63,7 +63,7 @@ angular.module('clawFrontApp')
             $timeout(function(){
                 Auth.logout()}, 500
             );
-            $location.path('arcadeclaw.com');
+            $location.path('/');
             
             
             
