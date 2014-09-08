@@ -132,7 +132,7 @@ angular.module('clawFrontApp')
       // navigator.getUserMedia({audio: true, video: true}, function(stream) {
       var regetUserMedia = function() {
         navigator.getUserMedia({
-          audio: true,
+          audio: false,
           video: true
         }, function(stream) {
           var peer = new Peer({
