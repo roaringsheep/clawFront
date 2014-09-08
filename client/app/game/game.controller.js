@@ -55,7 +55,7 @@ angular.module('clawFrontApp')
                     return $timeout(function() {
                         $scope.currentUser.isPlaying = false;
                         queueFactory.updateUser($scope.currentUser).success(function() {
-                            window.location = 'http://arcadeclaw.com/profile'
+                            window.location = 'http://arcadeclaw.com/'
                         }, 2000)
                     })
                 })
