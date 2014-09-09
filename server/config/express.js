@@ -29,7 +29,7 @@ module.exports = function(app) {
   app.use(bodyParser.json());
   app.use(methodOverride());
   app.use(cookieParser());
-    app.use(express.session({secret: config.secrets.session}));
+  app.use(session({secret: config.secrets.session}));
   console.log("req.session", req.session, "secret: ", secret);
   app.use(passport.initialize());
   if ('production' === env) {
