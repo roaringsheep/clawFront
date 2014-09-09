@@ -12,7 +12,6 @@ angular.module('clawFrontApp')
             });
         };
 
-        
         $scope.currentUser = Auth.getCurrentUser();
         $rootScope.game = true;
 
