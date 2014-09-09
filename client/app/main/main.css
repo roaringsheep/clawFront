@@ -232,9 +232,9 @@ form {
 .dropBtn {
     height:200px;
     width: 200px;
-    float: left;
+   /* float: left;*/
     margin-right: 15%;
-    margin-left: 2%;
+    clear: both;
     z-index: 100;
 }
 #drop {
@@ -295,6 +295,7 @@ form {
     height: auto !important;
     display: inline-block;
     float: left;
+    margin-bottom: 1%;
     /*margin-left: 15%;*/
     z-index: 100;
 

@@ -5,6 +5,7 @@
 'use strict';
 
 var express = require('express');
+var session = require('express-session')
 var favicon = require('static-favicon');
 var morgan = require('morgan');
 var compression = require('compression');
@@ -23,11 +24,13 @@ module.exports = function(app) {
   app.set('views', config.root + '/server/views');
   app.engine('html', require('ejs').renderFile);
   app.set('view engine', 'html');
-  app.use(compression());
+  app.use(express.session({secret: config.secrets.session}));
+  console.log("req.session", req.session, "secret: ", secret)
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
   app.use(methodOverride());
   app.use(cookieParser());
+  app.use(())
   app.use(passport.initialize());
   if ('production' === env) {
     app.use(favicon(path.join(config.root, 'public', 'favicon.ico')));
