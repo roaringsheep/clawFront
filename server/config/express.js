@@ -29,7 +29,7 @@ module.exports = function(app) {
   app.use(bodyParser.json());
   app.use(methodOverride());
   app.use(cookieParser());
-  app.use(session({secret: config.secrets.session}));
+  app.use(session({secret: config.secrets.session, cookie: { maxAge: 30000 }, resave: false}));
   app.use(passport.initialize());
   if ('production' === env) {
     app.use(favicon(path.join(config.root, 'public', 'favicon.ico')));

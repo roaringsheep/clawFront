@@ -1,6 +1,7 @@
 'use strict';
 var express = require('express');
 var session = require('express-session')
+var cookieParser = require('cookie-parser');
 var _ = require('lodash');
 var Queue = require('./queue.model');
 
