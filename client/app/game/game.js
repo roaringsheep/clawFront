@@ -5,7 +5,7 @@ angular.module('clawFrontApp')
 
         $stateProvider
             .state('game', {
-                url: '/game',
+                url: '/#/game',
                 templateUrl: 'app/game/game.html',
                 controller: 'GameCtrl',
                 onEnter: function(Auth, $state, $http) {
