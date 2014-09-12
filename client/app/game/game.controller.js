@@ -204,7 +204,7 @@ angular.module('clawFrontApp')
             //     });
             //   }
             // };
-
+            $scope.callMasterPeer();
         });
 
     });
