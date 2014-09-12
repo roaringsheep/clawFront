@@ -39,6 +39,6 @@ angular.module('clawFrontApp')
       //   controller: 'QueueCtrl'
       // });
     $locationProvider
-    .html5Mode(false);
-    .hashPrefix('!');
+    .html5Mode(true);
+    // .hashPrefix('#/');
   });
