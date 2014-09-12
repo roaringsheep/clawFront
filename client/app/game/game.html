@@ -5,10 +5,11 @@
       <div class="arrowsNbuttons">
 
       
-      <button ng-hide="isMaster" ng-click="callMasterPeer()" id = "btnCallMaster"class = "btn controller">Start game!</button>
+      
      <!--  <button ng-hide="isMaster" ng-click="endCall()">End Call</button> -->
    
         <div class="arrows" tooltip="Hold down an arrow controller to move the claw. Release the arrow to stop.">
+          <button ng-hide="isMaster" ng-click="callMasterPeer()" id = "btnCallMaster"class = "btn controller">Start game!</button>
 
           <a ng-mousedown="move('back')" ng-mouseup="move('bclear')" id='back' class="btn controller">
             <span class="fa fa-arrow-up fa-3x"></span>
