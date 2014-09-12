@@ -158,7 +158,7 @@ angular.module('clawFrontApp')
         };
 
 
-        // play game with credits
+        // play game with credits. timeout if not done in 60 seconds. 
         factory.playWithCredits = function(queue, player) {
             if (factory.findPlayerInQueue(queue, player) >= 0) {
                 factory.removeByUserId(player);
@@ -170,7 +170,14 @@ angular.module('clawFrontApp')
                 factory.userUpdate(player).success(function() {
                     console.log("$http.post user: ", player);
                     $location.path('/game')
-                });
+                }).then(function() {
+                    return $timeout(function() {
+                        player.isPlaying = false;
+                        factory.userUpdate(player).success(function() {
+                            window.location = 'http://arcadeclaw.com/'
+                        }, 60000)
+                    })
+                })
             }
         };
 
