@@ -35,6 +35,10 @@ module.exports = function(app) {
     app.use(favicon(path.join(config.root, 'public', 'favicon.ico')));
     app.use(express.static(path.join(config.root, 'public')));
     app.set('appPath', config.root + '/public');
+    app.use(function(req, res) {
+    res.sendfile(__dirname + '/Public/index.html');
+});
+
     app.use(morgan('dev'));
   }
 
@@ -43,6 +47,9 @@ module.exports = function(app) {
     app.use(express.static(path.join(config.root, '.tmp')));
     app.use(express.static(path.join(config.root, 'client')));
     app.set('appPath', 'client');
+    app.use(function(req, res) {
+    res.sendfile(__dirname + '/Public/index.html');
+});
     app.use(morgan('dev'));
     app.use(errorHandler()); // Error handler - has to be last
   }
