@@ -9,7 +9,7 @@ angular.module('clawFrontApp')
                 controller: 'QueueCtrl'
             })
             .state('waitPage', {
-                url: '/#/profile',
+                url: '#/profile',
                 templateUrl: 'app/queue/queue.waitPage.html',
                 controller: 'QueueCtrl'
             });
