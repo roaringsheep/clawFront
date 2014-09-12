@@ -40,5 +40,5 @@ angular.module('clawFrontApp')
       // });
     $locationProvider
     .html5Mode(false);
-    // .hashPrefix('#/');
+    .hashPrefix('!');
   });
