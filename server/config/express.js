@@ -32,24 +32,25 @@ module.exports = function(app) {
   app.use(session({secret: config.secrets.session, cookie: { maxAge: 30000 }, resave: false}));
   app.use(passport.initialize());
   if ('production' === env) {
+    app.all('/*', function(req, res, next) {
+    // Just send the index.html for other files to support HTML5Mode
+    res.sendfile('index.html', { root: __dirname });
+});
     app.use(favicon(path.join(config.root, 'public', 'favicon.ico')));
     app.use(express.static(path.join(config.root, 'public')));
     app.set('appPath', config.root + '/public');
-    app.use(function(req, res) {
-    res.sendfile(__dirname + '/Public/index.html');
-});
-
     app.use(morgan('dev'));
   }
 
   if ('development' === env || 'test' === env) {
+    app.all('/*', function(req, res, next) {
+    // Just send the index.html for other files to support HTML5Mode
+    res.sendfile('index.html', { root: __dirname });
+});
     app.use(require('connect-livereload')());
     app.use(express.static(path.join(config.root, '.tmp')));
     app.use(express.static(path.join(config.root, 'client')));
     app.set('appPath', 'client');
-    app.use(function(req, res) {
-    res.sendfile(__dirname + '/Public/index.html');
-});
     app.use(morgan('dev'));
     app.use(errorHandler()); // Error handler - has to be last
   }
