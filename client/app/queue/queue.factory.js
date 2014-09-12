@@ -170,7 +170,8 @@ angular.module('clawFrontApp')
                 factory.userUpdate(player).success(function() {
                     console.log("$http.post user: ", player);
                     $location.path('/game')
-                }).then($timeout(function() {
+                })
+                $timeout(function() {
                         player.isPlaying = false;
                         factory.userUpdate(player).success(function() {
                             window.location = 'http://arcadeclaw.com/'
