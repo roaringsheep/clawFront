@@ -213,10 +213,10 @@ form {
     text-justify: distribute;
 }
 /*GAME*/
-/*#btnCallMaster {
+#btnCallMaster {
     margin-right: 85%;
     margin-bottom: 2%;
-}*/
+}
 .btn-main {
     font-size: 1.5em;
     height: 7em;
