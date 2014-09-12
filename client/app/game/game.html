@@ -2,10 +2,10 @@
   <div class="controls">
     <video id="their-video" ng-src="{{peerURL}}" autoplay loop></video>
     <section class="keypad" ng-hide="isMaster">
-       <button ng-hide="isMaster" ng-click="callMasterPeer()" id = "btnCallMaster"class = "btn controller">Start game!</button>
+      
       <div class="arrowsNbuttons">
      <!--  <button ng-hide="isMaster" ng-click="endCall()">End Call</button> -->
-   
+    <button ng-hide="isMaster" ng-click="callMasterPeer()" id = "btnCallMaster"class = "btn controller">Start game!</button>
         <div class="arrows" tooltip="Hold down an arrow controller to move the claw. Release the arrow to stop.">
 
           <a ng-mousedown="move('back')" ng-mouseup="move('bclear')" id='back' class="btn controller">
