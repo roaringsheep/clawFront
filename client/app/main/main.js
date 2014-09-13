@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('clawFrontApp')
-  .config(function ($stateProvider, $urlRouterProvider) {
+  .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider
       .state('main', {
         url: '/',
@@ -38,6 +38,7 @@ angular.module('clawFrontApp')
       //   templateUrl: 'app/queue/queue.waitPage.html',
       //   controller: 'QueueCtrl'
       // });
-    // $locationProvider
-    //   .hashPrefix("#");
+    $locationProvider
+    .html5Mode(true);
+    // .hashPrefix('!');
   });

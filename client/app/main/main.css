@@ -213,6 +213,10 @@ form {
     text-justify: distribute;
 }
 /*GAME*/
+#btnCallMaster {
+    margin-right: 85%;
+    margin-bottom: 2%;
+}
 .btn-main {
     font-size: 1.5em;
     height: 7em;
@@ -232,8 +236,9 @@ form {
 .dropBtn {
     height:200px;
     width: 200px;
-    float: right;
+   /* float: left;*/
     margin-right: 15%;
+    clear: both;
     z-index: 100;
 }
 #drop {
@@ -294,7 +299,8 @@ form {
     height: auto !important;
     display: inline-block;
     float: left;
-    margin-left: 15%;
+    margin-bottom: 1%;
+    /*margin-left: 15%;*/
     z-index: 100;
 
 }

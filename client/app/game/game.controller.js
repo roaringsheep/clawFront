@@ -194,10 +194,10 @@ $scope.callMasterPeer = function() {
         secret: mysecret
     }).success(function(res) {
         console.log(res);
-
         $scope.remotePeerId = res.peerID;
         $scope.peerError = null;
         $scope.callPeer(peerObject);
+
 
     }).error(function(data, status) {
         console.log('Failed ', data, status);

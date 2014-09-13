@@ -193,6 +193,7 @@ exports.me = function(req, res, next) {
 exports.update = function(req, res, next) {
     var userId = req.params.id;
     console.log(req.body);
+    
     User.update({
         _id: userId
     }, {

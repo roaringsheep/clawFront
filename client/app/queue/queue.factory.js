@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('clawFrontApp')
-    .factory('queueFactory', function($location, $http, socket, Auth, $rootScope) {
+    .factory('queueFactory', function($location, $http, socket, Auth, $rootScope, $timeout) {
 
 
         var factory = {};
@@ -181,7 +181,15 @@ angular.module('clawFrontApp')
                 console.log(queueHead);
                 if (queueHead.userId == player._id) {
                     console.log('got this far');
+                    if (typeof queueHead.timeAtHead == "undefined") {
                     queueHead.timeAtHead = Date.now();
+                    $timeout(function(){
+                        player.isPlaying?
+                            console.log("queueHead is now playing"):
+                                factory.removeByUserId(player)
+                    }, 60000)
+
+                }
                     $http.put('/api/queues/' + queueHead.userId, queueHead);
                 }
 
@@ -195,7 +203,9 @@ angular.module('clawFrontApp')
                 console.log(queueHead);
                 if (queueHead.userId == player.userId) {
                     console.log('got this far');
+                    if (typeof queueHead.timeAtHead == "undefined") {
                     queueHead.timeAtHead = Date.now();
+                }
                     $http.put('/api/queues/' + queueHead.userId, queueHead);
                 }
 

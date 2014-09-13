@@ -1,6 +1,6 @@
 #ARCADE CLAW#
 
-Arcade Claw is a hybrid hardware-software web app.  We built Arcade Claw with a Raspberry Pi, an eight-channel DC router, a hacked toy arcade claw game and MEAN stack web technology. The goal is simple -- manuever a real claw from your web browser to win a prize. 
+Arcade Claw is a hybrid hardware-software web app.  We built Arcade Claw with a Raspberry Pi, an eight-channel DC router, a hacked toy arcade claw game, webcams and MEAN stack web technology. The goal is simple -- manuever a real claw from your web browser to win a prize. 
 
 ##HOW TO PLAY##
 Visit our live deployed app [here](https://dummyurl.herokuapp.com). You can watch for free, or pay 99 cents to play. 
@@ -14,7 +14,7 @@ Visit our live deployed app [here](https://dummyurl.herokuapp.com). You can watc
 - [Alp Sarilar](https://github.com/asarilar), co-lead developer
 - [Minseon Song](https://github.com/roaringsheep), co-lead developer
 - [Eddie Ng](https://github.com/wardsng), web streaming
-- [Harris Robin Kalash](https://github.com/HarrisRobin), front-end design
+- [Harris Robin Kalash](https://github.com/HarrisRobin), front-end consulting
 
 ##SCREENSHOTS / WEBCAST##
 

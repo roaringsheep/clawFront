@@ -75,7 +75,7 @@ angular.module('clawFrontApp')
             if (typeof temp != "undefined") {
                 $rootScope.queue = queueFactory.getQueue()
             }
-        }, 30001)
+        }, 1000)
 
         //Add player
         $scope.addPlayer = function(player) {

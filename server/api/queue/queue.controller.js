@@ -1,11 +1,15 @@
 'use strict';
-
+var express = require('express');
+var session = require('express-session')
+var cookieParser = require('cookie-parser');
 var _ = require('lodash');
 var Queue = require('./queue.model');
+
 
 // Get list of users in the queue
 exports.index = function(req, res) {
   Queue.find(function (err, queues) {
+    console.log("req.session", req.session);
     if(err) { return handleError(res, err); }
     return res.json(200, queues);
   });
