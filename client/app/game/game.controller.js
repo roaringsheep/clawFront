@@ -41,7 +41,8 @@ angular.module('clawFrontApp')
                     if ($scope.kickout < currDate) {
                         alert('timed out!');
                         $scope.kickUserOut();
-                    }, 1000);
+                    }
+                }, 1000);
 
                 $scope.currentUser = Auth.getCurrentUser(); $rootScope.game = true;
 
@@ -85,7 +86,7 @@ angular.module('clawFrontApp')
                             }, 2000)
                         })
                 })
-        };
+        // };
 
         //Queue logic
         $rootScope.$watch('queue', function(newval, oldval) {
