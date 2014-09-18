@@ -85,7 +85,7 @@ angular.module('clawFrontApp')
                                 $scope.kickUserOut();
                             }, 2000)
                         })
-                })
+                }
         // };
 
         //Queue logic
