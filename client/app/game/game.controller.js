@@ -3,60 +3,87 @@
 angular.module('clawFrontApp')
     .controller('GameCtrl', function($scope, $rootScope, $interval, queueFactory, Auth, talkToPi, $http, $timeout, $location, PeerConnect, $state) {
 
-        $scope.move = function(status) {
-            console.log('moving..');
-            talkToPi.pressButton({
-                'move': status
-            }).success(function(res) {
-                console.log('move success!', res);
-            });
-        };
+            $scope.move = function(status) {
+                console.log('moving..');
+                talkToPi.pressButton({
+                    'move': status
+                }).success(function(res) {
+                    console.log('move success!', res);
+                });
+            };
 
-        $scope.currentUser = Auth.getCurrentUser();
-        $rootScope.game = true;
+            $scope.startCountDown = function() {
+                var currUser = Auth.getCurrentUser();
+                if (currUser.timeout == undefined) {
+                    console.log('you started game');
+                    var kickout = Date.now() + 60000;
+                    $scope.currentUser.timeout = kickout;
+                    queueFactory.updateUser($scope.currentUser);
+                    return kickout;
+                } else {
+                    console.log('you already started the game');
+                    return undefined;
+                }
+            };
 
-        $scope.dropping = false;
-        $scope.clawDrop = function() {
-            //lower, loclear raise, raclear left, lclear forw, fclear lower, loclear raise, raclear
-            $scope.dropping = true;
-            console.log('lowering...')
-            $scope.move('lower');
-            $timeout(function() {
-                $scope.move('loclear,raise');
-            }, 2400)
-                .then(function() {
-                    return $timeout(function() {
-                        $scope.move('raclear,left');
-                    }, 2600);
+            $scope.kickout = $scope.currentUser.timeout == undefined ? $scope.startCountDown() : $scope.currentUser.timeout;
+
+            $scope.kickUserOut = function() {
+                $scope.currentUser.isPlaying = false;
+                $scope.currentUser.timeout = undefined;
+                queueFactory.updateUser($scope.currentUser).success(function() {
+                    $state.go('profile');
                 })
-                .then(function() {
-                    return $timeout(function() {
-                        $scope.move('lclear,forw');
-                    }, 5000);
-                })
-                .then(function() {
-                    return $timeout(function() {
-                        $scope.move('fclear,lower');
-                    }, 3500);
-                })
-                .then(function() {
-                    return $timeout(function() {
-                        $scope.move('loclear,raise');
+            }
+
+            $interval(function() {
+                    var currDate = Date.now();
+                    if ($scope.kickout < currDate) {
+                        alert('timed out!');
+                        $scope.kickUserOut();
                     }, 1000);
-                })
-                .then(function() {
-                    return $timeout(function() {
-                        $scope.move('raclear');
-                        $scope.dropping = false;
-                    }, 1300)
-                })
-                .then(function() {
-                    return $timeout(function() {
-                        $scope.currentUser.isPlaying = false;
-                        queueFactory.updateUser($scope.currentUser).success(function() {
-                            window.location = 'http://arcadeclaw.com/'
-                        }, 2000)
-                    })
+
+                $scope.currentUser = Auth.getCurrentUser(); $rootScope.game = true;
+
+                $scope.dropping = false; $scope.clawDrop = function() {
+                    //lower, loclear raise, raclear left, lclear forw, fclear lower, loclear raise, raclear
+                    $scope.dropping = true;
+                    console.log('lowering...')
+                    $scope.move('lower');
+                    $timeout(function() {
+                        $scope.move('loclear,raise');
+                    }, 2400)
+                        .then(function() {
+                            return $timeout(function() {
+                                $scope.move('raclear,left');
+                            }, 2600);
+                        })
+                        .then(function() {
+                            return $timeout(function() {
+                                $scope.move('lclear,forw');
+                            }, 5000);
+                        })
+                        .then(function() {
+                            return $timeout(function() {
+                                $scope.move('fclear,lower');
+                            }, 3500);
+                        })
+                        .then(function() {
+                            return $timeout(function() {
+                                $scope.move('loclear,raise');
+                            }, 1000);
+                        })
+                        .then(function() {
+                            return $timeout(function() {
+                                $scope.move('raclear');
+                                $scope.dropping = false;
+                            }, 1300)
+                        })
+                        .then(function() {
+                            return $timeout(function() {
+                                $scope.kickUserOut();
+                            }, 2000)
+                        })
                 })
         };
 
@@ -64,8 +91,7 @@ angular.module('clawFrontApp')
         $rootScope.$watch('queue', function(newval, oldval) {
             $scope.queue = newval;
             console.log("newval", newval);
-        });
-        $scope.getQueue = queueFactory.getQueue();
+        }); $scope.getQueue = queueFactory.getQueue();
 
 
         $scope.callPeer = function(peerObject) {
@@ -173,10 +199,10 @@ angular.module('clawFrontApp')
                     secret: mysecret
                 }).success(function(res) {
                     console.log(res);
-
                     $scope.remotePeerId = res.peerID;
                     $scope.peerError = null;
                     $scope.callPeer(peerObject);
+
 
                 }).error(function(data, status) {
                     console.log('Failed ', data, status);
@@ -204,7 +230,7 @@ angular.module('clawFrontApp')
             //     });
             //   }
             // };
-            // $scope.callMasterPeer();
+
         });
 
-    });
+});
