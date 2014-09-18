@@ -14,7 +14,7 @@ var UserSchema = new Schema({
   credits: {type: Number, default: 10},
   isPlaying: {type: Boolean, default: false},
   inQueue: {type: Boolean, default: false},
-  timeout: {type: Number, default: undefined},
+  timeout: {type: Number, default: ""},
   address: {street: String, town: String, city: String, state: String, zipcode: Number},
   hashedPassword: String,
   provider: String,

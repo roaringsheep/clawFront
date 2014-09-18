@@ -12,19 +12,19 @@ angular.module('clawFrontApp')
                 });
             };
 
-            $scope.startCountDown = function() {
-                var currUser = Auth.getCurrentUser();
-                if (currUser.timeout == undefined) {
-                    console.log('you started game');
-                    var kickout = Date.now() + 60000;
-                    $scope.currentUser.timeout = kickout;
-                    queueFactory.updateUser($scope.currentUser);
-                    return kickout;
-                } else {
-                    console.log('you already started the game');
-                    return undefined;
-                }
-            };
+            // $scope.startCountDown = function() {
+            //     var currUser = Auth.getCurrentUser();
+            //     if (currUser.timeout == undefined) {
+            //         console.log('you started game');
+            //         var kickout = Date.now() + 60000;
+            //         $scope.currentUser.timeout = kickout;
+            //         queueFactory.updateUser($scope.currentUser);
+            //         return kickout;
+            //     } else {
+            //         console.log('you already started the game');
+            //         return undefined;
+            //     }
+            // };
 
             $scope.kickout = $scope.currentUser.timeout == undefined ? $scope.startCountDown() : $scope.currentUser.timeout;
 
