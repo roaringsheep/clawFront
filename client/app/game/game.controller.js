@@ -11,6 +11,7 @@ angular.module('clawFrontApp')
                     console.log('move success!', res);
                 });
             };
+             $scope.currentUser = Auth.getCurrentUser(); $rootScope.game = true;
 
             // $scope.startCountDown = function() {
             //     var currUser = Auth.getCurrentUser();
@@ -44,7 +45,7 @@ angular.module('clawFrontApp')
                     }
                 }, 1000);
 
-                $scope.currentUser = Auth.getCurrentUser(); $rootScope.game = true;
+               
 
                 $scope.dropping = false; $scope.clawDrop = function() {
                     //lower, loclear raise, raclear left, lclear forw, fclear lower, loclear raise, raclear
