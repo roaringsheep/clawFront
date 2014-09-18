@@ -27,7 +27,7 @@ angular.module('clawFrontApp')
             //     }
             // };
 
-            $scope.kickout = $scope.currentUser.timeout == undefined ? $scope.startCountDown() : $scope.currentUser.timeout;
+            $scope.kickout = $scope.currentUser.timeout == null ? $scope.startCountDown() : $scope.currentUser.timeout;
 
             $scope.kickUserOut = function() {
                 $scope.currentUser.isPlaying = false;
