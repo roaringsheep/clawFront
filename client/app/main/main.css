@@ -161,6 +161,11 @@ margin: 0 auto;
 
 }*/
 
+#iFrame {
+    margin-top: 15%;
+    z-index: 100;
+}
+
 .clawVideo {
     width: 80%;
 }
